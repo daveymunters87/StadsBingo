@@ -54,6 +54,11 @@ DATABASE_URL="postgresql://myuser:mypassword@db:5432/mydb?schema=public"
 docker-compose up --build
 ```
 
+## if you get any error after building please run: (Outside docker container)
+```bash
+Npm install
+```
+
 This will:
 
 - Install Node dependencies inside the app container
