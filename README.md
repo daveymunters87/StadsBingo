@@ -1,6 +1,6 @@
 # StadsBingo Project
 
-A **Next.js** application using **PostgreSQL** and **Prisma**, fully containerized with **Docker** for easy development and deployment.
+A **Next.js** application using **PostgreSQL** and **Prisma**, containerized with **Docker** for easy development and deployment.
 
 ---
 
