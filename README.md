@@ -81,19 +81,14 @@ DATABASE_URL="postgresql://myuser:mypassword@db:5432/mydb?schema=public"
 
 > `db` is the Docker service name defined in `docker-compose.yml`.
 
-3. **Build and start containers:**
+3. **Start the PostgreSQL container:**
 
 ```bash
-docker-compose up --build
+docker-compose up -d
 ```
 
-This will:
-
-- Install Node dependencies inside the app container
-- Generate the Prisma client
-- Start PostgreSQL and Next.js
-
-Next.js will be available at: http://localhost:3000
+- Database will run in the background.
+- Data is persisted in the Docker volume pgdata.
 
 ## if you get any error after building please run: (Outside docker container)
 ```bash
@@ -104,14 +99,16 @@ Npm install
 
 ## Development
 
-Once containers are built, you can start your app without rebuilding:
+Once backend is running, you can start your frontend with:
 
 ```bash
-docker-compose up
+npm install
+npx prisma generate
+npm run dev
 ```
 
-- Changes to your code are automatically reflected inside the container.
-- The `node_modules` folder is kept inside the container to avoid host conflicts.
+- Your changes to Next.js pages or API routes update immediately at http://localhost:3000
+- No need to rebuild Docker for app changes.
 
 ---
 
@@ -138,7 +135,7 @@ Prisma Studio lets you browse and edit your database via a web interface.
 
 ## Database
 
-- PostgreSQL runs in a separate container (`db`).
+- PostgreSQL runs in Docker (`docker-compose.yml`) for consistent setup across developers.
 - Default credentials are set in `.env` (see `DATABASE_URL`).
 - Data is persisted in a Docker volume `pgdata`.
 
@@ -148,22 +145,26 @@ Prisma Studio lets you browse and edit your database via a web interface.
 
 1. Clone the repository on the new device.
 2. Copy `.env` with the correct `DATABASE_URL`.
-3. Run Docker Compose:
+3. Start PostgreSQL:
 
 ```bash
-docker-compose up --build
+docker-compose up -d
 ```
 
-- Docker will rebuild images for the new machine.
-- PostgreSQL starts fresh; database is empty unless the volume is preserved.
+4. Install dependencies and start Next.js locally:
+
+```bash
+npm install
+npx prisma generate
+npm run dev
+```
 
 ---
 
 ## Notes
 
 - `.dockerignore` prevents large local files (`node_modules`, `.next`, `.git`) from being sent to Docker during build.
-- The first build may take a while; subsequent starts are faster.
-- This setup is fully portable: anyone with Docker can run your app without installing Node, Postgres, or Prisma locally.
+- You don’t need Docker for the app in development — only PostgreSQL.
 
 ---
 
@@ -172,7 +173,9 @@ docker-compose up --build
 ```bash
 git clone git@github.com:daveymunters87/StadsBingo.git
 cd project
-docker-compose up --build
+docker-compose up -d
+npm install
+npm run dev 
 ```
 
 Then open http://localhost:3000 to access the app.
@@ -182,6 +185,6 @@ Then open http://localhost:3000 to access the app.
 ## Optional Tips
 
 - **Stop containers:** `docker-compose down`
-- **Rebuild containers:** `docker-compose up --build`
 - **Access app shell:** `docker-compose exec app sh`
 - **Check logs:** `docker-compose logs -f`
+- **Regenerate Prisma client after schema changes** `npx prisma generate`
