@@ -14,11 +14,11 @@ services:
 
   app:
     build: .
-    command: npm run dev
+    command: sh -c "npx prisma generate && npm run dev"
     ports:
       - "3000:3000"
-    environment:
-      DATABASE_URL: "postgresql://myuser:mypassword@db:5432/mydb?schema=public"
+    env_file:
+      - .env
     depends_on:
       - db
     volumes:
