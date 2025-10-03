@@ -90,3 +90,4 @@ Dit testplan bevat geautomatiseerde testen voor de City Bingo applicatie. De tes
 > De geautomatiseerde testen kunnen worden uitgevoerd met:
 ```bash
 npm run test
+```

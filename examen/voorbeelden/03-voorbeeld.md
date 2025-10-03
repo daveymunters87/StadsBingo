@@ -53,3 +53,4 @@ function canAccessChallenge(studentId: string, challengeId: string): boolean {
   // Fetch student en challenge info, check relation
   ...
 }
+```

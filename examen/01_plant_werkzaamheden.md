@@ -39,6 +39,15 @@ Leerlingen kunnen opdrachten uitvoeren in de stad, en docenten kunnen de opdrach
 
 ## User Stories
 
+## Tijdsindicatie uitleg
+
+| Maat | Uren (indicatie)     | Beschrijving                        |
+| ---- | ------------------ | ---------------------------------- |
+| S    | 1–2 uur            | Kleine taak, weinig complexiteit    |
+| M    | 3–5 uur            | Medium taak, enkele onderdelen     |
+| L    | 6–8 uur            | Grote taak, meerdere onderdelen    |
+| XL   | 9+ uur             | Zeer grote of complexe taak        |
+
 ### Leerling
 > Gemaakt door **Davey**
 
@@ -52,6 +61,7 @@ Leerlingen kunnen opdrachten uitvoeren in de stad, en docenten kunnen de opdrach
 | Scenario           | 1. Leerling opent app<br/>2. Kaart wordt geladen met pinpoints<br/>3. Leerling klikt op een pin en ziet opdracht                   |
 | Definition of Done | Kaart toont alle pinpoints correct, pinpoints zijn klikbaar en details worden getoond zonder fouten                                 |
 | Bijzonderheden     | Locatie van pinpoints wordt beheerd door docent                                                                                     |
+| Tijdsindicatie     | M (medium)                                                                                                                         |
 
 ---
 
@@ -65,6 +75,7 @@ Leerlingen kunnen opdrachten uitvoeren in de stad, en docenten kunnen de opdrach
 | Scenario           | 1. Leerling opent opdracht<br/>2. Leerling vult antwoord of uploadt foto<br/>3. Systeem zet status op "in afwachting"              |
 | Definition of Done | Uploads werken correct, zijn gekoppeld aan opdrachten en status verandert automatisch                                               |
 | Bijzonderheden     | Upload kan tekst of foto bevatten                                                                                                   |
+| Tijdsindicatie     | M (medium)                                                                                                                         |
 
 ---
 
@@ -78,6 +89,7 @@ Leerlingen kunnen opdrachten uitvoeren in de stad, en docenten kunnen de opdrach
 | Scenario           | 1. Leerling opent app<br/>2. Systeem toont status per opdracht<br/>3. Status verandert realtime bij beslissing docent               |
 | Definition of Done | Status wordt realtime bijgewerkt, meldingen werken correct                                                                          |
 | Bijzonderheden     | Realtime notificaties via websockets                                                                                                |
+| Tijdsindicatie     | S (small)                                                                                                                          |
 
 ---
 
@@ -91,6 +103,7 @@ Leerlingen kunnen opdrachten uitvoeren in de stad, en docenten kunnen de opdrach
 | Scenario           | 1. Docent voegt opdracht toe<br/>2. Leerling opent kaart<br/>3. Nieuwe opdracht verschijnt automatisch                             |
 | Definition of Done | Nieuwe opdrachten verschijnen automatisch op de kaart zonder refresh                                                               |
 | Bijzonderheden     | Synchronisatie met docenten dashboard                                                                                              |
+| Tijdsindicatie     | S (small)                                                                                                                          |
 
 ---
 
@@ -104,12 +117,12 @@ Leerlingen kunnen opdrachten uitvoeren in de stad, en docenten kunnen de opdrach
 | Scenario           | 1. Docent schrijft feedback bij afkeuring<br/>2. Leerling opent opdracht<br/>3. Feedbacktekst wordt getoond                        |
 | Definition of Done | Feedback wordt correct weergegeven, leerling ontvangt melding                                                                      |
 | Bijzonderheden     | Optioneel: feedback kan verplicht zijn bij afkeuren  
+| Tijdsindicatie     | S (small)                                                                                                                          |
 
 ---
 
 ### Docent
 > Gemaakt door **Jada**
-
 
 | Titel              | Opdracht beoordelen                                                                                                                |
 | ------------------ | --------------------------------------------------------------------------------------------------------------------------------- |
@@ -120,7 +133,8 @@ Leerlingen kunnen opdrachten uitvoeren in de stad, en docenten kunnen de opdrach
 | Acceptatiecriteria | 1. Docent ziet lijst met inzendingen<br/>2. Kan status aanpassen naar "goedgekeurd" of "afgekeurd"<br/>3. Leerling krijgt update   |
 | Scenario           | 1. Leerling levert opdracht in<br/>2. Docent opent dashboard<br/>3. Docent keurt opdracht goed of af                              |
 | Definition of Done | Status updates correct, synchronisatie met leerling-dashboard werkt                                                                 |
-| Bijzonderheden     | Beslissing wordt direct weergeven                                                                                           |
+| Bijzonderheden     | Beslissing wordt direct weergegeven                                                                                                 |
+| Tijdsindicatie     | M (medium)                                                                                                                         |
 
 ---
 
@@ -134,6 +148,7 @@ Leerlingen kunnen opdrachten uitvoeren in de stad, en docenten kunnen de opdrach
 | Scenario           | 1. Docent opent dashboard<br/>2. Voegt opdracht toe<br/>3. Leerlingen zien nieuwe opdracht verschijnen                             |
 | Definition of Done | Nieuwe opdrachten verschijnen direct op de kaart, locatie wordt correct weergegeven                                                |
 | Bijzonderheden     | Locatie kan met kaart-picker geselecteerd worden                                                                                   |
+| Tijdsindicatie     | S (small)                                                                                                                          |
 
 ---
 
@@ -147,6 +162,7 @@ Leerlingen kunnen opdrachten uitvoeren in de stad, en docenten kunnen de opdrach
 | Scenario           | 1. Docent opent voortgangspagina<br/>2. Ziet overzicht per leerling<br/>3. Kan filteren op status                                  |
 | Definition of Done | Overzicht werkt correct, percentages kloppen en filters functioneren                                                               |
 | Bijzonderheden     | Eventueel grafieken of statistieken                                                                                                |
+| Tijdsindicatie     | M (medium)                                                                                                                         |
 
 ---
 
@@ -160,6 +176,7 @@ Leerlingen kunnen opdrachten uitvoeren in de stad, en docenten kunnen de opdrach
 | Scenario           | 1. Docent opent inzending<br/>2. Vult feedback in<br/>3. Leerling krijgt feedback zichtbaar                                       |
 | Definition of Done | Feedback wordt correct opgeslagen en zichtbaar voor leerling                                                                       |
 | Bijzonderheden     | Feedback kan verplicht zijn bij afkeuring                                                                                          |
+| Tijdsindicatie     | S (small)                                                                                                                          |
 
 ---
 
@@ -172,4 +189,5 @@ Leerlingen kunnen opdrachten uitvoeren in de stad, en docenten kunnen de opdrach
 | Acceptatiecriteria | 1. Notificatie bij nieuwe inzending<br/>2. Dashboard toont melding zonder refresh<br/>3. Klik op melding opent de inzending         |
 | Scenario           | 1. Leerling levert opdracht in<br/>2. Docent krijgt melding in dashboard<br/>3. Klikt melding en beoordeelt                        |
 | Definition of Done | Meldingen werken realtime, dashboard wordt automatisch bijgewerkt                                                                  |
-| Bijzonderheden     | Optioneel: push notificaties of e-mail
+| Bijzonderheden     | Optioneel: push notificaties of e-mail                                                                                             |
+| Tijdsindicatie     | M (medium)                                                                                                                         |
