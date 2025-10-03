@@ -67,7 +67,7 @@ This project uses a **modern full-stack setup** designed for real-time interacti
 1. **Clone the repository:**
 
 ```bash
-git clone git@github.com:daveymunters87/StadsBingo.git>
+git clone git@github.com:daveymunters87/StadsBingo.git
 cd project
 ```
 
@@ -170,7 +170,7 @@ docker-compose up --build
 ## Quick Start (1–2 Commands)
 
 ```bash
-git clone <your-repo-url>
+git clone git@github.com:daveymunters87/StadsBingo.git
 cd project
 docker-compose up --build
 ```
