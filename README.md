@@ -11,6 +11,7 @@ A **Next.js** application using **PostgreSQL** and **Prisma**, fully containeriz
   - [Tech Stack](#tech-stack)
   - [Requirements](#requirements)
   - [Setup](#setup)
+  - [if you get any error after building please run: (Outside docker container)](#if-you-get-any-error-after-building-please-run-outside-docker-container)
   - [Development](#development)
   - [Prisma](#prisma)
   - [Database](#database)
@@ -66,7 +67,7 @@ This project uses a **modern full-stack setup** designed for real-time interacti
 1. **Clone the repository:**
 
 ```bash
-git clone <your-repo-url>
+git clone git@github.com:daveymunters87/StadsBingo.git>
 cd project
 ```
 
