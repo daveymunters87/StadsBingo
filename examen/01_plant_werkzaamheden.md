@@ -1,4 +1,4 @@
-# City Bingo Project Portfolio
+# StadsBingo 01
 
 ## Projectomschrijving
 Het doel van dit project is het ontwikkelen van een **StadsBingo app** voor school.  
@@ -39,7 +39,7 @@ Leerlingen kunnen opdrachten uitvoeren in de stad, en docenten kunnen de opdrach
 
 ## User Stories
 
-## Tijdsindicatie uitleg
+### Tijdsindicatie uitleg
 
 | Maat | Uren (indicatie)     | Beschrijving                        |
 | ---- | ------------------ | ---------------------------------- |
@@ -191,3 +191,59 @@ Leerlingen kunnen opdrachten uitvoeren in de stad, en docenten kunnen de opdrach
 | Definition of Done | Meldingen werken realtime, dashboard wordt automatisch bijgewerkt                                                                  |
 | Bijzonderheden     | Optioneel: push notificaties of e-mail                                                                                             |
 | Tijdsindicatie     | M (medium)                                                                                                                         |
+
+# StadsBingo - Sprint Planning
+
+## Sprint Indeling
+We werken met **2-week sprints**. Hieronder staat een indicatie van welke user stories per sprint verwacht worden afgerond.  
+De indeling is gebaseerd op prioriteit, complexiteit (T-shirt maat) en afhankelijkheden.
+
+---
+
+### Sprint 1 (Week 1-2)
+**Doel:** Basisfunctionaliteiten voor leerlingen en docenten werkend krijgen.  
+
+| Story                     | Verantwoordelijke | Prioriteit | Tijdindicatie | Opmerkingen |
+| ------------------------- | ---------------- | ---------- | ------------- | ----------- |
+| Kaart bekijken            | Davey            | Must have  | M             | Basis voor alle andere stories |
+| Opdracht inleveren        | Davey            | Must have  | M             | Upload functionaliteit testen |
+| Status bekijken           | Davey            | Must have  | S             | Koppeling met docentstatus |
+| Opdracht beoordelen       | Jada             | Must have  | M             | Docent kan inzendingen beoordelen |
+
+**Toelichting:**  
+Sprint 1 richt zich op kernfunctionaliteiten voor leerlingen en docenten, zodat het systeem een minimale werkende staat heeft. Stories zijn gecombineerd op basis van logische afhankelijkheden (bijv. “Status bekijken” kan pas werken als “Opdracht inleveren” af is).
+
+---
+
+### Sprint 2 (Week 3-4)
+**Doel:** Extra functionaliteiten en verbeterde interacties toevoegen.  
+
+| Story                     | Verantwoordelijke | Prioriteit | Tijdindicatie | Opmerkingen |
+| ------------------------- | ---------------- | ---------- | ------------- | ----------- |
+| Nieuwe opdrachten ontdekken | Davey           | Should have | S             | Automatische updates voor leerlingen |
+| Feedback ontvangen         | Davey           | Should have | S             | Feedback van docent zichtbaar maken |
+| Nieuwe opdracht toevoegen  | Jada            | Should have | S             | Docent kan nieuwe opdrachten aanmaken |
+| Overzicht voortgang        | Jada            | Must have  | M             | Docent kan klasprestatie monitoren |
+| Feedback geven             | Jada            | Should have | S             | Docent kan feedback toevoegen |
+| Live notificaties          | Jada            | Must have  | M             | Realtime meldingen voor nieuwe inzendingen |
+
+**Toelichting:**  
+Sprint 2 voegt extra functionaliteiten toe om de app interactiever en gebruiksvriendelijker te maken. Complexere stories zoals “Overzicht voortgang” en “Live notificaties” worden in deze sprint opgepakt, omdat ze afhankelijk zijn van basisfunctionaliteiten uit Sprint 1.
+
+---
+
+## Scrum Board Schematisch (voorbeeld)
+
+### Sprint 1
+
+| To Do             | In Progress         | Done            |
+| ----------------- | ----------------- | --------------- |
+| Kaart bekijken    | Opdracht inleveren | Status bekijken |
+| Opdracht beoordelen |                   |                 |
+
+### Sprint 2
+
+| To Do                      | In Progress             | Done                 |
+| -------------------------- | ---------------------- | ------------------- |
+| Nieuwe opdrachten ontdekken | Nieuwe opdracht toevoegen | Overzicht voortgang |
+| Feedback ontvangen          | Feedback geven         | Live notificaties   |
