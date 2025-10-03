@@ -87,11 +87,6 @@ DATABASE_URL="postgresql://myuser:mypassword@db:5432/mydb?schema=public"
 docker-compose up --build
 ```
 
-## if you get any error after building please run: (Outside docker container)
-```bash
-Npm install
-```
-
 This will:
 
 - Install Node dependencies inside the app container
@@ -99,6 +94,11 @@ This will:
 - Start PostgreSQL and Next.js
 
 Next.js will be available at: http://localhost:3000
+
+## if you get any error after building please run: (Outside docker container)
+```bash
+Npm install
+```
 
 ---
 
