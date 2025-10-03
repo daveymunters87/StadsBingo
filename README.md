@@ -183,8 +183,8 @@ Then open http://localhost:3000 to access the app.
 ---
 
 ## Optional Tips
-
 - **Stop containers:** `docker-compose down`
+- **Format repository:** `npx biome format --write`
 - **Access app shell:** `docker-compose exec app sh`
 - **Check logs:** `docker-compose logs -f`
 - **Regenerate Prisma client after schema changes** `npx prisma generate`
