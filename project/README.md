@@ -8,6 +8,7 @@ A **Next.js** application using **PostgreSQL** and **Prisma**, fully containeriz
 
 - [StadsBingo Project](#stadsbingo-project)
   - [Table of Contents](#table-of-contents)
+  - [Tech Stack](#tech-stack)
   - [Requirements](#requirements)
   - [Setup](#setup)
   - [Development](#development)
@@ -17,6 +18,37 @@ A **Next.js** application using **PostgreSQL** and **Prisma**, fully containeriz
   - [Notes](#notes)
   - [Quick Start (1–2 Commands)](#quick-start-12-commands)
   - [Optional Tips](#optional-tips)
+
+---
+
+## Tech Stack
+
+This project uses a **modern full-stack setup** designed for real-time interactive apps:
+
+- **Frontend / Fullstack**
+  - [Next.js](https://nextjs.org/) (React framework with API routes, SSR, SSG)
+  - [TailwindCSS](https://tailwindcss.com/) (utility-first styling)
+  - [shadcn/ui](https://ui.shadcn.com/) (prebuilt UI components with Tailwind)
+
+- **Backend / API**
+  - Next.js API Routes (handles submissions & approvals)
+  - Optional: **Socket.IO** (for real-time teacher/student updates)
+  - Simpler alternative: polling with SWR/React Query
+
+- **Database & ORM**
+  - [PostgreSQL](https://www.postgresql.org/) (relational database, runs in Docker)
+  - [Prisma](https://www.prisma.io/) (type-safe ORM, migrations, client)
+
+- **Auth**
+  - [NextAuth.js](https://authjs.dev/) for authentication (students & teachers)
+
+- **Development & Deployment**
+  - [Docker + Docker Compose](https://docs.docker.com/compose/) (portable setup)
+  - Local: `docker-compose up` to run everything
+  - Deployment options: Render, Railway, Fly.io, or Vercel (with external DB)
+
+- **Map Integration**
+  - [Leaflet.js](https://leafletjs.com/) or [Mapbox](https://www.mapbox.com/) to display interactive city maps with pinpoints
 
 ---
 
