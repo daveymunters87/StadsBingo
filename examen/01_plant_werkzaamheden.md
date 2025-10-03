@@ -203,12 +203,14 @@ De indeling is gebaseerd op prioriteit, complexiteit (T-shirt maat) en afhankeli
 ### Sprint 1 (Week 1-2)
 **Doel:** Basisfunctionaliteiten voor leerlingen en docenten werkend krijgen.  
 
-| Story                     | Verantwoordelijke | Prioriteit | Tijdindicatie | Opmerkingen |
-| ------------------------- | ---------------- | ---------- | ------------- | ----------- |
-| Kaart bekijken            | Davey            | Must have  | M             | Basis voor alle andere stories |
-| Opdracht inleveren        | Davey            | Must have  | M             | Upload functionaliteit testen |
-| Status bekijken           | Davey            | Must have  | S             | Koppeling met docentstatus |
-| Opdracht beoordelen       | Jada             | Must have  | M             | Docent kan inzendingen beoordelen |
+| Story                     | Verantwoordelijke | Prioriteit | Tijdindicatie | Geschatte uren | Opmerkingen |
+| ------------------------- | ---------------- | ---------- | ------------- | -------------- | ----------- |
+| Kaart bekijken            | Davey            | Must have  | M             | 4 uur          | Basis voor alle andere stories |
+| Opdracht inleveren        | Davey            | Must have  | M             | 4 uur          | Upload functionaliteit testen |
+| Status bekijken           | Davey            | Must have  | S             | 2 uur          | Koppeling met docentstatus |
+| Opdracht beoordelen       | Jada             | Must have  | M             | 4 uur          | Docent kan inzendingen beoordelen |
+
+**Totale geschatte uren Sprint 1:** 14 uur
 
 **Toelichting:**  
 Sprint 1 richt zich op kernfunctionaliteiten voor leerlingen en docenten, zodat het systeem een minimale werkende staat heeft. Stories zijn gecombineerd op basis van logische afhankelijkheden (bijv. “Status bekijken” kan pas werken als “Opdracht inleveren” af is).
@@ -218,14 +220,14 @@ Sprint 1 richt zich op kernfunctionaliteiten voor leerlingen en docenten, zodat 
 ### Sprint 2 (Week 3-4)
 **Doel:** Extra functionaliteiten en verbeterde interacties toevoegen.  
 
-| Story                     | Verantwoordelijke | Prioriteit | Tijdindicatie | Opmerkingen |
-| ------------------------- | ---------------- | ---------- | ------------- | ----------- |
-| Nieuwe opdrachten ontdekken | Davey           | Should have | S             | Automatische updates voor leerlingen |
-| Feedback ontvangen         | Davey           | Should have | S             | Feedback van docent zichtbaar maken |
-| Nieuwe opdracht toevoegen  | Jada            | Should have | S             | Docent kan nieuwe opdrachten aanmaken |
-| Overzicht voortgang        | Jada            | Must have  | M             | Docent kan klasprestatie monitoren |
-| Feedback geven             | Jada            | Should have | S             | Docent kan feedback toevoegen |
-| Live notificaties          | Jada            | Must have  | M             | Realtime meldingen voor nieuwe inzendingen |
+| Story                     | Verantwoordelijke | Prioriteit | Tijdindicatie | Geschatte uren | Opmerkingen |
+| ------------------------- | ---------------- | ---------- | ------------- | -------------- | ----------- |
+| Nieuwe opdrachten ontdekken | Davey           | Should have | S             | 2 uur          | Automatische updates voor leerlingen |
+| Feedback ontvangen         | Davey           | Should have | S             | 2 uur          | Feedback van docent zichtbaar maken |
+| Nieuwe opdracht toevoegen  | Jada            | Should have | S             | 2 uur          | Docent kan nieuwe opdrachten aanmaken |
+| Overzicht voortgang        | Jada            | Must have  | M             | 4 uur          | Docent kan klasprestatie monitoren |
+| Feedback geven             | Jada            | Should have | S             | 2 uur          | Docent kan feedback toevoegen |
+| Live notificaties          | Jada            | Must have  | M             | 4 uur | Realtime meldingen voor nieuwe inzendingen |
 
 **Toelichting:**  
 Sprint 2 voegt extra functionaliteiten toe om de app interactiever en gebruiksvriendelijker te maken. Complexere stories zoals “Overzicht voortgang” en “Live notificaties” worden in deze sprint opgepakt, omdat ze afhankelijk zijn van basisfunctionaliteiten uit Sprint 1.
