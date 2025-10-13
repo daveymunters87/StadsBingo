@@ -2,9 +2,9 @@
 
 ## 🎯 Doel
 Controleer of de opgeleverde bestanden in de map  
-`C:\Users\Davey\Documents\code\school\StadsBingo\examen`  
+`StadsBingo\examen`  
 voldoen aan alle eisen die zijn vastgelegd in de map  
-`C:\Users\Davey\Documents\code\school\StadsBingo\examen\eisen`.
+`StadsBingo\examen\eisen`.
 
 ---
 
@@ -12,9 +12,9 @@ voldoen aan alle eisen die zijn vastgelegd in de map
 
 - **/examen/eisen/**  
   Bevat de eisenbestanden per opdracht, bijvoorbeeld:  
-  - `01Eisen.md`  
-  - `02Eisen.md`  
-  - `03Eisen.md`  
+  - `eisen-01.md`  
+  - `eisen-02.md`  
+  - `eisen-03.md`  
   - `...`  
   Elk bestand bevat secties zoals:
   - *Wat lever je op?*  
@@ -23,10 +23,17 @@ voldoen aan alle eisen die zijn vastgelegd in de map
 
 - **/examen/**  
   Bevat de opgeleverde bewijzen van uitvoering, bijvoorbeeld:
-  - Video’s (`.mp4`, `.mov`)  
-  - Screenshots (`.png`, `.jpg`)  
-  - Markdown- of PDF-rapporten (`.md`, `.pdf`)  
-  - Codebestanden (`.js`, `.py`, `.html`, `.css`, etc.)
+  <!-- - Video’s (`.mp4`, `.mov`)  
+  - Screenshots (`.png`, `.jpg`)   -->
+  - Markdown-rapporten (`.md`):
+  - `01_plant_werkzaamheden.md`
+  - `02_ontwerp_software.md`
+  - `03_realiseren_software.md`
+  - `04_test_software.md`
+  - `05_verbetervoorstellen.md`
+  - `06_overleg.md`
+  - `07_presentatie.md`
+  - `08_reflectie.md`
 
 ---
 
