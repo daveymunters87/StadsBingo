@@ -249,3 +249,36 @@ Sprint 2 voegt extra functionaliteiten toe om de app interactiever en gebruiksvr
 | -------------------------- | ---------------------- | ------------------- |
 | Nieuwe opdrachten ontdekken | Nieuwe opdracht toevoegen | Overzicht voortgang |
 | Feedback ontvangen          | Feedback geven         | Live notificaties   |
+
+---
+
+## Voortgangsbewaking (bewijs)
+
+Om te voldoen aan criterium 1.4 voeg je concreet bewijs toe dat je de voortgang actief hebt bewaakt en keuzes hebt gemaakt op basis van prioriteiten. Voeg minimaal 2 verschillende bewijsitems toe (bijv. begin- en eindsituatie van een sprint, of twee verschillende sprints).
+
+Voor elk bewijsitem geldt: geef een korte toelichting (wat veranderde), een datum, en voeg één of meer artefacten toe (screenshot van scrumboard/backlog, link naar issue/commit, of korte reflectie).
+
+Voorbeeld invulling (vervang de placeholders door echte bestanden/links):
+
+- Datum: 2025-10-01
+	- Type: Scrum board snapshot (begin Sprint 1)
+	- Bestand: `examen/evidence/screenshot_sprint1_start.png` (voeg screenshot toe in deze map)
+	- Toelichting: Begin Sprint 1: Kaart bekijken (To Do), Opdracht inleveren (In Progress), Status bekijken (Done).
+
+- Datum: 2025-10-14
+	- Type: Scrum board snapshot (eind Sprint 1)
+	- Bestand: `examen/evidence/screenshot_sprint1_end.png`
+	- Toelichting: Eind Sprint 1: Kaart bekijken en Opdracht inleveren zijn afgerond. We hebben 'Feedback ontvangen' verplaatst naar Sprint 2 vanwege vertraging in de upload-functie.
+	- Referentie: commit `abcd123` (of link naar issue/commit: https://github.com/<owner>/<repo>/commit/abcd123)
+
+- Datum: 2025-10-07
+	- Type: Sprint reflectie / korte log
+	- Bestand: `examen/evidence/sprint1_retro.md`
+	- Toelichting: Kort verslag met gemaakte keuzes: ureninschatting bleek te optimistisch voor upload feature; we hebben prioriteiten aangepast en extra tests ingepland.
+
+Tips om bewijs toe te voegen:
+- Maak screenshots van je board (Trello/Jira/kanban of een foto van een fysiek bord). Sla ze op in `examen/evidence/` en verwijs naar ze in dit document.
+- Voeg korte reflecties toe (1-3 zinnen) per screenshot: welke beslissing is genomen en waarom.
+- Voeg waar mogelijk commit-hashes, issue-links of PR-links toe die de voortgang en wijzigingen laten zien.
+
+Wanneer je deze items hebt toegevoegd, markeer ze kort in dit document (bv. "Bewijs toegevoegd: `examen/evidence/screenshot_sprint1_end.png`, commit abcd123") zodat de beoordelaar snel kan verifiëren.
