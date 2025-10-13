@@ -11,7 +11,6 @@ A **Next.js** application using **PostgreSQL** and **Prisma**, containerized wit
   - [Tech Stack](#tech-stack)
   - [Requirements](#requirements)
   - [Setup](#setup)
-  - [if you get any error after building please run: (Outside docker container)](#if-you-get-any-error-after-building-please-run-outside-docker-container)
   - [Development](#development)
   - [Prisma](#prisma)
   - [Database](#database)
@@ -45,8 +44,9 @@ This project uses a **modern full-stack setup** designed for real-time interacti
 
 - **Development & Deployment**
   - [Docker + Docker Compose](https://docs.docker.com/compose/) (portable setup)
-  - Local: `docker-compose up` to run everything
-  - Deployment options: Render, Railway, Fly.io, or Vercel (with external DB)
+  - Local: `docker-compose up` to run database
+  - Local: `Npm run dev` to run server
+  - Deployment options: Vercel (with external DB)
 
 - **Map Integration**
   - [Leaflet.js](https://leafletjs.com/) or [Mapbox](https://www.mapbox.com/) to display interactive city maps with pinpoints
@@ -57,8 +57,6 @@ This project uses a **modern full-stack setup** designed for real-time interacti
 
 - [Docker](https://www.docker.com/get-started)  
 - [Docker Compose](https://docs.docker.com/compose/install/)  
-
-> No need to install Node.js, PostgreSQL, or Prisma globally; everything runs inside Docker containers.
 
 ---
 
@@ -90,7 +88,7 @@ docker-compose up -d
 - Database will run in the background.
 - Data is persisted in the Docker volume pgdata.
 
-## if you get any error after building please run: (Outside docker container)
+if you get any error after building please run: (Outside docker container)
 ```bash
 Npm install
 ```
