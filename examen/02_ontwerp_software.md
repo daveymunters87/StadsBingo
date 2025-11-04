@@ -2,174 +2,84 @@
 
 ## 📊 UML-diagrammen
 
-### 1️⃣ Class Diagram / ERD
+### 1️⃣ ERD / Class Diagram (vereenvoudigd domeinmodel)
 **Beschrijving:**  
-Dit diagram laat de belangrijkste klassen en relaties zien binnen de StadsBingo-applicatie.  
+Dit diagram toont de entiteiten en relaties van de vereenvoudigde StadsBingo-applicatie (geen kaart, geen uploads, geen realtime).
 
-**Classes / Entiteiten:**
-- **Abstract Class:** Gebruiker (ervaren door Leerling en Docent)  
-- **Leerling**  
-- **Docent**  
-- **Opdracht**  
-- **Kaart**  
-- **Pinpoint**  
-- **Upload / Inzending**  
+**Entiteiten:**
+- **Gebruiker** (abstract; velden: `id`, `naam`, `email`, `rol`)
+- **Leerling** (erft van Gebruiker)
+- **Docent** (erft van Gebruiker)
+- **Opdracht** (`id`, `titel`, `beschrijving`, `actief`)
+- **Inzending** (`id`, `opdrachtId`, `leerlingId`, `tekstAntwoord`, `status`, `feedback`, `aangemaaktOp`)
 
 **Relaties:**
-- **1-op-1:** Kaart ↔ Docent  
-  - Een docent beheert één kaart, dit sluit aan bij de user story “Nieuwe opdrachten toevoegen” (W1).  
-- **1-op-n:** Kaart ↔ Pinpoint  
-  - Eén kaart bevat meerdere pinpoints met opdrachten (E1, E2).  
-- **1-op-n:** Leerling ↔ Upload  
-  - Een leerling kan meerdere inzendingen doen (E3).  
-- **n-op-n:** Leerling ↔ Opdracht  
-  - Leerlingen kunnen meerdere opdrachten doen, en opdrachten kunnen door meerdere leerlingen gedaan worden (E3, E5).  
-- **Abstract Class:** Gebruiker  
-  - Leerling en Docent erven van Gebruiker.  
-- **Interface:** Beoordelbaar  
-  - Opdracht implementeert Beoordelbaar, waardoor Docenten opdrachten kunnen goedkeuren of afkeuren (E4).  
+- 1-op-n: Opdracht → Inzending (één opdracht, meerdere inzendingen)  
+- 1-op-n: Leerling → Inzending (één leerling, meerdere inzendingen)  
+- n-op-n (impliciet via Inzending): Leerling ↔ Opdracht  
+- Gebruiker is abstract; Leerling en Docent erven van Gebruiker  
 
-**Class Diagram / ERD afbeelding:**  
-![Class Diagram](pad/naar/class_diagram.png)
+**Notities bij README-afbakening:**
+- Geen `Kaart` of `Pinpoint` entiteiten.
+- `Inzending.tekstAntwoord` in plaats van bestand-uploads.
+- `Inzending.status ∈ {pending, approved, rejected}`.
+
+**ERD afbeelding (plaats in bewijsmateriaal):**  
+`examen/bewijsmateriaal/02/erd.png`
 
 ---
 
-### 2️⃣ Sequence Diagram / Activity Diagram
+### 2️⃣ Sequence Diagram – Indienen en Beoordelen
 **Beschrijving:**  
-Toont het proces van een leerling die een opdracht inlevert en een docent die deze beoordeelt.  
+Flow van leerling die indient en docent die beoordeelt (zonder realtime).
 
 **Objecten:**
 - Leerling  
-- Opdracht  
-- Upload  
-- Docent  
-- Notificatie  
-- Dashboard  
+- OpdrachtDetailView  
+- API (POST /inzendingen)  
+- DocentDashboard  
+- API (PATCH /inzendingen/:id)  
+- Database  
 
 **Proces:**  
-1. Leerling selecteert opdracht op kaart.  
-2. Leerling uploadt bewijs.  
-3. Upload wordt gekoppeld aan opdracht.  
-4. Docent ontvangt notificatie.  
-5. Docent beoordeelt opdracht.  
-6. Status-update en feedback worden weergegeven bij de leerling.  
-7. **Loop:** Leerling kan meerdere opdrachten achter elkaar inleveren.  
+1. Leerling opent opdracht-detail en vult tekst in.  
+2. OpdrachtDetailView → API: maak Inzending (status = pending).  
+3. Database slaat Inzending op.  
+4. DocentDashboard haalt openstaande inzendingen op.  
+5. Docent kiest approve/reject en vult feedback in.  
+6. API werkt `status` en `feedback` bij.  
+7. Leerling ziet bij refresh status/feedback.
 
-**Sequence Diagram / Activity Diagram afbeelding:**  
-![Sequence Diagram](pad/naar/sequence_diagram.png)
+**Sequence diagram afbeelding:**  
+`examen/bewijsmateriaal/02/sequence.png`
 
 ---
 
 ## 📝 Onderbouwing van ontwerpkeuzes
 
 ### Ethiek
-- Alleen docenten hebben toegang tot inzendingen van leerlingen, zodat privacy van andere leerlingen gewaarborgd blijft.  
-- Gegevens worden uitsluitend gebruikt voor onderwijsdoeleinden.  
-- Feedback is constructief en zichtbaar alleen voor de betreffende leerling (E4, W2).  
+- Toegang tot inzendingen is rolgebaseerd (alleen docent ziet inzendingen van leerlingen).  
+- Feedback is constructief en alleen zichtbaar voor de betrokken leerling.
 
 ### Privacy
-- Persoonsgegevens (naam, leerling-ID) worden minimaal opgeslagen en gekoppeld aan inzendingen.  
-- Uploads zijn beveiligd en toegankelijk voor de juiste leerling en docent.  
-- Alleen relevante data voor voortgang en beoordeling worden opgeslagen (E3, E5).  
+- We slaan minimale persoonsgegevens op (naam, email, rol).  
+- Inzending bevat enkel tekst; geen bestanden of locaties.  
+- Dataretentie is beperkt tot onderwijsdoeleinden en portfolio-bewijs.
 
 ### Security
-- Realtime updates verlopen via beveiligde WebSocket-verbinding.  
-- Dashboard en inzendingen zijn beveiligd met login en rolbeheer (leerling/docent).  
-- Uploads worden gecontroleerd op bestandstype en grootte om misbruik te voorkomen.  
-- Beoordelingsfunctionaliteit is alleen beschikbaar voor geauthenticeerde docenten (E4, W1).  
+- Rolgebaseerde toegang (leerling/docent) bij endpoints en views.  
+- Server-side validatie op `tekstAntwoord` (lengte, verboden inhoud).  
+- Geen WebSockets/bestand-uploads → verkleinde aanvalsvector.  
+- Acties approve/reject gelogd per docent-gebruiker.
 
 ---
 
 **Conclusie:**  
-Het ontwerp voldoet volledig aan de eisen van de opdracht. Zowel de class diagram/ERD als het sequence diagram zijn van voldoende complexiteit en tonen de relaties tussen de objecten, inclusief abstract class en interface. Het ontwerp is duidelijk gekoppeld aan alle user stories en de onderbouwing adresseert expliciet ethiek, privacy en security.
-
-
-## Hi Jada, Hierbij een helptool voor het maken van de 2 diagrammen:
-
-## 1️⃣ Class Diagram / ERD
-
-### Stap 1: Nieuwe diagram aanmaken
-1. Open Lucidchart.
-2. Klik op **+ Nieuw Document**.
-3. Kies **UML Class Diagram**.
-4. Sleep een class naar je canvas voor elke entiteit:
-   - Gebruiker (abstract class)
-   - Leerling
-   - Docent
-   - Opdracht
-   - Kaart
-   - Pinpoint
-   - Upload / Inzending
-
-### Stap 2: Klassen invullen
-
-**Abstract Class: Gebruiker**  
-- Attributen: `naam`, `email`, `id`  
-- Methoden: `login()`, `logout()`  
-- Zet **abstract** aan in Lucidchart (option in properties)
-
-**Leerling (erft van Gebruiker)**  
-- Attributen: `leerlingID`, `score`  
-- Methoden: `uploadOpdracht()`
-
-**Docent (erft van Gebruiker)**  
-- Attributen: `docentID`  
-- Methoden: `beoordeelOpdracht()`, `voegOpdrachtToe()`
-
-**Opdracht**  
-- Attributen: `titel`, `beschrijving`, `status`  
-- Methoden: `updateStatus()`, `voegFeedbackToe()`  
-- Implementeer de interface **Beoordelbaar**
-
-**Kaart**  
-- Attributen: `locatie`, `pinpoints` (lijst)
-
-**Pinpoint**  
-- Attributen: `coordinaten`, `opdracht`
-
-**Upload / Inzending**  
-- Attributen: `bestand`, `datum`, `status`
-
-### Stap 3: Relaties tekenen
-- **1-op-1:** Kaart ↔ Docent → lijn met “1” aan beide zijden  
-- **1-op-n:** Kaart ↔ Pinpoint → lijn met “1” bij Kaart, “*” bij Pinpoint  
-- **1-op-n:** Leerling ↔ Upload → lijn met “1” bij Leerling, “*” bij Upload  
-- **n-op-n:** Leerling ↔ Opdracht → lijn met “*” aan beide zijden  
-- **Abstract Class:** Gebruiker → pijlen naar Leerling en Docent (erfenis)  
-- **Interface:** Beoordelbaar → lijn naar Opdracht  
-
-### Tips
-- Zet attributen bovenin de class, methoden eronder.  
-- Gebruik pijlen voor inheritance (erfenis) en stippellijn voor interface.  
-- Voeg een legenda toe als het diagram complex wordt.
+Het ontwerp sluit aan op de README-afbakening en de examen-eisen (E1–E5). Het model is klein maar dekkend: lijst opdrachten, inzenden met tekst, beoordelen door docent en status/feedback-weergave.
 
 ---
 
-## 2️⃣ Sequence Diagram
+## Helptool voor de diagrammen (optioneel)
 
-### Stap 1: Nieuw diagram
-1. Kies **Sequence Diagram** in Lucidchart.
-2. Sleep de volgende actors / objects naar je canvas:
-   - Leerling
-   - Kaart
-   - Opdracht
-   - Upload / Inzending
-   - Docent
-   - Notificatie
-   - Dashboard
-
-### Stap 2: Interactie tekenen
-- `Leerling → Kaart: selecteerOpdracht()`  
-- `Leerling → Upload: uploadBestand()`  
-- `Upload → Opdracht: koppelUpload()`  
-- `Opdracht → Docent: stuurNotificatie()`  
-- `Docent → Opdracht: beoordeelOpdracht()`  
-- `Opdracht → Upload: updateStatus()`  
-- `Upload → Leerling: toonFeedback()`  
-
-**Loop:** Leerling kan meerdere opdrachten achter elkaar inleveren (gebruik **loop frame** in Lucidchart)
-
-### Stap 3: Tips
-- Voeg activiteitstekens of lifelines toe voor duidelijkheid.  
-- Gebruik opties / loop frames voor herhalingen.  
-- Voeg pijlen met berichten / method calls tussen objecten toe.
+Gebruik Lucidchart of vergelijkbaar. Lever de afbeeldingen op in:  
+`examen/bewijsmateriaal/02/erd.png` en `examen/bewijsmateriaal/02/sequence.png`.
