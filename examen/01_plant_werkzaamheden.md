@@ -5,11 +5,13 @@ Het doel van dit project is het ontwikkelen van een **vereenvoudigde StadsBingo 
 Leerlingen voeren opdrachten uit in de stad en docenten keuren deze opdrachten goed of af.  
 Het project volgt de **scrum-aanpak** met sprints van 2 weken.
 
-**Vereenvoudigd concept:**
+**Vereenvoudigd concept (conform README):**
 - Lijst met opdrachten (geen kaart/map integratie)
-- Text antwoorden (geen bestand uploads)
-- Simpele status updates (geen realtime WebSockets)
-- Focus op core functionaliteit
+- Tekstantwoorden (geen bestand-uploads)
+- Status zichtbaar na acties/refresh (geen realtime WebSockets)
+- Focus op core functionaliteit voor examen-eisen
+
+Referentie: zie `README.md` secties Features, Tech Stack en Quick Start.
 
 ---
 
@@ -19,28 +21,26 @@ Het project volgt de **scrum-aanpak** met sprints van 2 weken.
 | Nr | Omschrijving | Toelichting |
 |----|---------------|-------------|
 | E1 | Lijst met opdrachten bekijken | Leerlingen zien alle beschikbare opdrachten |
-| E2 | Opdrachten indienen met text antwoord | Leerlingen kunnen tekstueel antwoorden |
+| E2 | Opdrachten indienen met tekst | Leerlingen leveren een tekstantwoord in |
 | E3 | Status bekijken | Leerlingen zien status (pending/approved/rejected) |
-| E4 | Docenten kunnen opdrachten beoordelen | Dashboard met goedkeuren/afkeuren functie |
-| E5 | Feedback systeem | Docenten kunnen feedback geven, leerlingen zien dit |
+| E4 | Beoordelen door docenten | Docenten keuren in een docentoverzicht goed/af |
+| E5 | Feedback tonen | Docentfeedback is zichtbaar bij de inzending |
 
 ### Wensen (Should/Could have)
 | Nr | Omschrijving |
 |----|---------------|
-| W1 | Overzicht van alle inzendingen voor docent |
-| W2 | Filter functionaliteit (per status, per leerling) |
-| W3 | Gebruiksvriendelijke interface met duidelijke flow |
+| W1 | Overzicht/filters voor docent (status, leerling) |
+| W2 | Gebruiksvriendelijke interface |
 
 ---
 
 ## ✅ Definition of Done (DoD)
 Een user story is **done** wanneer:
-- Alle functionaliteiten werken zoals beschreven in de eisen/wensen.  
-- Uploads van tekst/foto’s correct functioneren.  
-- Realtime updates werken zonder refresh.  
-- Feedback en status worden correct weergegeven.  
-- Code is getest, foutloos en gedocumenteerd.  
-- Applicatie werkt op desktop en mobiel.  
+- Functionaliteit werkt zoals beschreven (E1–E5)  
+- Tekstantwoorden zijn valide opgeslagen en gekoppeld  
+- Status en feedback worden correct weergegeven  
+- Basis tests zijn aanwezig en slagen  
+- Code is leesbaar en in git gecommit (zie `README.md` workflow)
 
 ---
 
@@ -48,14 +48,13 @@ Een user story is **done** wanneer:
 
 | Eis | User Stories | Bewijsbestand |
 |------|---------------|----------------|
-| E1 | Kaart bekijken | `examen/backlog.md` |
-| E2 | Kaart bekijken, Nieuwe opdracht toevoegen | `examen/backlog.md` |
-| E3 | Opdracht inleveren | `examen/backlog.md` |
-| E4 | Opdracht beoordelen, Overzicht voortgang | `examen/backlog.md` |
-| E5 | Status bekijken, Live notificaties | `examen/backlog.md` |
-| W1 | Nieuwe opdracht toevoegen | `examen/backlog.md` |
-| W2 | Feedback ontvangen, Live notificaties | `examen/backlog.md` |
-| W3 | Alle stories (gebruiksvriendelijkheid verwerkt) | `examen/backlog.md` |
+| E1 | Opdrachtenlijst bekijken | `examen/01_plant_werkzaamheden.md` |
+| E2 | Opdracht indienen (tekst) | `examen/03_realiseren_software.md` |
+| E3 | Status bekijken | `examen/04_test_software.md` |
+| E4 | Opdracht beoordelen | `examen/03_realiseren_software.md` |
+| E5 | Feedback tonen | `examen/04_test_software.md` |
+| W1 | Filter docentoverzicht | `examen/03_realiseren_software.md` |
+| W2 | UX-verbeteringen | `examen/05_verbetervoorstellen.md` |
 
 ---
 
@@ -63,139 +62,100 @@ Een user story is **done** wanneer:
 
 ### 📘 Leerling
 
-| Titel | Kaart bekijken |
-|-------|----------------|
+| Titel | Opdrachtenlijst bekijken |
+|-------|--------------------------|
 | **Als een...** | Leerling |
-| **Wil ik...** | alle pinpoints met opdrachten op een kaart zien |
-| **Zodat ik...** | eenvoudig kan kiezen welke opdracht ik wil doen |
+| **Wil ik...** | alle beschikbare opdrachten als lijst zien |
+| **Zodat ik...** | kan kiezen welke opdracht ik uitvoer |
 | **Prioriteit** | Must have |
-| **Acceptatiecriteria** | 1️⃣ Kaart toont alle pinpoints<br>2️⃣ Pinpoints zijn klikbaar<br>3️⃣ Opdrachtdetails zichtbaar |
-| **Scenario** | 1. Leerling opent app → 2. Kaart toont pinpoints → 3. Klik toont opdracht |
-| **DoD** | Kaart toont pinpoints correct en foutloos |
-| **Tijdsindicatie** | M (4 uur) |
-
----
-
-| Titel | Opdracht inleveren |
-|-------|--------------------|
-| **Als een...** | Leerling |
-| **Wil ik...** | mijn oplossing of bewijs kunnen uploaden |
-| **Zodat ik...** | de docent mijn inzending kan beoordelen |
-| **Prioriteit** | Must have |
-| **Acceptatiecriteria** | 1️⃣ Upload tekst/foto<br>2️⃣ Koppeling aan juiste opdracht<br>3️⃣ Status “in afwachting” |
-| **Scenario** | 1. Leerling uploadt bestand → 2. Status verandert naar “in afwachting” |
-| **DoD** | Uploads werken correct en zijn gekoppeld aan opdracht |
-| **Tijdsindicatie** | M (4 uur) |
-
----
-
-| Titel | Status bekijken |
-|-------|----------------|
-| **Als een...** | Leerling |
-| **Wil ik...** | realtime zien of mijn opdrachten goed- of afgekeurd zijn |
-| **Zodat ik...** | weet wat ik nog moet verbeteren |
-| **Prioriteit** | Must have |
-| **Acceptatiecriteria** | 1️⃣ Status per opdracht zichtbaar<br>2️⃣ Automatische updates<br>3️⃣ Melding bij wijziging |
-| **Scenario** | Leerling opent dashboard → Status wijzigt live |
-| **DoD** | Realtime status werkt via websockets |
+| **Acceptatiecriteria** | 1️⃣ Lijst toont titel/beschrijving<br>2️⃣ Paginering of eenvoudige lijst<br>3️⃣ Detailpagina beschikbaar |
+| **Scenario** | 1. Leerling opent app → 2. Lijst verschijnt → 3. Klik toont details |
+| **DoD** | Lijst rendert stabiel met testdata |
 | **Tijdsindicatie** | S (2 uur) |
 
 ---
 
-| Titel | Feedback ontvangen |
-|-------|--------------------|
+| Titel | Opdracht indienen (tekst) |
+|-------|----------------------------|
 | **Als een...** | Leerling |
-| **Wil ik...** | feedback van de docent kunnen zien |
+| **Wil ik...** | een tekstantwoord kunnen indienen |
+| **Zodat ik...** | mijn uitvoering kan laten beoordelen |
+| **Prioriteit** | Must have |
+| **Acceptatiecriteria** | 1️⃣ Validatie leeg/te lang<br>2️⃣ Opslag gekoppeld aan opdracht & leerling<br>3️⃣ Status start als "pending" |
+| **Scenario** | 1. Open opdracht → 2. Vul tekst in → 3. Verstuur → 4. Bevestiging |
+| **DoD** | Antwoord wordt opgeslagen en zichtbaar bij docent |
+| **Tijdsindicatie** | M (4 uur) |
+
+---
+
+| Titel | Status & feedback bekijken |
+|-------|----------------------------|
+| **Als een...** | Leerling |
+| **Wil ik...** | status en docentfeedback kunnen zien |
 | **Zodat ik...** | weet wat ik moet verbeteren |
-| **Prioriteit** | Should have |
-| **Acceptatiecriteria** | 1️⃣ Feedbackveld zichtbaar<br>2️⃣ Feedback wordt opgeslagen<br>3️⃣ Leerling krijgt melding |
-| **DoD** | Feedback correct weergegeven |
+| **Prioriteit** | Must have |
+| **Acceptatiecriteria** | 1️⃣ Status per inzending zichtbaar<br>2️⃣ Feedbacktekst zichtbaar<br>3️⃣ Geen realtime nodig (refresh) |
+| **Scenario** | 1. Open "mijn inzendingen" → 2. Zie status/feedback |
+| **DoD** | Weergave na pagina-refresh klopt |
 | **Tijdsindicatie** | S (2 uur) |
 
 ---
 
 ### 📗 Docent
 
-| Titel | Opdracht beoordelen |
-|-------|--------------------|
+| Titel | Inzendingen beoordelen |
+|-------|------------------------|
 | **Als een...** | Docent |
-| **Wil ik...** | opdrachten goedkeuren of afkeuren |
-| **Zodat ik...** | voortgang van leerlingen kan bijhouden |
+| **Wil ik...** | inzendingen kunnen goed- of afkeuren met feedback |
+| **Zodat ik...** | voortgang van leerlingen kan bewaken |
 | **Prioriteit** | Must have |
-| **Acceptatiecriteria** | 1️⃣ Docent ziet inzendingen<br>2️⃣ Kan status wijzigen<br>3️⃣ Leerling krijgt update |
-| **DoD** | Status-updates correct gesynchroniseerd |
+| **Acceptatiecriteria** | 1️⃣ Overzicht van inzendingen<br>2️⃣ Acties: approve/reject<br>3️⃣ Feedbackveld verplicht bij reject |
+| **Scenario** | 1. Open docentoverzicht → 2. Selecteer inzending → 3. Kies status + feedback |
+| **DoD** | Status/feedback zichtbaar voor leerling |
 | **Tijdsindicatie** | M (4 uur) |
 
 ---
 
-| Titel | Nieuwe opdracht toevoegen |
-|-------|---------------------------|
+| Titel | Filteren in docentoverzicht |
+|-------|----------------------------|
 | **Als een...** | Docent |
-| **Wil ik...** | nieuwe pinpoints met opdrachten toevoegen |
-| **Zodat ik...** | het spel kan uitbreiden |
+| **Wil ik...** | kunnen filteren op status en leerling |
+| **Zodat ik...** | sneller kan beoordelen |
 | **Prioriteit** | Should have |
-| **Acceptatiecriteria** | 1️⃣ Titel/beschrijving/locatie invoeren<br>2️⃣ Opdracht verschijnt direct |
-| **DoD** | Opdracht direct zichtbaar op kaart |
+| **Acceptatiecriteria** | 1️⃣ Filter op status<br>2️⃣ Zoeken op leerlingnaam |
+| **DoD** | Filters wijzigen lijst zonder errors |
 | **Tijdsindicatie** | S (2 uur) |
-
----
-
-| Titel | Overzicht voortgang |
-|-------|----------------------|
-| **Als een...** | Docent |
-| **Wil ik...** | overzicht van leerlingen met voortgang |
-| **Zodat ik...** | prestaties kan monitoren |
-| **Prioriteit** | Must have |
-| **Acceptatiecriteria** | 1️⃣ Overzicht per leerling<br>2️⃣ Percentage voltooid<br>3️⃣ Filteropties |
-| **DoD** | Overzicht werkt correct, percentages kloppen |
-| **Tijdsindicatie** | M (4 uur) |
-
----
-
-| Titel | Live notificaties |
-|-------|-------------------|
-| **Als een...** | Docent |
-| **Wil ik...** | realtime meldingen ontvangen bij nieuwe inzendingen |
-| **Zodat ik...** | snel kan reageren |
-| **Prioriteit** | Must have |
-| **Acceptatiecriteria** | 1️⃣ Melding bij nieuwe inzending<br>2️⃣ Klik opent inzending<br>3️⃣ Dashboard werkt zonder refresh |
-| **DoD** | Meldingen werken realtime |
-| **Tijdsindicatie** | M (4 uur) |
 
 ---
 
 ## 🗓️ Sprint Planning
 
 ### 🔹 Sprint 1 (Week 1–2)
-**Doel:** Basisfunctionaliteiten werkend voor leerlingen en docenten.
+**Doel:** Basisflow leerling en docent zonder realtime en uploads.
 
 | Story | Verantwoordelijke | Prioriteit | Tijd | Uren | Opmerkingen |
 |--------|-------------------|-------------|------|------|--------------|
-| Kaart bekijken | Davey | Must | M | 4 | Basisfunctionaliteit |
-| Opdracht inleveren | Davey | Must | M | 4 | Upload testen |
-| Status bekijken | Davey | Must | S | 2 | Realtime koppeling |
-| Opdracht beoordelen | Jada | Must | M | 4 | Dashboard-functionaliteit |
+| Opdrachtenlijst bekijken | Davey | Must | S | 2 | Lijst + detail |
+| Opdracht indienen (tekst) | Davey | Must | M | 4 | Validatie + opslag |
+| Inzendingen beoordelen | Jada | Must | M | 4 | Approve/reject + feedback |
 
-**Totale uren Sprint 1:** 14  
-**Risico’s:** upload vertragingen kunnen realtime feedback beïnvloeden.  
-**Sprint DoD:** Leerling & docent kunnen basisflow uitvoeren.
+**Totale uren Sprint 1:** 10  
+**Risico’s:** validatie en koppeling tussen inzending/leerling/opdracht.  
+**Sprint DoD:** Leerling kan indienen; docent kan beoordelen; status zichtbaar.
 
 ---
 
 ### 🔹 Sprint 2 (Week 3–4)
-**Doel:** Verbeterde interactie & extra functionaliteiten.
+**Doel:** UX en filters, status/feedback weergave verbeteren, tests.
 
 | Story | Verantwoordelijke | Prioriteit | Tijd | Uren | Opmerkingen |
 |--------|-------------------|-------------|------|------|--------------|
-| Nieuwe opdrachten ontdekken | Davey | Should | S | 2 | Automatische updates |
-| Feedback ontvangen | Davey | Should | S | 2 | Feedback tonen |
-| Nieuwe opdracht toevoegen | Jada | Should | S | 2 | Dashboard uitbreiding |
-| Overzicht voortgang | Jada | Must | M | 4 | Statistieken |
-| Feedback geven | Jada | Should | S | 2 | Feedbackveld |
-| Live notificaties | Jada | Must | M | 4 | Meldingen voor inzendingen |
+| Status & feedback bekijken | Davey | Must | S | 2 | Leerlingoverzicht |
+| Filter docentoverzicht | Jada | Should | S | 2 | Status/leerling |
+| Basis tests schrijven | Davey | Must | M | 4 | Unit/API/component |
 
-**Totale uren Sprint 2:** 16  
-**Sprint DoD:** Extra functionaliteit gereed en getest.
+**Totale uren Sprint 2:** 8  
+**Sprint DoD:** UX verbeterd en basis tests groen.
 
 ---
 
@@ -204,26 +164,24 @@ Een user story is **done** wanneer:
 **Sprint 1**
 | To Do | In Progress | Done |
 |-------|--------------|------|
-| Kaart bekijken | Opdracht inleveren | Status bekijken |
-| Opdracht beoordelen |  |  |
+| Opdrachtenlijst | Indienen (tekst) | Beoordelen |
 
 **Sprint 2**
 | To Do | In Progress | Done |
 |-------|--------------|------|
-| Nieuwe opdrachten ontdekken | Feedback geven | Overzicht voortgang |
-| Feedback ontvangen | Nieuwe opdracht toevoegen | Live notificaties |
+| Status/feedback | Filters | Tests |
 
 ---
 
 ## 🧾 Voortgangsbewaking (Criterium 1.4)
 
-**Doel:** aantonen dat voortgang actief is bewaakt en beslissingen zijn genomen op basis van prioriteiten.
+**Doel:** aantonen dat voortgang actief is bewaakt en keuzes zijn gemaakt o.b.v. prioriteit.
 
-### Bewijsstukken
+### Bewijsstukken (plaats in `examen/bewijsmateriaal/01/`)
 
 | Datum | Type | Bestand | Toelichting |
 |--------|------|----------|--------------|
-| 2025-10-01 | Scrum board snapshot (begin Sprint 1) | `examen/evidence/screenshot_sprint1_start.png` | Start Sprint 1 – basistaken To Do |
-| 2025-10-07 | Sprint 1 retrospectief | `examen/evidence/sprint1_retro.md` | Upload feature duurde langer; prioriteit feedback verplaatst |
-| 2025-10-14 | Scrum board snapshot (eind Sprint 1) | `examen/evidence/screenshot_sprint1_end.png` | Kaart en upload afgerond; feedback naar Sprint 2 |
-| 2025-10-15 | Commit bewijs | `examen/evidence/commit_list_sprint1.md` | Lijst commit-hashes en korte omschrijving |
+| 2025-11-04 | Scrum board snapshot (begin Sprint 1) | `examen/bewijsmateriaal/01/sprint1_start.png` | Start Sprint 1 – basistaken To Do |
+| 2025-11-11 | Sprint 1 retrospectief | `examen/bewijsmateriaal/01/sprint1_retro.md` | Doorlooptijd indienen hoger; filters naar Sprint 2 |
+| 2025-11-18 | Scrum board snapshot (eind Sprint 1) | `examen/bewijsmateriaal/01/sprint1_end.png` | Basisflow afgerond |
+| 2025-11-25 | Commit overzicht | `examen/bewijsmateriaal/01/commit_list_sprint1.md` | Commits + korte omschrijving |

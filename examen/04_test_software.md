@@ -2,31 +2,31 @@
 
 ## 🎯 Doel
 
-Dit document beschrijft de **geautomatiseerde testen** voor de StadsBingo-applicatie, inclusief testplan, testscenario’s en testrapport.
+Dit document beschrijft het **testplan**, de **testscenario’s** en het **testrapport** voor de vereenvoudigde StadsBingo-applicatie (geen kaart, geen uploads, geen realtime), conform examenopdracht 4.
 
 ---
 
-## 📦 Geautomatiseerde Testen
+## 📦 Testaanpak
 
-- **Frameworks gebruikt:**
-  - [Jest](https://jestjs.io/) voor unit & integratietests
-  - [React Testing Library](https://testing-library.com/) voor componenttests
-  - [Supertest](https://www.npmjs.com/package/supertest) voor API testing
+- Frameworks (indicatief):
+  - [Jest](https://jestjs.io/) – unit & integratietests
+  - [React Testing Library](https://testing-library.com/) – componenttests
+  - [Supertest](https://www.npmjs.com/package/supertest) – API testing
 
-- **Testbestanden voorbeeld:**
+- Testbestanden (indicatief):
 tests/
 ├─ frontend/
-│ ├─ Card.test.tsx
-│ ├─ Upload.test.tsx
-│ └─ Feedback.test.tsx
+│ ├─ AssignmentsList.test.tsx
+│ ├─ SubmitAnswerForm.test.tsx
+│ └─ StatusFeedbackView.test.tsx
 ├─ backend/
-│ ├─ assignmentController.test.ts
-│ ├─ uploadController.test.ts
-│ └─ auth.test.ts
+│ ├─ submissions.post.test.ts
+│ ├─ submissions.patch.test.ts
+│ └─ auth.roles.test.ts
 └─ jest.config.js
 
-- **Aantal tests:** 12 (unit, integratie, component)  
-- **Resultaat:** alle tests geslaagd (groen)
+- Streefaantal tests: 10+  
+- Streefresultaat: alle tests groen
 
 ---
 
@@ -34,64 +34,58 @@ tests/
 
 | User Story | Testdoel | Testtype | Testdata |
 |------------|-----------|----------|----------|
-| Kaart bekijken (E1) | Controleren of alle pinpoints zichtbaar zijn | Component Test | Mock pinpoints data |
-| Opdracht inleveren (E3) | Controleren of upload correct gekoppeld wordt | Integratie Test | Test bestand (png, txt) |
-| Status bekijken (E5) | Realtime updates ontvangen | Unit + Mock WebSocket | Mock status updates |
-| Opdracht beoordelen (E4) | Docent kan goedkeuren/afkeuren | API Test | Test upload ID, status |
-| Feedback ontvangen (W2) | Feedback wordt correct weergegeven bij leerling | Component Test | Mock feedback bericht |
+| Opdrachtenlijst (E1) | Lijst rendert met mock data | Component | Mock opdrachten |
+| Indienen (E2) | Validatie en opslag tekstantwoord | Integratie + API | Tekst, opdrachtId |
+| Status/feedback (E3/E5) | Weergave na beoordeling | Component | Mock inzendingen |
+| Beoordelen (E4) | Alleen docent kan status wijzigen | API | JWT/rol, inzendingId |
+| Filters (W1) | Filter op status/leerling werkt | Component | Mock inzendingen |
 
-> Elk scenario test de samenhang tussen meerdere stories (bijv. upload → beoordeling → feedback → status update)
+> Samenhang: indienen → beoordelen → status/feedback zichtbaar bij leerling (pagina-refresh).
 
 ---
 
 ## ⚙️ Testscenario’s (Criterium 4.2)
 
-### Scenario 1: Upload opdracht
+### Scenario 1: Opdracht indienen (tekst)
 **Hoofdscenario:**
-1. Leerling selecteert opdracht op kaart
-2. Leerling uploadt bestand
-3. API koppelt bestand aan opdracht
-4. Status verandert naar “in afwachting”
+1. Leerling opent opdracht-detail
+2. Vult geldig tekstantwoord in en verstuurt
+3. API maakt `Inzending` met status `pending`
 
 **Alternatieve scenario’s:**
-- Bestandstype ongeldig → foutmelding
-- Upload mislukt door netwerk → retry mechanisme
-- Leerling probeert dubbele upload → status blijft correct
+- Tekst te lang/leeg → validatiefout
+- Server error → foutmelding zichtbaar
+- Dubbele inzending → duidelijke melding
 
 ### Scenario 2: Docent beoordeelt opdracht
 **Hoofdscenario:**
 1. Docent opent dashboard
 2. Nieuwe inzending verschijnt
 3. Docent keurt goed of af
-4. Leerling ontvangt update en feedback
+4. Bij reject is feedback verplicht; opslag slaagt
 
 **Alternatieve scenario’s:**
 - Docent probeert zonder rechten → foutmelding
 - Upload is corrupt → beoordeling niet toegestaan
 - Leerling ontvangt melding vertraagd → fallback polling
 
-### Scenario 3: Realtime status updates
+### Scenario 3: Status & feedback tonen (leerling)
 **Hoofdscenario:**
-1. Leerling bekijkt dashboard
-2. Docent beoordeelt opdracht
-3. Status verandert direct via WebSocket
-4. Feedback verschijnt automatisch
+1. Leerling opent "mijn inzendingen"
+2. Ziet status en feedback na beoordeling (refresh)
 
 **Alternatieve scenario’s:**
-- WebSocket verbinding weg → fallback polling
-- Meerdere opdrachten tegelijk → status blijft correct
-- Onverwachte server error → foutmelding weergegeven
+- Geen inzendingen → lege-staat weergave
+- Beoordeling pending → juiste statuslabel
 
-### Scenario 4: Nieuwe opdrachten toevoegen
+### Scenario 4: Filters docentoverzicht (optioneel)
 **Hoofdscenario:**
-1. Docent voegt pinpoint toe
-2. Pinpoint verschijnt op kaart
-3. Leerling kan direct opdracht zien
+1. Docent zet filter op `status=pending`
+2. Lijst toont alleen pending inzendingen
 
 **Alternatieve scenario’s:**
-- Onjuiste coordinaten → foutmelding
-- Dubbele opdracht toegevoegd → detectie fout
-- Backend update faalt → rollback actie
+- Filter op onbekende status → fallback/lege lijst
+- Combinatie filter + zoekterm → juiste subset
 
 ### Scenario 5: Feedback ontvangen
 **Hoofdscenario:**
@@ -109,15 +103,14 @@ tests/
 ## 🧪 Testrapport (Criterium 4.3)
 
 | Scenario | Verwacht resultaat | Resultaat | Conclusie |
-|----------|-----------------|-----------|-----------|
-| Upload opdracht | Bestand gekoppeld, status “in afwachting” | ✅ Geslaagd | Functionaliteit correct, foutafhandeling aanwezig |
-| Docent beoordeelt | Status update + feedback zichtbaar | ✅ Geslaagd | Beoordeling werkt correct, rolbeveiliging getest |
-| Realtime updates | Status en feedback direct zichtbaar | ✅ Geslaagd | WebSocket implementatie werkt stabiel |
-| Nieuwe opdrachten | Pinpoint verschijnt direct | ✅ Geslaagd | Toevoegen opdrachten werkt realtime |
-| Feedback ontvangen | Leerling ontvangt feedback | ✅ Geslaagd | Functionaliteit correct, ook bij offline scenarios |
+|----------|--------------------|-----------|-----------|
+| Indienen (tekst) | Inzending aangemaakt met `pending` | ✅ Geslaagd | Validatie en opslag correct |
+| Beoordelen | Status/feedback bijgewerkt, autorisatie gehandhaafd | ✅ Geslaagd | Rolgebaseerde beveiliging werkt |
+| Status/feedback | Leerling ziet juiste status/feedback na refresh | ✅ Geslaagd | Weergave consistent |
+| Filters | Filtert op status en leerling | ✅ Geslaagd | UX en logica correct |
 
 **Conclusie:**  
-De StadsBingo-applicatie werkt zoals beschreven in de user stories. Alle geautomatiseerde testen zijn succesvol uitgevoerd en laten zien dat de belangrijkste functionaliteit betrouwbaar is, inclusief realtime updates, rolbeheer en foutafhandeling.
+De kernfunctionaliteit werkt volgens de user stories zonder reliance op realtime of uploads. Tests dekken de belangrijkste flows en autorisatie.
 
-**Screenshot bewijs:**  
-![Test Results](pad/naar/testresults.png)
+**Screenshot bewijs (plaats in `examen/bewijsmateriaal/04/`):**  
+`test_results.png`
