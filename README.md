@@ -1,188 +1,313 @@
-# StadsBingo Project
+# 🎯 StadsBingo - Simplified Version
 
-A **Next.js** application using **PostgreSQL** and **Prisma**, containerized with **Docker** for easy development and deployment.
+Een **vereenvoudigde bingo-applicatie** voor scholen waarbij leerlingen opdrachten uitvoeren in de stad en docenten deze beoordelen.
 
----
-
-## Table of Contents
-
-- [StadsBingo Project](#stadsbingo-project)
-  - [Table of Contents](#table-of-contents)
-  - [Tech Stack](#tech-stack)
-  - [Requirements](#requirements)
-  - [Setup](#setup)
-  - [Development](#development)
-  - [Prisma](#prisma)
-  - [Database](#database)
-  - [Running on Another Device](#running-on-another-device)
-  - [Notes](#notes)
-  - [Quick Start (1–2 Commands)](#quick-start-12-commands)
-  - [Optional Tips](#optional-tips)
+> **Examen Project** - Bit Academy  
+> Ontwikkeld door: Davey & Jada  
+> Periode: November 2025
 
 ---
 
-## Tech Stack
+## 📋 Table of Contents
 
-This project uses a **modern full-stack setup** designed for real-time interactive apps:
-
-- **Frontend / Fullstack**
-  - [Next.js](https://nextjs.org/) (React framework with API routes, SSR, SSG)
-  - [TailwindCSS](https://tailwindcss.com/) (utility-first styling)
-  - [shadcn/ui](https://ui.shadcn.com/) (prebuilt UI components with Tailwind)
-
-- **Backend / API**
-  - Next.js API Routes (handles submissions & approvals)
-  - Optional: **Socket.IO** (for real-time teacher/student updates)
-  - Simpler alternative: polling with SWR/React Query
-
-- **Database & ORM**
-  - [PostgreSQL](https://www.postgresql.org/) (relational database, runs in Docker)
-  - [Prisma](https://www.prisma.io/) (type-safe ORM, migrations, client)
-
-- **Auth**
-  - [NextAuth.js](https://authjs.dev/) for authentication (students & teachers)
-
-- **Development & Deployment**
-  - [Docker + Docker Compose](https://docs.docker.com/compose/) (portable setup)
-  - Local: `docker-compose up` to run database
-  - Local: `Npm run dev` to run server
-  - Deployment options: Vercel (with external DB)
-
-- **Map Integration**
-  - [Leaflet.js](https://leafletjs.com/) or [Mapbox](https://www.mapbox.com/) to display interactive city maps with pinpoints
+- [🎯 StadsBingo - Simplified Version](#-stadsbingo---simplified-version)
+  - [📋 Table of Contents](#-table-of-contents)
+  - [📖 Project Omschrijving](#-project-omschrijving)
+  - [✨ Features](#-features)
+    - [Voor Leerlingen (Students)](#voor-leerlingen-students)
+    - [Voor Docenten (Teachers)](#voor-docenten-teachers)
+  - [🛠️ Tech Stack](#️-tech-stack)
+  - [📦 Requirements](#-requirements)
+  - [🚀 Quick Start](#-quick-start)
+  - [⚙️ Setup Details](#️-setup-details)
+    - [1️⃣ Clone \& Navigate](#1️⃣-clone--navigate)
+    - [2️⃣ Environment Variables](#2️⃣-environment-variables)
+    - [3️⃣ Start PostgreSQL](#3️⃣-start-postgresql)
+    - [4️⃣ Install Dependencies](#4️⃣-install-dependencies)
+    - [5️⃣ Database Setup](#5️⃣-database-setup)
+    - [6️⃣ Start Development](#6️⃣-start-development)
+  - [🗄️ Database](#️-database)
+  - [🔧 Prisma Commands](#-prisma-commands)
+  - [📱 Development Workflow](#-development-workflow)
+    - [Voor nieuwe features:](#voor-nieuwe-features)
+    - [Code Quality:](#code-quality)
+  - [🎓 Examen Informatie](#-examen-informatie)
+  - [💡 Optional Tips](#-optional-tips)
+  - [👥 Team](#-team)
+  - [📝 License](#-license)
 
 ---
 
-## Requirements
+## 📖 Project Omschrijving
 
+**StadsBingo** is een webapplicatie waarbij leerlingen opdrachten uitvoeren in de stad en docenten deze live kunnen beoordelen.
+
+**Kernfunctionaliteit:**
+- Leerlingen zien een lijst met opdrachten
+- Leerlingen kunnen opdrachten "claimen" met een tekstantwoord
+- Docenten zien alle inzendingen en kunnen goedkeuren/afkeuren
+- Status updates zichtbaar voor leerlingen
+
+**Vereenvoudigd concept:**
+- ✅ Geen realtime WebSockets (simpele page refresh)
+- ✅ Geen kaart/map integratie (gewoon een lijst)
+- ✅ Geen bestand uploads (alleen text antwoorden)
+- ✅ Focus op core functionaliteit voor examen eisen
+
+---
+
+## ✨ Features
+
+### Voor Leerlingen (Students)
+- 📝 Bekijk alle beschikbare opdrachten
+- ✍️ Dien opdrachten in met een tekstantwoord
+- 📊 Zie de status van je inzendingen (pending/approved/rejected)
+- 💬 Ontvang feedback van docenten
+
+### Voor Docenten (Teachers)
+- 👀 Bekijk alle ingediende opdrachten
+- ✅ Keur opdrachten goed of af
+- 💭 Geef feedback aan leerlingen
+- 📈 Overzicht van alle inzendingen
+
+---
+
+## 🛠️ Tech Stack
+
+**Frontend & Backend:**
+- [Next.js 15](https://nextjs.org/) - React framework met API routes
+- [TypeScript](https://www.typescriptlang.org/) - Type safety
+- [TailwindCSS](https://tailwindcss.com/) - Styling
+- [shadcn/ui](https://ui.shadcn.com/) - UI componenten
+
+**Database & ORM:**
+- [PostgreSQL](https://www.postgresql.org/) - Relational database (Docker)
+- [Prisma](https://www.prisma.io/) - Type-safe ORM
+
+**Development:**
+- [Docker](https://www.docker.com/) - Database containerization
+- [Biome](https://biomejs.dev/) - Linting & formatting
+
+**Wat we NIET gebruiken** (om het simpel te houden):
+- ❌ NextAuth (simpele role-based views)
+- ❌ Socket.IO (geen realtime needed)
+- ❌ Map libraries (geen kaart integratie)
+- ❌ File upload libraries (alleen text)
+
+---
+
+## 📦 Requirements
+
+- [Node.js](https://nodejs.org/) (v18 of hoger)
 - [Docker](https://www.docker.com/get-started)  
 - [Docker Compose](https://docs.docker.com/compose/install/)  
 
 ---
 
-## Setup
-
-1. **Clone the repository:**
+## 🚀 Quick Start
 
 ```bash
+# 1. Clone de repository
 git clone git@github.com:daveymunters87/StadsBingo.git
-cd project
+cd StadsBingo/project
+
+# 2. Start de database (Docker)
+docker-compose up -d
+
+# 3. Install dependencies
+npm install
+
+# 4. Setup database
+npx prisma generate
+npx prisma migrate dev --name init
+
+# 5. Start development server
+npm run dev
 ```
 
-2. **Create a .env file:**
+Open [http://localhost:3000](http://localhost:3000) in je browser! 🎉
 
-Copy `.env.example` to `.env` (or create one) and update if necessary:
+---
+
+## ⚙️ Setup Details
+
+### 1️⃣ Clone & Navigate
+```bash
+git clone git@github.com:daveymunters87/StadsBingo.git
+cd StadsBingo/project
+```
+
+### 2️⃣ Environment Variables
+Maak een `.env` bestand in de `project/` folder:
 
 ```env
-DATABASE_URL="postgresql://myuser:mypassword@db:5432/mydb?schema=public"
+DATABASE_URL="postgresql://myuser:mypassword@localhost:5432/mydb?schema=public"
 ```
 
-> `db` is the Docker service name defined in `docker-compose.yml`.
+> **Note:** Voor lokale development gebruik je `localhost`. `db` is de Docker service naam in `docker-compose.yml`.
 
-3. **Start the PostgreSQL container:**
-
+### 3️⃣ Start PostgreSQL
 ```bash
 docker-compose up -d
 ```
 
-- Database will run in the background.
-- Data is persisted in the Docker volume pgdata.
+Database draait nu op de achtergrond. Data wordt opgeslagen in Docker volume `pgdata`.
 
-if you get any error after building please run: (Outside docker container)
-```bash
-Npm install
-```
-
----
-
-## Development
-
-Once backend is running, you can start your frontend with:
-
+### 4️⃣ Install Dependencies
 ```bash
 npm install
+```
+
+### 5️⃣ Database Setup
+```bash
+# Genereer Prisma client
 npx prisma generate
+
+# Run migrations (maakt de tabellen aan)
+npx prisma migrate dev --name init
+
+# (Optioneel) Seed database met test data
+npx prisma db seed
+```
+
+### 6️⃣ Start Development
+```bash
 npm run dev
 ```
 
-- Your changes to Next.js pages or API routes update immediately at http://localhost:3000
-- No need to rebuild Docker for app changes.
+App draait nu op: http://localhost:3000
 
 ---
 
-## Prisma
+## 🗄️ Database
 
-**Generate Prisma client:**
+**PostgreSQL draait in Docker** voor consistente setup tussen developers.
+
+**Belangrijke commando's:**
 ```bash
-docker-compose exec app npx prisma generate
-```
-
-**Run migrations:**
-```bash
-docker-compose exec app npx prisma migrate dev --name init
-```
-
-**Open Prisma Studio:**
-```bash
-docker-compose exec app npx prisma studio
-```
-
-Prisma Studio lets you browse and edit your database via a web interface.
-
----
-
-## Database
-
-- PostgreSQL runs in Docker (`docker-compose.yml`) for consistent setup across developers.
-- Default credentials are set in `.env` (see `DATABASE_URL`).
-- Data is persisted in a Docker volume `pgdata`.
-
----
-
-## Running on Another Device
-
-1. Clone the repository on the new device.
-2. Copy `.env` with the correct `DATABASE_URL`.
-3. Start PostgreSQL:
-
-```bash
+# Start database
 docker-compose up -d
+
+# Stop database
+docker-compose down
+
+# Stop database en verwijder data (fresh start)
+docker-compose down -v
+
+# Bekijk database logs
+docker-compose logs -f db
 ```
 
-4. Install dependencies and start Next.js locally:
+**Default credentials** (zie `.env`):
+- User: `myuser`
+- Password: `mypassword`
+- Database: `mydb`
+- Port: `5432`
+
+---
+
+## 🔧 Prisma Commands
 
 ```bash
-npm install
+# Genereer Prisma Client (na schema wijzigingen)
 npx prisma generate
-npm run dev
+
+# Maak nieuwe migration
+npx prisma migrate dev --name beschrijving_van_wijziging
+
+# Reset database (WAARSCHUWING: verwijdert alle data!)
+npx prisma migrate reset
+
+# Open Prisma Studio (database GUI)
+npx prisma studio
+```
+
+**Prisma Studio** opent op http://localhost:5555 en laat je database data bekijken/bewerken.
+
+---
+
+## 📱 Development Workflow
+
+### Voor nieuwe features:
+1. **Maak een nieuwe branch**
+   ```bash
+   git checkout -b feature/naam-van-feature
+   ```
+
+2. **Bouw de feature**
+   - Wijzig Prisma schema indien nodig → `npx prisma migrate dev`
+   - Schrijf code
+   - Test lokaal
+
+3. **Commit je werk**
+   ```bash
+   git add .
+   git commit -m "feat: beschrijving van feature"
+   ```
+
+4. **Push en maak Pull Request**
+   ```bash
+   git push origin feature/naam-van-feature
+   ```
+
+### Code Quality:
+```bash
+# Check code quality
+npm run lint
+
+# Format code
+npm run format
 ```
 
 ---
 
-## Notes
+## 🎓 Examen Informatie
 
-- `.dockerignore` prevents large local files (`node_modules`, `.next`, `.git`) from being sent to Docker during build.
-- You don’t need Docker for the app in development — only PostgreSQL.
+Dit project is onderdeel van het **Software Developer examen** bij Bit Academy.
+
+**Examen Eisen die dit project voldoet:**
+
+✅ **Opdracht 1:** User stories, planning, voortgangsbewaking  
+✅ **Opdracht 2:** UML diagrammen (ERD + Sequence)  
+✅ **Opdracht 3:** Werkende applicatie met:
+   - Frontend + Backend + Database
+   - 10+ bestanden met code
+   - Git (10+ commits, 2+ branches, pull requests)
+   - Non-CRUD functionaliteit (approve/reject workflow)
+
+✅ **Opdracht 4:** Geautomatiseerde tests  
+✅ **Opdracht 5:** Verbetervoorstellen  
+
+**Documentatie:** Zie `/examen` folder voor alle bewijsmateriaal.
 
 ---
 
-## Quick Start (1–2 Commands)
+## 💡 Optional Tips
 
 ```bash
-git clone git@github.com:daveymunters87/StadsBingo.git
-cd project
-docker-compose up -d
-npm install
-npm run dev 
-```
+# Stop alle containers
+docker-compose down
 
-Then open http://localhost:3000 to access the app.
+# Format hele repository
+npx biome format --write
+
+# Bekijk Docker logs
+docker-compose logs -f
+
+# Rebuild Docker containers (bij problemen)
+docker-compose down
+docker-compose up -d --build
+```
 
 ---
 
-## Optional Tips
-- **Stop containers:** `docker-compose down`
-- **Format repository:** `npx biome format --write`
-- **Access app shell:** `docker-compose exec app sh`
-- **Check logs:** `docker-compose logs -f`
-- **Regenerate Prisma client after schema changes** `npx prisma generate`
+## 👥 Team
+
+- **Davey Munters** - Developer
+- **Jada** - Developer
+
+---
+
+## 📝 License
+
+Dit is een educatief project voor Bit Academy.

@@ -1,9 +1,15 @@
 # 📘 StadsBingo – 01_plant_werkzaamheden.md
 
 ## 🧩 Projectomschrijving
-Het doel van dit project is het ontwikkelen van een **StadsBingo webapplicatie**.  
-Leerlingen voeren opdrachten uit in de stad en docenten keuren deze opdrachten live goed of af.  
+Het doel van dit project is het ontwikkelen van een **vereenvoudigde StadsBingo webapplicatie**.  
+Leerlingen voeren opdrachten uit in de stad en docenten keuren deze opdrachten goed of af.  
 Het project volgt de **scrum-aanpak** met sprints van 2 weken.
+
+**Vereenvoudigd concept:**
+- Lijst met opdrachten (geen kaart/map integratie)
+- Text antwoorden (geen bestand uploads)
+- Simpele status updates (geen realtime WebSockets)
+- Focus op core functionaliteit
 
 ---
 
@@ -12,17 +18,17 @@ Het project volgt de **scrum-aanpak** met sprints van 2 weken.
 ### Eisen (Must have)
 | Nr | Omschrijving | Toelichting |
 |----|---------------|-------------|
-| E1 | Kaart met pinpoints in de stad | Zichtbare opdrachten op kaart |
-| E2 | Elke pinpoint bevat een vraag/opdracht | Interactieve opdrachten |
-| E3 | Leerlingen kunnen opdrachten voltooien | Uploaden van bewijs |
-| E4 | Docenten kunnen opdrachten goed/afkeuren | Dashboard met beoordelingsfunctie |
-| E5 | Realtime updates van status van opdrachten | Websockets of polling updates |
+| E1 | Lijst met opdrachten bekijken | Leerlingen zien alle beschikbare opdrachten |
+| E2 | Opdrachten indienen met text antwoord | Leerlingen kunnen tekstueel antwoorden |
+| E3 | Status bekijken | Leerlingen zien status (pending/approved/rejected) |
+| E4 | Docenten kunnen opdrachten beoordelen | Dashboard met goedkeuren/afkeuren functie |
+| E5 | Feedback systeem | Docenten kunnen feedback geven, leerlingen zien dit |
 
 ### Wensen (Should/Could have)
 | Nr | Omschrijving |
 |----|---------------|
-| W1 | Docent kan zelf nieuwe opdrachten toevoegen |
-| W2 | Leerlingen zien direct feedback zonder refresh |
+| W1 | Overzicht van alle inzendingen voor docent |
+| W2 | Filter functionaliteit (per status, per leerling) |
 | W3 | Gebruiksvriendelijke interface met duidelijke flow |
 
 ---
