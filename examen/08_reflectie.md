@@ -7,40 +7,42 @@ Aantonen dat er is gereflecteerd op het proces tijdens een retrospective (eisen 
 
 ## 🎥 Retrospective-video
 
-- Openbare link: `<plaats hier openbare link>`  
+- Openbare link: `<retrospective teams-flow, link>`  
 - Aanwezig: `≥ 2 teamgenoten (excl. jijzelf)`  
-- Jij spreekt: `≥ 3 minuten`
+- Jij spreekt: `≥ 3 minuten` (deel over teamcodes/statustracking)
 
 ---
 
 ## ✅ Wat ging goed (positief)
 
-- Eenvoudige afbakening (geen realtime/uploads) verhoogde snelheid en focus  
-- Duidelijke non-CRUD flow (approve/reject) gaf stevige meerwaarde  
-- Samenwerking: korte afstemming en duidelijke verantwoordelijkheden per sprint
+- Teamcode-login bleek intuïtief voor leerlingen; weinig supportvragen  
+- Statusflow met `Locked → Available → Pending → Feedback/Approved` gaf duidelijke structuur  
+- Visuele voortgangsgrafiek hielp docenten bij voortgangsgesprekken  
+- Samenwerking Davey (leerlingflows/tests) & Jada (docentdashboard/teambeheer) liep strak via sprintplanningen
 
 ---
 
 ## 🔁 Wat kan beter (verbeterpunten)
 
-- Eerder API-validatie definiëren om rework te beperken  
-- Kleinere PR’s en eerder tests schrijven  
-- Vaker gebruikersfeedback (docent/leerling) tijdens ontwikkeling
+- Teambeheer had in Sprint 1 al getest moeten worden met docenten → nu pas later feedback  
+- Statusovergangen vooraf modelleren zodat backend/ frontend synchroon blijven  
+- Notificaties eerder mocken zodat we sneller konden testen zonder echte service
 
 ---
 
 ## 🗣️ Omgaan met feedback
 
-- We hebben feedback op verplicht feedbackveld bij `reject` verwerkt door server-side validatie te eisen.  
-- UX-lege-staat toegevoegd na opmerking over onduidelijke pagina zonder inzendingen.
+- Docent vroeg om automatische vrijgave volgende opdracht → toegevoegd aan statusflow (Approved → volgende Available)  
+- Feedback om teamcodes periodiek te vernieuwen → afgesproken in overleg + documentatie bijgewerkt  
+- Leerlingen wilden notificaties vasthouden → notificatiepaneel toegevoegd
 
 ---
 
 ## 👣 Acties voor volgende sprint/project
 
-1. Test-first bij status/feedback-processen  
-2. Branch-per-feature met korte PR’s en checklist  
-3. Vaste check-in met docent-gebruiker voor acceptatiecriteria
+1. State diagram goedkeuren vóór implementatie (docent + team)  
+2. Mock notificatieservice standaard in dev-setup  
+3. Weekelijkse usability-check met leerling + docent voor teamworkflow
 
 ---
 

@@ -7,58 +7,58 @@ Gerichte verbetervoorstellen formuleren op basis van testen, oplevering en refle
 
 ## 🧪 5.1 Verbeteringen op basis van testen
 
-1. Valideer maximale lengte `tekstAntwoord` ook server-side  
-   - Reden: componenttest toonde alleen client-validatie; API accepteerde > N chars.  
-   - Actie: schema/DTO-validatie toevoegen en test uitbreiden (API).  
-   - Verwacht effect: minder foutieve data, duidelijkere foutmeldingen.
+1. Teamcode throttling toevoegen  
+   - Reden: test `auth.team-login.post.test.ts` toont brute-force mogelijk.  
+   - Actie: rate-limit per IP/teamcode + lockout na 5 foute pogingen.  
+   - Effect: betere security en minder supportverzoeken.
 
-2. Verplicht `feedback` bij `reject` afdwingen in API  
-   - Reden: integratietest toont dat de UI dit doet, maar API liet lege feedback toe.  
-   - Actie: API validatie + 400 response bij leeg.  
-   - Verwacht effect: consistente data en betere uitleg aan leerlingen.
+2. Statusflow valideren bij backend  
+   - Reden: integratietest `submissions.patch-status` toonde dat docent `Approved` kan zetten als vorige opdracht nog `Pending`.  
+   - Actie: backend check toevoegen: volgorde respecteren voordat status naar `Approved` kan.  
+   - Effect: statusflow blijft consistent per team.
 
-3. Filters combineren (status + leerling)  
-   - Reden: componenttest signaleerde randgevallen bij gecombineerde filters.  
-   - Actie: testdata uitbreiden, filterlogica herschrijven voor AND-combinaties.  
-   - Verwacht effect: sneller beoordelen door docenten.
+3. Notificatieservice retry logic  
+   - Reden: notificatie test faalde bij timeouts → melding nooit verstuurd.  
+   - Actie: retry mechanisme + fallback queue implementeren, tests uitbreiden.  
+   - Effect: leerlingen missen minder feedbackmeldingen.
 
 ---
 
 ## 📦 5.2 Verbeteringen op basis van oplevering
 
-1. Leerlingoverzicht met duidelijke lege-staat  
-   - Reden: bij nul inzendingen is de pagina leeg; onduidelijk voor gebruiker.  
-   - Actie: lege-staat met call-to-action naar opdrachtenlijst.  
-   - Impact: betere UX en minder supportvragen.
+1. Teambeheer wizard  
+   - Reden: docenten vonden het lastig om leerlingen aan meerdere teams te koppelen.  
+   - Actie: wizard met stappen (teamnaam → leden → code genereren).  
+   - Impact: minder fouten en snellere onboarding.
 
-2. Bevestiging na indienen verbeteren  
-   - Reden: huidige notificatie valt niet op.  
-   - Actie: duidelijke toast + teruglink naar “mijn inzendingen”.  
-   - Impact: betere flow en minder dubbeleving.
+2. Visuele voortgang per team uitbreiden  
+   - Reden: huidige grafiek toont alleen percentage, geen detail per opdracht.  
+   - Actie: drill-down mogelijkheid per leerling en per opdrachtstatus.  
+   - Impact: docenten zien sneller waar teams vastlopen.
 
-3. Docentoverzicht: sorteren op meest recent  
-   - Reden: nieuwe inzendingen staan niet altijd bovenaan.  
-   - Actie: default sort op `aangemaaktOp DESC`.  
-   - Impact: efficiënter beoordelen.
+3. Leerling dashboard notificatie-paneel  
+   - Reden: notificaties verdwijnen na refresh, waardoor feedback gemist wordt.  
+   - Actie: persistent paneel met alle recente meldingen + “markeer als gelezen”.  
+   - Impact: betere communicatie en minder herhaalde vragen.
 
 ---
 
 ## 🔁 5.3 Verbeteringen op basis van reflectie
 
-1. Kleine PR’s met gerichte scope  
-   - Observatie: features werden soms in één grote PR opgeleverd.  
-   - Actie: max ~300 regels per PR; duidelijke beschrijving en checklist.  
-   - Verwacht effect: snellere review en minder regressies.
+1. Teamwork synchroniseren met echte gebruikers  
+   - Observatie: teamcodes en voortgang zijn bedacht zonder echte docent input.  
+   - Actie: voor elke sprint een korte check-in met docent over teamstructuur.  
+   - Effect: minder rework doordat workflow beter aansluit.
 
-2. Test-first bij status/feedback  
-   - Observatie: tests kwamen na implementatie; leidde tot ombouw.  
-   - Actie: eerst API/validatie-tests schrijven bij nieuwe status-flows.  
-   - Verwacht effect: minder rework, hogere dekking.
+2. Statusdiagram vooraf tekenen  
+   - Observatie: statusovergangen werden gaandeweg aangepast, leidde tot bugs.  
+   - Actie: eerst activity/state diagram finaliseren voordat code verandert.  
+   - Effect: duidelijk alignment tussen ontwerp, tests en implementatie.
 
-3. Afstemming met docent-gebruiker over reject-criteria  
-   - Observatie: feedback verplichting kwam laat aan het licht.  
-   - Actie: vooraf mini-afspraak met acceptatiecriteria per flow.  
-   - Verwacht effect: minder wijzigingsverzoeken achteraf.
+3. Notificaties mocken in dev  
+   - Observatie: notificaties werden handmatig getest, kostte tijd.  
+   - Actie: local mockservice + scripts zodat meerdere ontwikkelaars parallel kunnen werken.  
+   - Effect: sneller itereren en minder afhankelijkheid van externe services.
 
 ---
 

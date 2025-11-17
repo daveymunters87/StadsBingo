@@ -40,29 +40,33 @@ Een **bingo-applicatie** voor school waarbij leerlingen opdrachten uitvoeren in 
 
 ## 📖 Project Omschrijving
 
-**StadsBingo** is een webapplicatie waarbij leerlingen opdrachten uitvoeren in de stad en docenten deze live kunnen beoordelen.
+**StadsBingo** is een webapplicatie waarbij docenten **teams** aanmaken, leerlingen via **teamcodes** laten inloggen en opdrachten in een vaste volgorde laten uitvoeren. Docenten beoordelen de opdrachten, geven feedback en monitoren de voortgang van elk team.
 
-**Kernfunctionaliteit:**
-- Leerlingen zien een lijst met opdrachten
-- Leerlingen kunnen opdrachten "claimen" en uitvoeren
-- Docenten zien alle inzendingen en kunnen goedkeuren/afkeuren
-- Status updates zichtbaar voor leerlingen
+**Kernworkflow:**
+1. Docent maakt een team aan, koppelt leerlingen en genereert een teamcode.
+2. Leerlingen loggen in met de teamcode en zien de opdrachten die voor hun team beschikbaar zijn.
+3. Elke opdracht kent één van de statussen: `Locked`, `Available`, `Pending`, `Feedback`, `Approved`.
+4. Leerlingen leveren tekstantwoorden in; docenten beoordelen en geven feedback.
+5. Bij `Approved` wordt de volgende opdracht vrijgegeven; bij `Feedback` krijgt de leerling een notificatie om opnieuw in te leveren.
+6. Docenten hebben filters op team, leerling en status én zien een visuele voortgang per team.
 
 ---
 
 ## ✨ Features
 
 ### Voor Leerlingen (Students)
-- 📝 Bekijk alle beschikbare opdrachten
-- ✍️ Dien opdrachten in met een antwoord
-- 📊 Zie de status van je inzendingen (pending/approved/rejected)
-- 💬 Ontvang feedback van docenten
+- 🔐 Login met teamcode en beveiligde toegang per team
+- 📋 Opdrachtenlijst met statussen (`Locked`, `Available`, `Pending`, `Feedback`, `Approved`)
+- ✍️ Dien opdrachten in en verwerk feedback
+- 📈 Visuele voortgang per opdracht en team
+- 🔔 Notificatie bij nieuwe feedback/aanpassingen
 
-### Voor Docenten (Teachers)
-- 👀 Bekijk alle ingediende opdrachten
-- ✅ Keur opdrachten goed of af
-- 💭 Geef feedback aan leerlingen
-- 📈 Overzicht van alle inzendingen
+### Voor Docenten (Teachers/Admin)
+- 👥 Teams beheren (aanmaken, verwijderen, leden koppelen) + teamcodes genereren
+- 🗂️ Opdrachten beheren (aanmaken, bijlagen)
+- 🧮 Overzicht per team/leerling met filter op status, leerling, opdracht
+- ✅ Goedkeuren of `Feedback` geven; bij feedback verplicht tekstveld
+- 📊 Visuele voortgangsweergave per team
 
 ---
 

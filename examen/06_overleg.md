@@ -8,10 +8,12 @@ Aantonen dat er actief is deelgenomen aan overlegmomenten en dat afspraken SMART
 ## 🎥 Video-bewijs (6.1 & 6.2)
 
 - Daily stand-up (≥ 5 min, met ≥ 1 niet-student):  
-  Link: `<plaats hier openbare link>`
+  Link: `<team-standup met docent, link>`
+  - Onderwerpen: status teams, pending opdrachten, notificaties.
 
 - Overleg-/design-/feedbacksessie (≥ 5 min):  
-  Link: `<plaats hier openbare link>`
+  Link: `<overleg docent + student, link>`
+  - Onderwerpen: teamcode distributie, workflow locked → approved, voortgangsgrafieken.
 
 > Zorg dat de video openbaar gedeeld is en het aanwezige publiek hoorbaar/zichtbaar is.
 
@@ -21,22 +23,23 @@ Aantonen dat er actief is deelgenomen aan overlegmomenten en dat afspraken SMART
 
 Formuleer SMART en voeg bewijs toe dat afspraken zijn nagekomen.
 
-1. Beoordelen pending inzendingen elke werkdag 11:00  
-   - Specifiek: Alle `pending` inzendingen worden door docent nagekeken.  
-   - Meetbaar: Inbox = 0 aan het einde van de stand-up.  
-   - Acceptabel: Afgestemd met docentrol.  
-   - Realistisch: Gemiddeld < 10 inzendingen/dag.  
-   - Tijdgebonden: Dagelijks om 11:00.  
+1. Teamcodes vernieuwen elke maandag 09:00  
+   - Specifiek: Nieuwe codes genereren en delen met docenten.  
+   - Meetbaar: logbestand met 100% actieve teams (geen verlopen codes).  
+   - Acceptabel: afgestemd met docent voor veiligheid.  
+   - Realistisch: ±10 teams.  
+   - Tijdgebonden: wekelijks maandag 09:00.  
+   - Verantwoordelijke: Davey.  
+   - Bewijs: `examen/bewijsmateriaal/06/teamcodes_log_week1.png`.
+
+2. Pending inzendingen binnen 24u afgerond  
    - Verantwoordelijke: Jada.  
+   - Meetbaar: `pending` kolom = 0 elke dag om 16:00.  
    - Bewijs: `examen/bewijsmateriaal/06/review_log_week1.png`.
 
-2. Indienen module gereed met validatie en tests vóór 15-11  
+3. Visuele voortgang demo klaar vóór 20-11  
    - Verantwoordelijke: Davey.  
-   - Bewijs: PR link + testresultaten `examen/bewijsmateriaal/06/indienen_pr.png`.
-
-3. UX-lege-staat opleveren vóór 18-11  
-   - Verantwoordelijke: Davey.  
-   - Bewijs: Screenshot `examen/bewijsmateriaal/06/empty_state.png`.
+   - Bewijs: screenshot + link `examen/bewijsmateriaal/06/progress_demo.png`.
 
 ---
 

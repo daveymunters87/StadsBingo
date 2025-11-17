@@ -2,53 +2,63 @@
 
 ## 📊 UML-diagrammen
 
-### 1️⃣ ERD / Class Diagram (vereenvoudigd domeinmodel)
+### 1️⃣ ERD / Class Diagram
 **Beschrijving:**  
-Dit diagram toont de entiteiten en relaties van de vereenvoudigde StadsBingo-applicatie (geen kaart, geen uploads, geen realtime).
+Dit diagram toont de entiteiten en relaties van de StadsBingo-applicatie met **teams**, **teamcodes** en een opdrachten-flow met statussen.
 
 **Entiteiten:**
 - **Gebruiker** (abstract; velden: `id`, `naam`, `email`, `rol`)
 - **Leerling** (erft van Gebruiker)
 - **Docent** (erft van Gebruiker)
-- **Opdracht** (`id`, `titel`, `beschrijving`, `actief`)
-- **Inzending** (`id`, `opdrachtId`, `leerlingId`, `tekstAntwoord`, `status`, `feedback`, `aangemaaktOp`)
+- **Team** (`id`, `naam`, `teamCode`)
+- **TeamLidmaatschap** (`id`, `teamId`, `leerlingId`)
+- **Opdracht** (`id`, `titel`, `beschrijving`, `volgorde`, `actief`)
+- **Inzending** (`id`, `opdrachtId`, `leerlingId`, `teamId`, `tekstAntwoord`, `status`, `feedback`, `aangemaaktOp`)
 
 **Relaties:**
+- 1-op-n: Docent → Team (één docent kan meerdere teams beheren)  
+- 1-op-n: Team → TeamLidmaatschap (één team, meerdere teamleden)  
+- 1-op-n: Leerling → TeamLidmaatschap (leerling gekoppeld aan team(s))  
+- 1-op-n: Team → Inzending (één team, meerdere inzendingen)  
 - 1-op-n: Opdracht → Inzending (één opdracht, meerdere inzendingen)  
 - 1-op-n: Leerling → Inzending (één leerling, meerdere inzendingen)  
 - n-op-n (impliciet via Inzending): Leerling ↔ Opdracht  
 - Gebruiker is abstract; Leerling en Docent erven van Gebruiker  
 
-**Notities bij README-afbakening:**
-- Geen `Kaart` of `Pinpoint` entiteiten.
-- `Inzending.tekstAntwoord` in plaats van bestand-uploads.
-- `Inzending.status ∈ {pending, approved, rejected}`.
+**Notities bij afbakening:**
+- Geen kaart- of locatie-entiteiten; focus ligt op teams, opdrachten en beoordeling.  
+- `Inzending.tekstAntwoord` is een tekstveld (geen bestand-uploads).  
+- `Inzending.status ∈ {Locked, Available, Pending, Feedback, Approved}`; `Locked` wordt afgeleid op basis van `volgorde` en eerdere inzendingen.
 
 **ERD afbeelding (plaats in bewijsmateriaal):**  
 `examen/bewijsmateriaal/02/erd.png`
 
 ---
 
-### 2️⃣ Sequence Diagram – Indienen en Beoordelen
+### 2️⃣ Sequence Diagram – Inloggen, indienen en beoordelen
 **Beschrijving:**  
-Flow van leerling die indient en docent die beoordeelt (zonder realtime).
+Flow van leerling die met een **teamcode** inlogt, een opdracht indient en docent die beoordeelt, inclusief status-overgangen.
 
 **Objecten:**
 - Leerling  
+- LoginView  
+- OpdrachtenDashboard (leerling)  
 - OpdrachtDetailView  
-- API (POST /inzendingen)  
 - DocentDashboard  
-- API (PATCH /inzendingen/:id)  
+- API (`POST /auth/team-login`, `GET /opdrachten`, `GET /inzendingen`, `POST /inzendingen`, `PATCH /inzendingen/:id`)  
 - Database  
 
-**Proces:**  
-1. Leerling opent opdracht-detail en vult tekst in.  
-2. OpdrachtDetailView → API: maak Inzending (status = pending).  
-3. Database slaat Inzending op.  
-4. DocentDashboard haalt openstaande inzendingen op.  
-5. Docent kiest approve/reject en vult feedback in.  
-6. API werkt `status` en `feedback` bij.  
-7. Leerling ziet bij refresh status/feedback.
+**Proces**  
+1. Leerling opent de app en voert teamcode in bij **LoginView**.  
+2. LoginView → API: `POST /auth/team-login` met `teamCode`.  
+3. API valideert de code, zoekt het bijbehorende **Team** en gekoppelde **Leerling** op en geeft een sessie/token terug.  
+4. **OpdrachtenDashboard** → API: `GET /opdrachten` voor dit team/leerling; API bepaalt per opdracht de status (`Locked`, `Available`, `Pending`, `Feedback`, `Approved`).  
+5. Leerling opent een **Available** opdracht in **OpdrachtDetailView**, vult tekst in en verstuurt.  
+6. OpdrachtDetailView → API: `POST /inzendingen` → Database slaat **Inzending** op met status `Pending`.  
+7. **DocentDashboard** → API: `GET /inzendingen?teamId=...&status=Pending` toont openstaande inzendingen gefilterd op team en status.  
+8. Docent beoordeelt: DocentDashboard → API: `PATCH /inzendingen/:id` met status `Approved` of `Feedback` + feedbacktekst.  
+9. Bij `Approved` markeert backend de volgende opdracht in de volgorde als `Available` voor deze leerling (en team).  
+10. Leerling opent opnieuw het dashboard en ziet bijgewerkte statussen en feedback.
 
 **Sequence diagram afbeelding:**  
 `examen/bewijsmateriaal/02/sequence.png`

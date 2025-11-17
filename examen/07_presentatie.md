@@ -7,23 +7,24 @@ Bewijs leveren van een duidelijke, overtuigende presentatie over het opgeleverde
 
 ## 🎥 Presentatievideo
 
-- Openbare link: `<plaats hier openbare link>`  
+- Openbare link: `<demo van team-workflow, link>`  
 - Duur: `≥ 5 minuten`  
-- Publiek: `≥ 1 niet-student` zichtbaar/hoorbaar
+- Publiek: `≥ 1 niet-student` (bijv. docent/coach) zichtbaar/hoorbaar
 
 ---
 
 ## 🗒️ Inhoud presentatie (leidraad)
 
-- Probleem en doel van StadsBingo (korte pitch)  
+- Probleem en doel van StadsBingo (teams + opdrachten-flow)  
 - Demo kernflows:  
-  1) Opdrachtenlijst  
-  2) Indienen tekstantwoord  
-  3) Docent beoordeelt (approve/reject + feedback)  
-  4) Leerling ziet status/feedback  
-- Technische keuzes: Next.js, Prisma, Postgres (geen realtime/uploads)  
-- Jouw bijdrage en impact  
-- Vragen en feedbackmomenten tussendoor
+  1) Docent maakt team en genereert teamcode  
+  2) Leerling logt in met teamcode en ziet statussen (`Locked`, `Available`, …)  
+  3) Leerling levert opdracht in → status `Pending`  
+  4) Docent beoordeelt → `Feedback` of `Approved`, notificatie naar leerling  
+  5) Visuele voortgang per team en filters in docentdashboard  
+- Technische keuzes: Next.js, Prisma, Team-statusmodel, notificaties (zonder realtime)  
+- Jouw bijdrage: wie bouwde teambeheer, statusflow, tests, etc.  
+- Interactieve Q&A: laat docent feedback geven, toon hoe je reageert
 
 ---
 

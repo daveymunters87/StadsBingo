@@ -19,25 +19,35 @@ Bewijs dat (onderdelen van) de software zijn gerealiseerd met goede codekwalitei
 
 ## 🧩 Functionaliteit (Non-CRUD workflow)
 
-Naast standaard CRUD toont dit project een non-CRUD workflow: **approve/reject met feedback** door een docent.
+Naast standaard CRUD bevat het project een workflow waarin docenten **teams beheren**, leerlingen via **teamcodes** inloggen en opdrachten in een **statusgestuurde flow** afronden.
 
 ### Hoofdflows
-- Leerling: bekijkt opdrachten → dient tekstantwoord in (status: `pending`).  
-- Docent: bekijkt inzendingen → kiest `approve` of `reject` + vult `feedback` → status en feedback worden zichtbaar voor leerling.
+- **Docent/Admin**
+  - Maakt teams aan, genereert teamcodes en koppelt leerlingen.
+  - Beheert opdrachten (volgorde, optionele deadline/bijlage).
+  - Bekijkt inzendingen per team/leerling/status, beoordeelt met `Approved` of `Feedback` en stuurt notificaties.
+  - Ziet visuele voortgang per team/leerling.
+- **Leerling**
+  - Logt in met teamcode en ziet opdrachtenlijst met statussen `Locked`, `Available`, `Pending`, `Feedback`, `Approved`.
+  - Levert tekstantwoord in → `Pending`.
+  - Bij `Feedback` ziet hij feedback en kan opnieuw indienen; bij `Approved` wordt automatisch de volgende opdracht `Available`.
 
 ### Endpoints (conceptueel)
-- POST `/api/inzendingen` – maakt inzending met `tekstAntwoord` en koppelt aan `opdrachtId` en ingelogde leerling.  
-- GET `/api/inzendingen?status=pending` – docentoverzicht.  
-- PATCH `/api/inzendingen/:id` – stelt `status` en `feedback` in (alleen docent).
+- `POST /api/auth/team-login` – valideert teamcode en koppelt leerling aan team-sessie.
+- `GET /api/opdrachten` – levert opdrachten plus status per leerling/team (afgeleid uit volgorde en inzendingen).
+- `POST /api/inzendingen` – maakt inzending met `teamId`, `opdrachtId`, `tekstAntwoord`, status `Pending`.
+- `GET /api/inzendingen?teamId=&status=&leerlingId=` – docentoverzicht inclusief filters.
+- `PATCH /api/inzendingen/:id` – docent wijzigt status naar `Approved` of `Feedback` (feedback verplicht).
+- `POST /api/notifications` (optioneel) – docent kan notificatie naar leerlingen sturen bij feedback of updates.
 
 ---
 
 ## 🧱 Structuur (indicatief)
 
-- `app/` – Next.js pages/routes (leerling- en docentviews)  
-- `app/api/` – API routes (inzendingen CRUD + review)  
-- `prisma/schema.prisma` – datamodel (`Opdracht`, `Inzending`, `User`)  
-- `components/` – UI componenten (lijst, formulieren, overzichten)
+- `app/` – Next.js routes voor team-login, leerlingdashboard, docentdashboard, teambeheer.
+- `app/api/` – API routes voor auth, teams, teamleden, opdrachten, inzendingen, notificaties.
+- `prisma/schema.prisma` – datamodel met `User`, `Team`, `TeamMembership`, `Assignment`, `Submission`, uitbreidingen voor status & volgorde.
+- `components/` – UI componenten voor statusbadges, voortgangsbalken, filters, modals voor feedback/notificaties.
 
 ---
 
@@ -45,18 +55,18 @@ Naast standaard CRUD toont dit project een non-CRUD workflow: **approve/reject m
 
 | Nr. | Onderdeel | Bewijs |
 | --- | --------- | ------ |
-| 3.1 | User stories gerealiseerd | Basisstories uit `01_plant_werkzaamheden.md` zijn uitgevoerd: lijst, indienen, beoordelen, status/feedback |
-| 3.2 | Voldoet aan eisen | E1–E5 gedekt in domein en UI; geen map/uploads/realtime (zie README-afbakening) |
-| 3.3 | Codekwaliteit | TypeScript, scheiding concerns, server-side validaties, eenvoudige foutafhandeling |
-| 3.4 | Conventions | Lint/format via Biome; consistente naamgeving en mapstructuur |
-| 3.5 | Leesbaarheid | Kleine componenten, duidelijke functienamen, beperkte complexiteit |
+| 3.1 | User stories gerealiseerd | Stories uit `01_plant_werkzaamheden.md` (team-login, statusweergave, feedbackloop, docentfilters) zijn uitgebouwd |
+| 3.2 | Voldoet aan eisen | E1–E7 + wensen (visuele voortgang, notificaties) werken in code en UI |
+| 3.3 | Codekwaliteit | TypeScript, Prisma, services per domein, server-side validaties op teamcode & statusovergangen |
+| 3.4 | Conventions | Biome lint/format, feature branches (`feature/team-login`, `feature/docent-dashboard`, etc.) |
+| 3.5 | Leesbaarheid | Componenten/API-handlers klein en gedocumenteerd; duidelijke bestandsstructuur |
 
 ---
 
 ## 🧩 Versiebeheer (3.6)
 
 - Minimaal 10 commits, 2+ branches en PR’s.  
-- Aanbevolen branching: `main`, `feature/indienen-tekst`, `feature/docent-beoordelen`, `feature/status-feedback`, `chore/tests`.
+- Aanbevolen branching: `feature/team-login`, `feature/team-management`, `feature/assignment-flow`, `feature/docent-filters`, `chore/tests`.
 
 ### Bewijs (plaats in `examen/bewijsmateriaal/03/`)
 - `commit_history.png` – schermfoto Git log  
@@ -68,17 +78,19 @@ Naast standaard CRUD toont dit project een non-CRUD workflow: **approve/reject m
 ## 🔍 Screens & Bewijs (functioneel)
 
 Plaats in `examen/bewijsmateriaal/03/`:
-- `leerling_lijst.png` – opdrachtenlijst  
-- `leerling_indienen.png` – formulier tekstantwoord  
-- `docent_overzicht.png` – openstaande inzendingen  
-- `docent_beoordelen.png` – approve/reject met feedback  
-- `leerling_status.png` – status/feedback zichtbaar na refresh
+- `team_login.png` – teamcode-login
+- `leerling_opdrachten.png` – opdrachtenlijst met statusbadges
+- `leerling_indienen.png` – formulier tekstantwoord (`Pending`)
+- `feedback_notificatie.png` – melding voor leerling bij feedback
+- `visuele_voortgang.png` – voortgangsbalk per team/leerling
+- `docent_filters.png` – docentdashboard met filters (team/leerling/status)
+- `docent_beoordelen.png` – beoordeling met verplicht feedbackveld
 
 ---
 
 ## 📌 Opmerkingen
 
-- Afbakening is bewust eenvoudig om aan examen-eisen te voldoen.  
-- Geen realtime, geen uploads: risico’s en complexiteit verlaagd, focus op E1–E5.
+- Afbakening focust op teams, statusflow en notificaties; realtime features zijn niet nodig voor de eisen.
+- Geen bestand-uploads of kaartintegratie; daardoor blijft scope beheersbaar en toetsbaar.
 
 
