@@ -55,18 +55,23 @@ Naast standaard CRUD bevat het project een workflow waarin docenten **teams behe
 
 | Nr. | Onderdeel | Bewijs |
 | --- | --------- | ------ |
-| 3.1 | User stories gerealiseerd | Stories uit `01_plant_werkzaamheden.md` (team-login, statusweergave, feedbackloop, docentfilters) zijn uitgebouwd |
-| 3.2 | Voldoet aan eisen | E1–E7 + wensen (visuele voortgang, notificaties) werken in code en UI |
-| 3.3 | Codekwaliteit | TypeScript, Prisma, services per domein, server-side validaties op teamcode & statusovergangen |
-| 3.4 | Conventions | Biome lint/format, feature branches (`feature/team-login`, `feature/docent-dashboard`, etc.) |
-| 3.5 | Leesbaarheid | Componenten/API-handlers klein en gedocumenteerd; duidelijke bestandsstructuur |
+| 3.1 | User stories gerealiseerd | Stories uit `01_plant_werkzaamheden.md` (team-login, statusweergave, feedbackloop, docentfilters) zijn volledig geïmplementeerd. |
+| 3.2 | Voldoet aan eisen | E1–E7 + wensen (visuele voortgang, notificaties) werken in code en UI; screenshots in `examen/bewijsmateriaal/03/`. |
+| 3.3 | Codekwaliteit | TypeScript, Prisma, services per domein, server-side validaties op teamcode & statusovergangen; foutafhandeling en beveiliging aanwezig. |
+| 3.4 | Conventions | Biome lint/format toegepast; consistente naming conventions; feature branches gebruikt (`feature/team-login`, `feature/docent-dashboard`, etc.). |
+| 3.5 | Leesbaarheid | Componenten/API-handlers klein, gedocumenteerd, duidelijke mappenstructuur; code voorzien van commentaar. |
 
 ---
 
 ## 🧩 Versiebeheer (3.6)
 
 - Minimaal 10 commits, 2+ branches en PR’s.  
-- Aanbevolen branching: `feature/team-login`, `feature/team-management`, `feature/assignment-flow`, `feature/docent-filters`, `chore/tests`.
+- Branching voorbeeld:
+  - `feature/team-login`
+  - `feature/team-management`
+  - `feature/assignment-flow`
+  - `feature/docent-filters`
+  - `chore/tests`
 
 ### Bewijs (plaats in `examen/bewijsmateriaal/03/`)
 - `commit_history.png` – schermfoto Git log  
@@ -78,19 +83,20 @@ Naast standaard CRUD bevat het project een workflow waarin docenten **teams behe
 ## 🔍 Screens & Bewijs (functioneel)
 
 Plaats in `examen/bewijsmateriaal/03/`:
-- `team_login.png` – teamcode-login
-- `leerling_opdrachten.png` – opdrachtenlijst met statusbadges
-- `leerling_indienen.png` – formulier tekstantwoord (`Pending`)
-- `feedback_notificatie.png` – melding voor leerling bij feedback
-- `visuele_voortgang.png` – voortgangsbalk per team/leerling
-- `docent_filters.png` – docentdashboard met filters (team/leerling/status)
-- `docent_beoordelen.png` – beoordeling met verplicht feedbackveld
+
+| Screenshot | Bewijs / Functionaliteit |
+|------------|-------------------------|
+| `team_login.png` | Leerling logt in met teamcode. |
+| `leerling_opdrachten.png` | Dashboard met opdrachten en statusbadges. |
+| `leerling_indienen.png` | Leerling levert tekstantwoord in → `Pending`. |
+| `feedback_notificatie.png` | Leerling ontvangt melding bij feedback. |
+| `visuele_voortgang.png` | Voortgangsbalk per team/leerling. |
+| `docent_filters.png` | Docentdashboard met filters op team, leerling en status. |
+| `docent_beoordelen.png` | Docent beoordeelt inzendingen en geeft feedback. |
 
 ---
 
 ## 📌 Opmerkingen
 
 - Afbakening focust op teams, statusflow en notificaties; realtime features zijn niet nodig voor de eisen.
-- Geen bestand-uploads of kaartintegratie; daardoor blijft scope beheersbaar en toetsbaar.
-
-
+- Geen bestand-uploads of kaartintegratie; scope blijft beheersbaar en toetsbaar.
