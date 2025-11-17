@@ -10,11 +10,8 @@ datasource db {
 }
 
 /////////////////////////
-// Models for StadsBingo - Simplified Version
-// Voldoet aan examen eisen:
-// - 3 entiteiten (User, Assignment, Submission)
-// - 1-op-n relaties (User→Submission, Assignment→Submission)
-// - Enums voor Role en Status
+// Models for StadsBingo - Updated Version
+// Inclusief: tekst of foto inzending, uitgebreide status-flow
 /////////////////////////
 
 model User {
@@ -30,7 +27,7 @@ model Assignment {
   id          String       @id @default(cuid())
   title       String
   description String
-  location    String       // Simpele text ipv coordinaten (bijv. "Bij de bibliotheek")
+  location    String       // Bijv. "Bij de bibliotheek"
   createdAt   DateTime     @default(now())
   submissions Submission[]
 }
@@ -39,15 +36,16 @@ model Submission {
   id           String   @id @default(cuid())
   userId       String
   assignmentId String
-  answer       String   // Text antwoord, geen bestand upload
+  answerText   String?  // Tekstantwoord
+  answerImage  String?  // URL/Pad van foto
   status       Status   @default(PENDING)
   feedback     String?  // Optionele feedback van docent
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
-  
+
   user         User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   assignment   Assignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
-  
+
   @@index([userId])
   @@index([assignmentId])
   @@index([status])
@@ -64,7 +62,9 @@ enum Role {
 }
 
 enum Status {
-  PENDING   // In afwachting van beoordeling
-  APPROVED  // Goedgekeurd door docent
-  REJECTED  // Afgekeurd door docent
+  LOCKED      // Nog niet beschikbaar
+  AVAILABLE   // Kan uitgevoerd worden
+  PENDING     // In afwachting van beoordeling
+  FEEDBACK    // Afgekeurd / feedback aanwezig
+  APPROVED    // Goedgekeurd door docent
 }

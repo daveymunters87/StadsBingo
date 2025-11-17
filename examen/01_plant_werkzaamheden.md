@@ -9,7 +9,7 @@ Het project volgt de **scrum-aanpak** met sprints van 2 weken.
 - Docent maakt teams aan, genereert teamcodes en koppelt leerlingen aan een team.
 - Leerlingen loggen in met hun teamcode en zien de opdrachten die voor hun team beschikbaar zijn.
 - Elke opdracht heeft een status: `Locked`, `Available`, `Pending`, `Feedback`, `Approved`.
-- Leerlingen leveren per opdracht een tekstantwoord in; docenten keuren goed of geven feedback.
+- Leerlingen leveren per opdracht een tekst of foto in; docenten keuren goed of geven feedback.
 - Op basis van de beoordeling verandert de status en wordt de volgende opdracht vrijgegeven.
 - Zowel docent als leerling zien een visuele voortgang over opdrachten en teams.
 
@@ -23,7 +23,7 @@ Het project volgt de **scrum-aanpak** met sprints van 2 weken.
 | E1 | Teams beheren en teamcodes genereren | Docent kan teams aanmaken, bekijken en per team een code genereren |
 | E2 | Leerlingen inloggen met teamcode | Leerlingen krijgen toegang tot opdrachten via een teamcode |
 | E3 | Opdrachtenlijst per team bekijken | Leerlingen zien opdrachten die voor hun team beschikbaar zijn |
-| E4 | Opdrachten indienen | Leerlingen leveren per opdracht een tekstantwoord in |
+| E4 | Opdrachten indienen | Leerlingen leveren per opdracht een tekst of foto in |
 | E5 | Opdrachtstatus en feedback bekijken | Leerlingen zien status (`Locked`, `Available`, `Pending`, `Feedback`, `Approved`) en feedback |
 | E6 | Inzendingen beoordelen | Docenten keuren opdrachten goed of geven feedback |
 | E7 | Overzichten en filters voor docent | Docent kan op team, leerling en status filteren in het overzicht |
@@ -99,18 +99,18 @@ Een user story is **done** wanneer:
 
 ---
 
-### 3. Opdracht indienen & feedback verwerken
+### 3. Opdracht indienen & feedback verwerken (Update)
 
 | **Als een...** | Leerling |
 |----------------|----------|
-| **Wil ik...**  | een opdracht kunnen inleveren en feedback kunnen verwerken |
+| **Wil ik...**  | een opdracht kunnen inleveren als tekst of foto en feedback kunnen verwerken |
 | **Zodat ik...** | bij goedkeuring door kan naar de volgende opdracht |
 | **Prioriteit** | Must have |
-| **Acceptatiecriteria** | 1️⃣ Validatie leeg/te lang op tekstantwoord<br>2️⃣ Na indienen wordt status `Pending`<br>3️⃣ Bij `Feedback` ziet leerling feedbacktekst en kan opnieuw indienen → status terug naar `Pending`<br>4️⃣ Bij `Approved` wordt volgende opdracht `Available` |
-| **Scenario** | 1. Open opdracht → 2. Vul antwoord in → 3. Verstuur → 4. Status `Pending` → 5. Docent keurt af met feedback → 6. Leerling past aan en dient opnieuw in |
-| **DoD** | Status-flow (`Available` → `Pending` → `Feedback`/`Approved`) werkt end-to-end |
+| **Acceptatiecriteria** | 1️⃣ Validatie: minimaal één van `tekst` of `foto` aanwezig<br>2️⃣ Na indienen wordt status `Pending`<br>3️⃣ Bij `Feedback` ziet leerling feedbacktekst en kan opnieuw indienen → status terug naar `Pending`<br>4️⃣ Bij `Approved` wordt volgende opdracht `Available` |
+| **Scenario** | 1. Open opdracht → 2. Vul tekst of upload foto → 3. Verstuur → 4. Status `Pending` → 5. Docent keurt af met feedback → 6. Leerling past aan en dient opnieuw in |
+| **DoD** | Status-flow (`Available` → `Pending` → `Feedback`/`Approved`) werkt end-to-end voor tekst en/of foto |
 | **Verantwoordelijke** | Davey |
-| **Tijdsindicatie** | S/M (2–4 uur) |
+| **Tijdsindicatie** | M (2–4 uur) |
 
 ---
 
@@ -190,29 +190,17 @@ Een user story is **done** wanneer:
 
 ---
 
-## 📊 Scrum Board Schematisch
-
-**Sprint 1**
-| To Do | In Progress | Done |
-|-------|--------------|------|
-| Opdrachtenlijst | Indienen (tekst) | Beoordelen |
-
-**Sprint 2**
-| To Do | In Progress | Done |
-|-------|--------------|------|
-| Status/feedback | Filters | Tests |
-
----
-
 ## 🧾 Voortgangsbewaking (Criterium 1.4)
 
 **Doel:** aantonen dat voortgang actief is bewaakt en keuzes zijn gemaakt o.b.v. prioriteit.
 
-### Bewijsstukken (plaats in `examen/bewijsmateriaal/01/`)
+# Bewijsstukken – Examenopdracht 1
 
-| Datum | Type | Bestand | Toelichting |
-|--------|------|----------|--------------|
-| 2025-11-04 | Scrum board snapshot (begin Sprint 1) | `examen/bewijsmateriaal/01/sprint1_start.png` | Start Sprint 1 – basistaken To Do |
-| 2025-11-11 | Sprint 1 retrospectief | `examen/bewijsmateriaal/01/sprint1_retro.md` | Doorlooptijd indienen hoger; filters naar Sprint 2 |
-| 2025-11-18 | Scrum board snapshot (eind Sprint 1) | `examen/bewijsmateriaal/01/sprint1_end.png` | Basisflow afgerond |
-| 2025-11-25 | Commit overzicht | `examen/bewijsmateriaal/01/commit_list_sprint1.md` | Commits + korte omschrijving |
+| Datum      | Type                                  | Bestand                                               | Toelichting                                                                                       |
+|-----------|---------------------------------------|------------------------------------------------------|--------------------------------------------------------------------------------------------------|
+| 2025-11-04 | Scrum board snapshot (begin Sprint 1) | `examen/bewijsmateriaal/01/sprint1_start.png`       | Screenshot van het Kanban board aan het begin van Sprint 1. Toont alle basistaken in **To Do**, inclusief prioriteit, feature label en geschatte grootte. |
+| 2025-11-11 | Sprint 1 retrospectief                 | `examen/bewijsmateriaal/01/sprint1_retro.md`       | Markdown met terugblik op Sprint 1. Beschrijft doorlooptijd van taken, wat goed ging, wat verbeterd kan worden, en planning voor Sprint 2. |
+| 2025-11-18 | Scrum board snapshot (eind Sprint 1)  | `examen/bewijsmateriaal/01/sprint1_end.png`        | Screenshot van het Kanban board aan het einde van Sprint 1. Toont afgeronde taken in **Done**, taken die naar Sprint 2 verschoven zijn en voortgang van de basisflow. |
+| 2025-11-19 | Scrum board snapshot (begin Sprint 2) | `examen/bewijsmateriaal/01/sprint2_start.png`      | Screenshot van het Kanban board aan het begin van Sprint 2. Toont nieuwe taken die gepland zijn voor Sprint 2 en eventuele carry-over taken van Sprint 1. |
+| 2025-11-25 | Commit overzicht                        | `examen/bewijsmateriaal/01/commit_list_sprint1.md` | Lijst van commits gemaakt tijdens Sprint 1. Bevat korte omschrijving per commit en laat zien welke taken van de backlog zijn opgepakt. |
+

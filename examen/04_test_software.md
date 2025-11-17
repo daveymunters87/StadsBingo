@@ -76,16 +76,17 @@ tests/
 
 ### Scenario 3: Submission + feedbackloop
 **Hoofdscenario:**
-1. Leerling opent een `Available` opdracht, vult tekst in, verstuurt.
-2. Inzending wordt `Pending`.
-3. Docent geeft feedback; status wordt `Feedback`.
-4. Leerling ziet feedback, past opdracht aan, dient opnieuw in → `Pending`.
-5. Docent keurt goed → status `Approved`, volgende opdracht `Available`.
+1. Leerling opent een `Available` opdracht.
+2. Levert **tekst**, **foto** of **beide** in.
+3. Inzending wordt `Pending`.
+4. Docent geeft feedback; status wordt `Feedback`.
+5. Leerling ziet feedback, past opdracht aan (tekst/foto), dient opnieuw in → `Pending`.
+6. Docent keurt goed → status `Approved`, volgende opdracht `Available`.
 
 **Alternatieve scenario’s:**
-- Tekst leeg/te lang → validatiefout (client + server).
-- Docent geeft geen feedback bij status `Feedback` → API 400.
-- Dubbele inzending → duidelijke melding.
+- Geen tekst of foto → validatiefout (client + server)
+- Bestand te groot of niet ondersteund → foutmelding
+- Dubbele inzending → duidelijke melding
 
 ### Scenario 4: Docentfilters + beoordeling
 **Hoofdscenario:**
