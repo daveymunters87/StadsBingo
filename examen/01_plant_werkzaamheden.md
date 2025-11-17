@@ -1,17 +1,9 @@
 # 📘 StadsBingo – 01_plant_werkzaamheden.md
 
 ## 🧩 Projectomschrijving
-Het doel van dit project is het ontwikkelen van een **vereenvoudigde StadsBingo webapplicatie**.  
+Het doel van dit project is het ontwikkelen van een **StadsBingo webapplicatie**.  
 Leerlingen voeren opdrachten uit in de stad en docenten keuren deze opdrachten goed of af.  
 Het project volgt de **scrum-aanpak** met sprints van 2 weken.
-
-**Vereenvoudigd concept (conform README):**
-- Lijst met opdrachten (geen kaart/map integratie)
-- Tekstantwoorden (geen bestand-uploads)
-- Status zichtbaar na acties/refresh (geen realtime WebSockets)
-- Focus op core functionaliteit voor examen-eisen
-
-Referentie: zie `README.md` secties Features, Tech Stack en Quick Start.
 
 ---
 
@@ -21,7 +13,7 @@ Referentie: zie `README.md` secties Features, Tech Stack en Quick Start.
 | Nr | Omschrijving | Toelichting |
 |----|---------------|-------------|
 | E1 | Lijst met opdrachten bekijken | Leerlingen zien alle beschikbare opdrachten |
-| E2 | Opdrachten indienen met tekst | Leerlingen leveren een tekstantwoord in |
+| E2 | Opdrachten indienen | Leerlingen leveren een antwoord in |
 | E3 | Status bekijken | Leerlingen zien status (pending/approved/rejected) |
 | E4 | Beoordelen door docenten | Docenten keuren in een docentoverzicht goed/af |
 | E5 | Feedback tonen | Docentfeedback is zichtbaar bij de inzending |
@@ -37,7 +29,7 @@ Referentie: zie `README.md` secties Features, Tech Stack en Quick Start.
 ## ✅ Definition of Done (DoD)
 Een user story is **done** wanneer:
 - Functionaliteit werkt zoals beschreven (E1–E5)  
-- Tekstantwoorden zijn valide opgeslagen en gekoppeld  
+- antwoorden zijn opgeslagen en gekoppeld  
 - Status en feedback worden correct weergegeven  
 - Basis tests zijn aanwezig en slagen  
 - Code is leesbaar en in git gecommit (zie `README.md` workflow)
@@ -71,19 +63,21 @@ Een user story is **done** wanneer:
 | **Acceptatiecriteria** | 1️⃣ Lijst toont titel/beschrijving<br>2️⃣ Paginering of eenvoudige lijst<br>3️⃣ Detailpagina beschikbaar |
 | **Scenario** | 1. Leerling opent app → 2. Lijst verschijnt → 3. Klik toont details |
 | **DoD** | Lijst rendert stabiel met testdata |
+| **Verantwoordelijke** | Davey |
 | **Tijdsindicatie** | S (2 uur) |
 
 ---
 
-| Titel | Opdracht indienen (tekst) |
+| Titel | Opdracht indienen |
 |-------|----------------------------|
 | **Als een...** | Leerling |
-| **Wil ik...** | een tekstantwoord kunnen indienen |
+| **Wil ik...** | een antwoord kunnen indienen |
 | **Zodat ik...** | mijn uitvoering kan laten beoordelen |
 | **Prioriteit** | Must have |
 | **Acceptatiecriteria** | 1️⃣ Validatie leeg/te lang<br>2️⃣ Opslag gekoppeld aan opdracht & leerling<br>3️⃣ Status start als "pending" |
-| **Scenario** | 1. Open opdracht → 2. Vul tekst in → 3. Verstuur → 4. Bevestiging |
+| **Scenario** | 1. Open opdracht → 2. Vul antwoord in → 3. Verstuur → 4. Bevestiging |
 | **DoD** | Antwoord wordt opgeslagen en zichtbaar bij docent |
+| **Verantwoordelijke** | Davey |
 | **Tijdsindicatie** | M (4 uur) |
 
 ---
@@ -97,6 +91,7 @@ Een user story is **done** wanneer:
 | **Acceptatiecriteria** | 1️⃣ Status per inzending zichtbaar<br>2️⃣ Feedbacktekst zichtbaar<br>3️⃣ Geen realtime nodig (refresh) |
 | **Scenario** | 1. Open "mijn inzendingen" → 2. Zie status/feedback |
 | **DoD** | Weergave na pagina-refresh klopt |
+| **Verantwoordelijke** | Davey |
 | **Tijdsindicatie** | S (2 uur) |
 
 ---
@@ -106,12 +101,13 @@ Een user story is **done** wanneer:
 | Titel | Inzendingen beoordelen |
 |-------|------------------------|
 | **Als een...** | Docent |
-| **Wil ik...** | inzendingen kunnen goed- of afkeuren met feedback |
+| **Wil ik...** | inzendingen kunnen goed of afkeuren met feedback |
 | **Zodat ik...** | voortgang van leerlingen kan bewaken |
 | **Prioriteit** | Must have |
 | **Acceptatiecriteria** | 1️⃣ Overzicht van inzendingen<br>2️⃣ Acties: approve/reject<br>3️⃣ Feedbackveld verplicht bij reject |
 | **Scenario** | 1. Open docentoverzicht → 2. Selecteer inzending → 3. Kies status + feedback |
 | **DoD** | Status/feedback zichtbaar voor leerling |
+| **Verantwoordelijke** | Jada |
 | **Tijdsindicatie** | M (4 uur) |
 
 ---
@@ -124,6 +120,7 @@ Een user story is **done** wanneer:
 | **Prioriteit** | Should have |
 | **Acceptatiecriteria** | 1️⃣ Filter op status<br>2️⃣ Zoeken op leerlingnaam |
 | **DoD** | Filters wijzigen lijst zonder errors |
+| **Verantwoordelijke** | Jada |
 | **Tijdsindicatie** | S (2 uur) |
 
 ---
