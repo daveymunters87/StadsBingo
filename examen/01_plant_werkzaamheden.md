@@ -66,12 +66,14 @@ Een user story is **done** wanneer:
 
 ## 👥 User Stories
 
-### 📘 Leerling
 
-| Titel | Inloggen met teamcode |
-|-------|--------------------------|
+## 📘 Leerling (Davey)
+
+### 1. Inloggen met teamcode
+
 | **Als een...** | Leerling |
-| **Wil ik...** | kunnen inloggen met een teamcode |
+|----------------|----------|
+| **Wil ik...**  | kunnen inloggen met een teamcode |
 | **Zodat ik...** | toegang krijg tot de opdrachten van mijn team |
 | **Prioriteit** | Must have |
 | **Acceptatiecriteria** | 1️⃣ Inlogscherm met veld voor teamcode<br>2️⃣ Geldige code geeft toegang tot dashboard<br>3️⃣ Ongeldige code geeft duidelijke foutmelding |
@@ -82,10 +84,11 @@ Een user story is **done** wanneer:
 
 ---
 
-| Titel | Opdrachtenlijst en statussen bekijken |
-|-------|----------------------------|
+### 2. Opdrachtenlijst en statussen bekijken
+
 | **Als een...** | Leerling |
-| **Wil ik...** | een lijst van opdrachten met hun status zien |
+|----------------|----------|
+| **Wil ik...**  | een lijst van opdrachten met hun status zien |
 | **Zodat ik...** | weet welke opdrachten locked, beschikbaar, in behandeling of afgerond zijn |
 | **Prioriteit** | Must have |
 | **Acceptatiecriteria** | 1️⃣ Lijst toont titel/beschrijving + huidige status<br>2️⃣ `Locked` opdrachten zijn niet klikbaar<br>3️⃣ `Available`, `Pending`, `Feedback`, `Approved` duidelijk onderscheidbaar |
@@ -96,26 +99,28 @@ Een user story is **done** wanneer:
 
 ---
 
-| Titel | Opdracht indienen & feedback verwerken |
-|-------|----------------------------|
+### 3. Opdracht indienen & feedback verwerken
+
 | **Als een...** | Leerling |
-| **Wil ik...** | een opdracht kunnen inleveren en feedback kunnen verwerken |
+|----------------|----------|
+| **Wil ik...**  | een opdracht kunnen inleveren en feedback kunnen verwerken |
 | **Zodat ik...** | bij goedkeuring door kan naar de volgende opdracht |
 | **Prioriteit** | Must have |
 | **Acceptatiecriteria** | 1️⃣ Validatie leeg/te lang op tekstantwoord<br>2️⃣ Na indienen wordt status `Pending`<br>3️⃣ Bij `Feedback` ziet leerling feedbacktekst en kan opnieuw indienen → status terug naar `Pending`<br>4️⃣ Bij `Approved` wordt volgende opdracht `Available` |
 | **Scenario** | 1. Open opdracht → 2. Vul antwoord in → 3. Verstuur → 4. Status `Pending` → 5. Docent keurt af met feedback → 6. Leerling past aan en dient opnieuw in |
 | **DoD** | Status-flow (`Available` → `Pending` → `Feedback`/`Approved`) werkt end-to-end |
 | **Verantwoordelijke** | Davey |
-| **Tijdsindicatie** | S (2 uur) |
+| **Tijdsindicatie** | S/M (2–4 uur) |
 
 ---
 
-### 📗 Docent
+## 📗 Docent (Jada)
 
-| Titel | Inzendingen beoordelen |
-|-------|------------------------|
+### 1. Inzendingen beoordelen
+
 | **Als een...** | Docent |
-| **Wil ik...** | inzendingen kunnen goed of afkeuren met feedback |
+|----------------|--------|
+| **Wil ik...**  | inzendingen kunnen goed- of afkeuren met feedback |
 | **Zodat ik...** | voortgang van leerlingen kan bewaken |
 | **Prioriteit** | Must have |
 | **Acceptatiecriteria** | 1️⃣ Overzicht van inzendingen<br>2️⃣ Acties: approve/reject<br>3️⃣ Feedbackveld verplicht bij reject |
@@ -126,10 +131,11 @@ Een user story is **done** wanneer:
 
 ---
 
-| Titel | Filteren in docentoverzicht |
-|-------|----------------------------|
+### 2. Filteren in docentoverzicht
+
 | **Als een...** | Docent |
-| **Wil ik...** | kunnen filteren op status en leerling |
+|----------------|--------|
+| **Wil ik...**  | kunnen filteren op status en leerling |
 | **Zodat ik...** | sneller kan beoordelen |
 | **Prioriteit** | Should have |
 | **Acceptatiecriteria** | 1️⃣ Filter op status<br>2️⃣ Zoeken op leerlingnaam |
@@ -139,34 +145,48 @@ Een user story is **done** wanneer:
 
 ---
 
+### 3. Visuele voortgang per team/leerling
+
+| **Als een...** | Docent |
+|----------------|--------|
+| **Wil ik...**  | visuele voortgang van teams en leerlingen kunnen zien |
+| **Zodat ik...** | snel overzicht heb wie opdrachten voltooid heeft of vastloopt |
+| **Prioriteit** | Should have |
+| **Acceptatiecriteria** | 1️⃣ Voor ieder team een voortgangsbalk<br>2️⃣ Voor iedere leerling een individuele voortgangsbalk<br>3️⃣ Kleurcodering van status (`Pending`, `Feedback`, `Approved`) |
+| **DoD** | Vooruitgang correct weergegeven voor alle teams/leerlingen |
+| **Verantwoordelijke** | Jada |
+| **Tijdsindicatie** | M (4 uur) |
+
 ## 🗓️ Sprint Planning
 
-### 🔹 Sprint 1 (Week 1–2)
-**Doel:** Basisflow leerling en docent zonder realtime en uploads.
+## 🔹 Sprint 1 (Week 1–2)
+**Doel:** Basisflow leerling en docent, inclusief indienen en beoordelen, zonder extra UX/features.
 
-| Story | Verantwoordelijke | Prioriteit | Tijd | Uren | Opmerkingen |
-|--------|-------------------|-------------|------|------|--------------|
-| Opdrachtenlijst bekijken | Davey | Must | S | 2 | Lijst + detail |
-| Opdracht indienen (tekst) | Davey | Must | M | 4 | Validatie + opslag |
-| Inzendingen beoordelen | Jada | Must | M | 4 | Approve/reject + feedback |
+| To Do | In Progress | Done |
+|-------|------------|------|
+| Inloggen met teamcode (Davey, 2u) | Opdrachtenlijst bekijken (Davey, 4u) | |
+| Inzendingen beoordelen (Jada, 4u) | | |
 
-**Totale uren Sprint 1:** 10  
-**Risico’s:** validatie en koppeling tussen inzending/leerling/opdracht.  
-**Sprint DoD:** Leerling kan indienen; docent kan beoordelen; status zichtbaar.
+**Sprint 1 DoD:**  
+- Leerling kan inloggen en opdrachtenlijst zien  
+- Leerling kan een opdracht indienen  
+- Docent kan inzendingen beoordelen (approve/reject + feedback)  
 
 ---
 
-### 🔹 Sprint 2 (Week 3–4)
-**Doel:** UX en filters, status/feedback weergave verbeteren, tests.
+## 🔹 Sprint 2 (Week 3–4)
+**Doel:** UX en extra features, status/feedback weergave, filters en voortgang.
 
-| Story | Verantwoordelijke | Prioriteit | Tijd | Uren | Opmerkingen |
-|--------|-------------------|-------------|------|------|--------------|
-| Status & feedback bekijken | Davey | Must | S | 2 | Leerlingoverzicht |
-| Filter docentoverzicht | Jada | Should | S | 2 | Status/leerling |
-| Basis tests schrijven | Davey | Must | M | 4 | Unit/API/component |
+| To Do | In Progress | Done |
+|-------|------------|------|
+| Filteren in docentoverzicht (Jada, 2u) | Visuele voortgang per team/leerling (Jada, 4u) | |
+| Opdracht indienen & feedback verwerken (Davey, 2–4u) | Status & feedback bekijken (Davey, 2u) | |
 
-**Totale uren Sprint 2:** 8  
-**Sprint DoD:** UX verbeterd en basis tests groen.
+**Sprint 2 DoD:**  
+- Leerling kan feedback verwerken en status correct zien  
+- Docent kan filteren op status/leerling  
+- Voortgangsbalken per team/leerling zichtbaar en correct  
+- Basis UX verbeterd en stabiel  
 
 ---
 
