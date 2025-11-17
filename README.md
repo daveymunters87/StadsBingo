@@ -1,6 +1,6 @@
-# 🎯 StadsBingo - Simplified Version
+# 🎯 StadsBingo
 
-Een **vereenvoudigde bingo-applicatie** voor scholen waarbij leerlingen opdrachten uitvoeren in de stad en docenten deze beoordelen.
+Een **bingo-applicatie** voor school waarbij leerlingen opdrachten uitvoeren in de stad en docenten deze beoordelen.
 
 > **Examen Project** - Bit Academy  
 > Ontwikkeld door: Davey & Jada  
@@ -10,7 +10,7 @@ Een **vereenvoudigde bingo-applicatie** voor scholen waarbij leerlingen opdracht
 
 ## 📋 Table of Contents
 
-- [🎯 StadsBingo - Simplified Version](#-stadsbingo---simplified-version)
+- [🎯 StadsBingo](#-stadsbingo)
   - [📋 Table of Contents](#-table-of-contents)
   - [📖 Project Omschrijving](#-project-omschrijving)
   - [✨ Features](#-features)
@@ -44,15 +44,9 @@ Een **vereenvoudigde bingo-applicatie** voor scholen waarbij leerlingen opdracht
 
 **Kernfunctionaliteit:**
 - Leerlingen zien een lijst met opdrachten
-- Leerlingen kunnen opdrachten "claimen" met een tekstantwoord
+- Leerlingen kunnen opdrachten "claimen" en uitvoeren
 - Docenten zien alle inzendingen en kunnen goedkeuren/afkeuren
 - Status updates zichtbaar voor leerlingen
-
-**Vereenvoudigd concept:**
-- ✅ Geen realtime WebSockets (simpele page refresh)
-- ✅ Geen kaart/map integratie (gewoon een lijst)
-- ✅ Geen bestand uploads (alleen text antwoorden)
-- ✅ Focus op core functionaliteit voor examen eisen
 
 ---
 
@@ -60,7 +54,7 @@ Een **vereenvoudigde bingo-applicatie** voor scholen waarbij leerlingen opdracht
 
 ### Voor Leerlingen (Students)
 - 📝 Bekijk alle beschikbare opdrachten
-- ✍️ Dien opdrachten in met een tekstantwoord
+- ✍️ Dien opdrachten in met een antwoord
 - 📊 Zie de status van je inzendingen (pending/approved/rejected)
 - 💬 Ontvang feedback van docenten
 
@@ -87,12 +81,6 @@ Een **vereenvoudigde bingo-applicatie** voor scholen waarbij leerlingen opdracht
 **Development:**
 - [Docker](https://www.docker.com/) - Database containerization
 - [Biome](https://biomejs.dev/) - Linting & formatting
-
-**Wat we NIET gebruiken** (om het simpel te houden):
-- ❌ NextAuth (simpele role-based views)
-- ❌ Socket.IO (geen realtime needed)
-- ❌ Map libraries (geen kaart integratie)
-- ❌ File upload libraries (alleen text)
 
 ---
 
@@ -263,7 +251,7 @@ npm run format
 
 ## 🎓 Examen Informatie
 
-Dit project is onderdeel van het **Software Developer examen** bij Bit Academy.
+Dit project is onderdeel van het **portfolio examen**.
 
 **Examen Eisen die dit project voldoet:**
 
