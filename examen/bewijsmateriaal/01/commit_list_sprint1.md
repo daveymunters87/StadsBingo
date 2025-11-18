@@ -39,8 +39,8 @@ Hierbij staat telkens een toelichting over hoe de planning (uit opdracht 1.3) zi
 ## 📅 Dag 1 – 17-11-2025
 ![screenshot](./sprint1/dag1-board.png)
 
-**Planning:** US1 – Team-login backend (Persoon A)  
-**Voortgang:** Repo opgezet, project structuur aangemaakt, routes & controller skeleton toegevoegd  
+**Planning:** US1 – Team-login backend (Davey / Jada)  
+**Voortgang:** Repo opgezet, project structuur aangemaakt en skelet voor api gemaakt.  
 **Aanpassing planning:** Geen aanpassing, op schema
 
 ---
