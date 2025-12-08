@@ -1,6 +1,6 @@
 # Sprint 1 – Commit overzicht
 
-**Periode:** 17-11-2025 t/m 01-12-2025  
+**Periode:** 08-12-2025 t/m 08-01-2026  
 **Project:** StadsBingo  
 
 ---
@@ -10,11 +10,7 @@ Hieronder een overzicht van belangrijke commits in Sprint 1. Screenshots kunnen 
 
 | Datum | Commit ID / Screenshot | Beschrijving | User Story | Auteur |
 |-------|----------------------|------------|-----------|-------|
-| 05-11-2025 | `abc123` ![screenshot](screenshot1.png) | Basis Team-login feature aangemaakt | US1 | Persoon A |
-| 07-11-2025 | `def456` ![screenshot](screenshot2.png) | Opdrachtenlijst component toegevoegd | US2 | Persoon B |
-| 10-11-2025 | `ghi789` ![screenshot](screenshot3.png) | Submission flow (`Pending` status) toegevoegd | US3 | Persoon B |
-| 12-11-2025 | `jkl012` ![screenshot](screenshot4.png) | Docent filters feature | US6 | Persoon A |
-| 15-11-2025 | `mno345` ![screenshot](screenshot5.png) | Notificatie placeholder toegevoegd | US8 | Persoon B |
+| 08-12-2025 | n.v.t. (documentatie) | Documentatie-update planning/bewijs (geen codecommit) | Planning (1.3/1.4) | Davey & Jada |
 
 ---
 
@@ -28,7 +24,7 @@ Hieronder een overzicht van belangrijke commits in Sprint 1. Screenshots kunnen 
 
 # 3. Dagelijkse voortgang & Kanban screenshots (Sprint 1)
 
-**Eis:** Binnen deze sprint wordt elke dag een screenshot gemaakt van het Scrum/Kanban board.  
+**Eis:** Binnen deze sprint wordt elke dag een screenshot gemaakt van het Scrum board.  
 Hierbij staat telkens een toelichting over hoe de planning (uit opdracht 1.3) zich verhoudt tot de actuele voortgang en of er aanpassingen zijn gedaan.
 
 > *Screenshots worden opgeslagen in:*  
@@ -36,54 +32,12 @@ Hierbij staat telkens een toelichting over hoe de planning (uit opdracht 1.3) zi
 
 ---
 
-## 📅 Dag 1 – 17-11-2025
-![screenshot](./sprint1/dag1-board.png)
+## 📅 Dag 1 – 08-12-2025
+![screenshot](./sprint1_start.png)
 
-**Planning:** US1 – Team-login backend (Davey / Jada)  
-**Voortgang:** Repo opgezet, project structuur aangemaakt en skelet voor api gemaakt.  
+**Planning:** Taken verdelen en project structuur opzetten. (Davey/Jada)
+**Voortgang:** Repo opgezet, project structuur aangemaakt en taken verdeeld.
 **Aanpassing planning:** Geen aanpassing, op schema
 
 ---
 
-## 📅 Dag 2 – 18-11-2025
-![screenshot](./sprint1/dag2-board.png)
-
-**Planning:** Databaseconfig + Team-login frontend (Persoon B)  
-**Voortgang:** ER-modellen gezet, valideren teamcode werkt, frontend login gekoppeld  
-**Aanpassing planning:** Geen aanpassing
-
----
-
-## 📅 Dag 3 – 19-11-2025
-![screenshot](./sprint1/dag3-board.png)
-
-**Planning:** US2 – Opdrachtenlijst bekijken (Persoon B)  
-**Voortgang:** Opdrachten seed + model, basis UI component toegevoegd  
-**Aanpassing planning:** Geen aanpassing
-
----
-
-## 📅 Dag 4 – 20-11-2025
-![screenshot](./sprint1/dag4-board.png)
-
-**Planning:** US3 – Opdracht indienen (Persoon B)  
-**Voortgang:** Submission flow toegevoegd, Pending status werkend, routing naar opdracht detail  
-**Aanpassing planning:** Review feature verschoven naar morgen, complexiteit hoger
-
----
-
-## 📅 Dag 5 – 21-11-2025
-![screenshot](./sprint1/dag5-board.png)
-
-**Planning:** US6 – Docent filters & feedbackloop voorbereiden (Persoon A)  
-**Voortgang:** Filters toegepast, view docent overzicht werkend  
-**Aanpassing planning:** Feedback feature naar dag 6
-
----
-
-## 📅 Dag 6 – 22-11-2025
-![screenshot](./sprint1/dag6-board.png)
-
-**Planning:** US8 – Feedbackloop implementeren (Persoon B)  
-**Voortgang:** Feedbackloop toegevoegd, notificatie placeholder toegevoegd  
-**Aanpassing planning:** Sprint 1 afgerond binnen scope

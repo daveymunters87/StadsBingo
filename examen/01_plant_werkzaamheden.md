@@ -190,6 +190,29 @@ Een user story is **done** wanneer:
 
 ---
 
+### 📌 Planning-overzicht (Criterium 1.3)
+
+**Aannames capaciteit**
+- Team van 2 studenten (Davey, Jada), beschikbaar ±10 uur per week per persoon.
+- Sprintduur: 2 weken → totale capaciteit per sprint ≈ 2 pers × 2 weken × 10u = **40 uur**.
+
+**Werkload vs. capaciteit per sprint**
+
+| Sprint | Stories (met inschatting) | Totaal uren | Past binnen 40u? |
+|--------|---------------------------|-------------|------------------|
+| Sprint 1 | Inloggen teamcode (2u), Opdrachtenlijst (4u), Inzendingen beoordelen (4u) | **10u** | ✅ Ruime slack voor onvoorziene zaken |
+| Sprint 2 | Filter docentoverzicht (2u), Visuele voortgang (4u), Opdracht indienen & feedback (2–4u, gerekend 4u), Status & feedback tonen (2u) | **12u** | ✅ Slack aanwezig |
+
+**Waarom realistisch?**
+- Alle must-haves (inloggen, opdrachtenlijst, indienen, beoordelen) staan in Sprint 1; should-haves verschuiven naar Sprint 2.
+- Uren per sprint liggen ruim onder de beschikbare 40u, zodat er ruimte is voor bugs en iteraties.
+- Stories zijn al voorzien van MoSCoW + tijdsinschatting en sluiten aan op de DoD.
+
+**Bewijs stukken planning/voortgang**
+- Zie het overzicht in de sectie hieronder onder `Voortgangsbewaking`.
+
+---
+
 ## 🧾 Voortgangsbewaking (Criterium 1.4)
 
 **Doel:** aantonen dat voortgang actief is bewaakt en keuzes zijn gemaakt o.b.v. prioriteit.
