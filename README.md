@@ -1,4 +1,4 @@
-# 🎯 StadsBingo
+# StadsBingo
 
 Een **bingo-applicatie** voor school waarbij leerlingen opdrachten uitvoeren in de stad en docenten deze beoordelen.
 
@@ -8,37 +8,37 @@ Een **bingo-applicatie** voor school waarbij leerlingen opdrachten uitvoeren in 
 
 ---
 
-## 📋 Table of Contents
+## Table of Contents
 
-- [🎯 StadsBingo](#-stadsbingo)
-  - [📋 Table of Contents](#-table-of-contents)
-  - [📖 Project Omschrijving](#-project-omschrijving)
-  - [✨ Features](#-features)
+- [StadsBingo](#stadsbingo)
+  - [Table of Contents](#table-of-contents)
+  - [Project Omschrijving](#project-omschrijving)
+  - [Features](#features)
     - [Voor Leerlingen (Students)](#voor-leerlingen-students)
     - [Voor Docenten (Teachers)](#voor-docenten-teachers)
-  - [🛠️ Tech Stack](#️-tech-stack)
-  - [📦 Requirements](#-requirements)
-  - [🚀 Quick Start](#-quick-start)
-  - [⚙️ Setup Details](#️-setup-details)
-    - [1️⃣ Clone \& Navigate](#1️⃣-clone--navigate)
-    - [2️⃣ Environment Variables](#2️⃣-environment-variables)
-    - [3️⃣ Start PostgreSQL](#3️⃣-start-postgresql)
-    - [4️⃣ Install Dependencies](#4️⃣-install-dependencies)
-    - [5️⃣ Database Setup](#5️⃣-database-setup)
-    - [6️⃣ Start Development](#6️⃣-start-development)
-  - [🗄️ Database](#️-database)
-  - [🔧 Prisma Commands](#-prisma-commands)
-  - [📱 Development Workflow](#-development-workflow)
+  - [Tech Stack](#tech-stack)
+  - [Requirements](#requirements)
+  - [Quick Start](#quick-start)
+  - [Setup Details](#setup-details)
+    - [Clone & Navigate](#clone--navigate)
+    - [Environment Variables](#environment-variables)
+    - [Start PostgreSQL](#start-postgresql)
+    - [Install Dependencies](#install-dependencies)
+    - [Database Setup](#database-setup)
+    - [Start Development](#start-development)
+  - [Database](#database)
+  - [Prisma Commands](#prisma-commands)
+  - [Development Workflow](#development-workflow)
     - [Voor nieuwe features:](#voor-nieuwe-features)
     - [Code Quality:](#code-quality)
-  - [🎓 Examen Informatie](#-examen-informatie)
-  - [💡 Optional Tips](#-optional-tips)
-  - [👥 Team](#-team)
-  - [📝 License](#-license)
+  - [Examen Informatie](#examen-informatie)
+  - [Optional Tips](#optional-tips)
+  - [Team](#team)
+  - [License](#license)
 
 ---
 
-## 📖 Project Omschrijving
+## Project Omschrijving
 
 **StadsBingo** is een webapplicatie waarbij docenten **teams** aanmaken, leerlingen via **teamcodes** laten inloggen en opdrachten in een vaste volgorde laten uitvoeren. Docenten beoordelen de opdrachten, geven feedback en monitoren de voortgang van elk team.
 
@@ -52,25 +52,25 @@ Een **bingo-applicatie** voor school waarbij leerlingen opdrachten uitvoeren in 
 
 ---
 
-## ✨ Features
+## Features
 
 ### Voor Leerlingen (Students)
-- 🔐 Login met teamcode en beveiligde toegang per team
-- 📋 Opdrachtenlijst met statussen (`Locked`, `Available`, `Pending`, `Feedback`, `Approved`)
-- ✍️ Dien opdrachten in en verwerk feedback
-- 📈 Visuele voortgang per opdracht en team
-- 🔔 Notificatie bij nieuwe feedback/aanpassingen
+- Login met teamcode en beveiligde toegang per team
+- Opdrachtenlijst met statussen (`Locked`, `Available`, `Pending`, `Feedback`, `Approved`)
+- Dien opdrachten in en verwerk feedback
+- Visuele voortgang per opdracht en team
+- Notificatie bij nieuwe feedback/aanpassingen
 
 ### Voor Docenten (Teachers/Admin)
-- 👥 Teams beheren (aanmaken, verwijderen, leden koppelen) + teamcodes genereren
-- 🗂️ Opdrachten beheren (aanmaken, bijlagen)
-- 🧮 Overzicht per team/leerling met filter op status, leerling, opdracht
-- ✅ Goedkeuren of `Feedback` geven; bij feedback verplicht tekstveld
-- 📊 Visuele voortgangsweergave per team
+- Teams beheren (aanmaken, verwijderen, leden koppelen) + teamcodes genereren
+- Opdrachten beheren (aanmaken, bijlagen)
+- Overzicht per team/leerling met filter op status, leerling, opdracht
+- Goedkeuren of `Feedback` geven; bij feedback verplicht tekstveld
+- Visuele voortgangsweergave per team
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 **Frontend & Backend:**
 - [Next.js 15](https://nextjs.org/) - React framework met API routes
@@ -88,7 +88,7 @@ Een **bingo-applicatie** voor school waarbij leerlingen opdrachten uitvoeren in 
 
 ---
 
-## 📦 Requirements
+## Requirements
 
 - [Node.js](https://nodejs.org/) (v18 of hoger)
 - [Docker](https://www.docker.com/get-started)  
@@ -96,7 +96,7 @@ Een **bingo-applicatie** voor school waarbij leerlingen opdrachten uitvoeren in 
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ```bash
 # 1. Clone de repository
@@ -117,19 +117,19 @@ npx prisma migrate dev --name init
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in je browser! 🎉
+Open [http://localhost:3000](http://localhost:3000) in je browser!
 
 ---
 
-## ⚙️ Setup Details
+## Setup Details
 
-### 1️⃣ Clone & Navigate
+### Clone & Navigate
 ```bash
 git clone git@github.com:daveymunters87/StadsBingo.git
 cd StadsBingo/project
 ```
 
-### 2️⃣ Environment Variables
+### Environment Variables
 Maak een `.env` bestand in de `project/` folder:
 
 ```env
@@ -138,19 +138,19 @@ DATABASE_URL="postgresql://myuser:mypassword@localhost:5432/mydb?schema=public"
 
 > **Note:** Voor lokale development gebruik je `localhost`. `db` is de Docker service naam in `docker-compose.yml`.
 
-### 3️⃣ Start PostgreSQL
+### Start PostgreSQL
 ```bash
 docker-compose up -d
 ```
 
 Database draait nu op de achtergrond. Data wordt opgeslagen in Docker volume `pgdata`.
 
-### 4️⃣ Install Dependencies
+### Install Dependencies
 ```bash
 npm install
 ```
 
-### 5️⃣ Database Setup
+### Database Setup
 ```bash
 # Genereer Prisma client
 npx prisma generate
@@ -162,7 +162,7 @@ npx prisma migrate dev --name init
 npx prisma db seed
 ```
 
-### 6️⃣ Start Development
+### Start Development
 ```bash
 npm run dev
 ```
@@ -171,7 +171,7 @@ App draait nu op: http://localhost:3000
 
 ---
 
-## 🗄️ Database
+## Database
 
 **PostgreSQL draait in Docker** voor consistente setup tussen developers.
 
@@ -198,7 +198,7 @@ docker-compose logs -f db
 
 ---
 
-## 🔧 Prisma Commands
+## Prisma Commands
 
 ```bash
 # Genereer Prisma Client (na schema wijzigingen)
@@ -218,7 +218,7 @@ npx prisma studio
 
 ---
 
-## 📱 Development Workflow
+## Development Workflow
 
 ### Voor nieuwe features:
 1. **Maak een nieuwe branch**
@@ -253,28 +253,28 @@ npm run format
 
 ---
 
-## 🎓 Examen Informatie
+## Examen Informatie
 
 Dit project is onderdeel van het **portfolio examen**.
 
 **Examen Eisen die dit project voldoet:**
 
-✅ **Opdracht 1:** User stories, planning, voortgangsbewaking  
-✅ **Opdracht 2:** UML diagrammen (ERD + Sequence)  
-✅ **Opdracht 3:** Werkende applicatie met:
+- **Opdracht 1:** User stories, planning, voortgangsbewaking  
+- **Opdracht 2:** UML diagrammen (ERD + Sequence)  
+- **Opdracht 3:** Werkende applicatie met:
    - Frontend + Backend + Database
    - 10+ bestanden met code
    - Git (10+ commits, 2+ branches, pull requests)
    - Non-CRUD functionaliteit (approve/reject workflow)
 
-✅ **Opdracht 4:** Geautomatiseerde tests  
-✅ **Opdracht 5:** Verbetervoorstellen  
+- **Opdracht 4:** Geautomatiseerde tests  
+- **Opdracht 5:** Verbetervoorstellen  
 
 **Documentatie:** Zie `/examen` folder voor alle bewijsmateriaal.
 
 ---
 
-## 💡 Optional Tips
+## Optional Tips
 
 ```bash
 # Stop alle containers
@@ -293,13 +293,13 @@ docker-compose up -d --build
 
 ---
 
-## 👥 Team
+## Team
 
 - **Davey Munters** - Developer
 - **Jada** - Developer
 
 ---
 
-## 📝 License
+## License
 
 Dit is een educatief project voor Bit Academy.

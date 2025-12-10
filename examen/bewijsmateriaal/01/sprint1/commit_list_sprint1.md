@@ -22,22 +22,8 @@ Hieronder een overzicht van belangrijke commits in Sprint 1. Screenshots kunnen 
 
 ---
 
-# 3. Dagelijkse voortgang & Kanban screenshots (Sprint 1)
+## 3. Dagelijkse voortgang
 
-**Eis:** Binnen deze sprint wordt elke dag een screenshot gemaakt van het Scrum board.  
-Hierbij staat telkens een toelichting over hoe de planning (uit opdracht 1.3) zich verhoudt tot de actuele voortgang en of er aanpassingen zijn gedaan.
-
-> *Screenshots worden opgeslagen in:*  
-> `/examen/bewijsmateriaal/01/sprint1/dagX-board.png`
+Voor dagelijkse voortgang en Kanban screenshots, zie: `dagplanning-sprint1.md`
 
 ---
-
-## 📅 Dag 1 – 08-12-2025
-![screenshot](./sprint1_start.png)
-
-**Planning:** Taken verdelen en project structuur opzetten. (Davey/Jada)
-**Voortgang:** Repo opgezet, project structuur aangemaakt en taken verdeeld.
-**Aanpassing planning:** Geen aanpassing, op schema
-
----
-

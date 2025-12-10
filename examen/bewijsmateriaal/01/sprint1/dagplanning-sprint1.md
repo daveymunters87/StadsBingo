@@ -1,47 +1,61 @@
 # Dagplanning – StadsBingo
 
-Handig om criteria 1.1–1.4 meteen te dekken (stories, planning, voortgangsbewaking). Vul per dag kort aan wat je echt hebt gedaan en voeg links/snapshots toe.
+criteria 1.1–1.4
 
 ---
 
-### Logs (vul per dag aan)
+# Logs
 
-## 📅 Dag 1 (08-12-2025) - Davey
-**Screenshot:** `./bewijsmateriaal/01/sprint1/dag1-board.png`
+## Dag 1 (08-12-2025) 
+### Davey & Jada
+**Screenshot:**  
+![Dag 1 Scrum Board](./scrumboard/dag1-board.png)
 
 **Gepland:** Planning sprint 1, bewijsmaterialen, repo structure
 **Gerealiseerd:** 
-- Planning sprint 1 ✓
-- Bewijsmaterialen structuur ✓  
-- Repo structure opzetten ✓
+- Planning sprint 1
+- Bewijsmaterialen structuur
+- Repo structure opzetten 
 
 **Afwegingen/keuzes:** Geen aanpassingen nodig, alles volgens planning.
 
 ---
 
-## 📅 Dag 2 (09-12-2025) - Jada  
-**Screenshot:** `./bewijsmateriaal/01/sprint1/dag2-board.png`
+## Dag 2 (09-12-2025)
+**Screenshot:**  
+![Dag 2 Scrum Board](./scrumboard/dag2-board.png)
 
-**Gepland:** [Vul in wat er gepland was]
-**Gerealiseerd:** [Vul in wat je echt hebt gedaan]
-**Afwegingen/keuzes:** [Beschrijf keuzes die je hebt gemaakt - bijv. prioriteit verschoven, taak uitgesteld, etc.]
+### Jada  
+**Gepland:** Frontend login page  
+**Gerealiseerd:** Ik heb een basis opgezet zodat we makkelijk kunnen beginnen met het testen van de auth  
+**Afwegingen/keuzes:** Ik heb er voor gekozen om het design in Figma voor nu achterwegen te laten en dit pas toe te voegen als ik weet dat alles in mijn frontend (login page) werkt.
+
+### Davey  
+**Gepland:** Backend login page  
+**Gerealiseerd:** 
+- Start bouwen api routes
+
+**Afwegingen/keuzes:** Geen aanpassingen nodig, alles volgens planning.
+
 
 ---
 
-## 📅 Dag 3 (10-12-2025) - Davey
-**Screenshot:** `./bewijsmateriaal/01/sprint1/dag3-board.png`
+## Dag 3 (10-12-2025)
+**Screenshot:**  
+![Dag 3 Scrum Board](./scrumboard/dag3-board.png)
 
-**Gepland:** [Vul in]
-**Gerealiseerd:** [Vul in]  
-**Afwegingen/keuzes:** [Vul in - dit is cruciaal voor criterium 1.4!]
+### Jada  
+**Gepland:** Frontend login page  
+**Gerealiseerd:** Verder gegaan met het bouwen van de opzet, zodat de auth getest kan worden met dummy data.  
+
+**Afwegingen/keuzes:** Geen aanpassingen nodig, alles volgens planning.
+
+### Davey  
+**Gepland:** Backend login page  
+**Gerealiseerd:** 
+- Verder uitwerken/testen van de api routes.
+
+**Afwegingen/keuzes:** Geen aanpassingen nodig, alles volgens planning.
 
 ---
-
-## 📅 Dag 4 - [Naam]
-**Screenshot:** `./bewijsmateriaal/01/sprint1/dag4-board.png`
-[Vul aan...]
-
-## 📅 Dag 5 - [Naam]  
-**Screenshot:** `./bewijsmateriaal/01/sprint1/dag5-board.png`
-[Vul aan...]
 
