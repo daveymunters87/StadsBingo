@@ -1,9 +1,9 @@
-# 📘 StadsBingo – 01_plant_werkzaamheden.md
+# StadsBingo – 01_plant_werkzaamheden.md
 
-## 🧩 Projectomschrijving
+## Projectomschrijving
 Het doel van dit project is het ontwikkelen van een **StadsBingo webapplicatie met teams en opdrachten-flow**.  
 Leerlingen voeren opdrachten uit in teams in de stad en docenten beheren teams, opdrachten en de voortgang per team en per leerling.  
-Het project volgt de **scrum-aanpak** met sprints van 2 weken.
+Het project volgt de **scrum-aanpak** met sprints van 1 week.
 
 **Functionele workflow (samenvatting):**
 - Docent maakt teams aan, genereert teamcodes en koppelt leerlingen aan een team.
@@ -15,7 +15,7 @@ Het project volgt de **scrum-aanpak** met sprints van 2 weken.
 
 ---
 
-## 🎯 Eisen en Wensen van de Opdrachtgever
+## Eisen en Wensen van de Opdrachtgever
 
 ### Eisen (Must have)
 | Nr | Omschrijving | Toelichting |
@@ -37,7 +37,7 @@ Het project volgt de **scrum-aanpak** met sprints van 2 weken.
 
 ---
 
-## ✅ Definition of Done (DoD)
+## Definition of Done (DoD)
 Een user story is **done** wanneer:
 - Functionaliteit werkt zoals beschreven (E1–E5)  
 - antwoorden zijn opgeslagen en gekoppeld  
@@ -47,7 +47,7 @@ Een user story is **done** wanneer:
 
 ---
 
-## 📖 Eisen gekoppeld aan User Stories
+## Eisen gekoppeld aan User Stories
 
 | Eis | User Stories | Bewijsbestand |
 |------|---------------|----------------|
@@ -64,10 +64,10 @@ Een user story is **done** wanneer:
 
 ---
 
-## 👥 User Stories
+## User Stories
 
 
-## 📘 Leerling (Davey)
+## Leerling (Davey)
 
 ### 1. Inloggen met teamcode
 
@@ -114,7 +114,7 @@ Een user story is **done** wanneer:
 
 ---
 
-## 📗 Docent (Jada)
+## Docent (Jada)
 
 ### 1. Inzendingen beoordelen
 
@@ -157,7 +157,7 @@ Een user story is **done** wanneer:
 | **Verantwoordelijke** | Jada |
 | **Tijdsindicatie** | M (4 uur) |
 
-## 🗓️ Sprint Planning
+## Sprint Planning
 
 ## 🔹 Sprint 1 (Week 1–2)
 **Doel:** Basisflow leerling en docent, inclusief indienen en beoordelen, zonder extra UX/features.
@@ -190,18 +190,18 @@ Een user story is **done** wanneer:
 
 ---
 
-### 📌 Planning-overzicht (Criterium 1.3)
+### Planning-overzicht (Criterium 1.3)
 
 **Aannames capaciteit**
 - Team van 2 studenten (Davey, Jada), beschikbaar ±10 uur per week per persoon.
-- Sprintduur: 2 weken → totale capaciteit per sprint ≈ 2 pers × 2 weken × 10u = **40 uur**.
+- Sprintduur: 1 week → totale capaciteit per sprint ≈ 2 pers × 1 week × 20u = **40 uur**.
 
 **Werkload vs. capaciteit per sprint**
 
 | Sprint | Stories (met inschatting) | Totaal uren | Past binnen 40u? |
 |--------|---------------------------|-------------|------------------|
-| Sprint 1 | Inloggen teamcode (2u), Opdrachtenlijst (4u), Inzendingen beoordelen (4u) | **10u** | ✅ Ruime slack voor onvoorziene zaken |
-| Sprint 2 | Filter docentoverzicht (2u), Visuele voortgang (4u), Opdracht indienen & feedback (2–4u, gerekend 4u), Status & feedback tonen (2u) | **12u** | ✅ Slack aanwezig |
+| Sprint 1 | Inloggen teamcode (2u), Opdrachtenlijst (4u), Inzendingen beoordelen (4u) | **10u** | Ruime slack voor onvoorziene zaken |
+| Sprint 2 | Filter docentoverzicht (2u), Visuele voortgang (4u), Opdracht indienen & feedback (2–4u, gerekend 4u), Status & feedback tonen (2u) | **12u** | Slack aanwezig |
 
 **Waarom realistisch?**
 - Alle must-haves (inloggen, opdrachtenlijst, indienen, beoordelen) staan in Sprint 1; should-haves verschuiven naar Sprint 2.
@@ -213,7 +213,7 @@ Een user story is **done** wanneer:
 
 ---
 
-## 🧾 Voortgangsbewaking (Criterium 1.4)
+## Voortgangsbewaking (Criterium 1.4)
 
 **Doel:** aantonen dat voortgang actief is bewaakt en keuzes zijn gemaakt o.b.v. prioriteit.
 
