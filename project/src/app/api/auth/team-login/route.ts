@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
-const activeTeam = new Set<string>();
+// const activeTeam = new Set<string>();
 
 export async function POST(request: Request) {
     try {
@@ -21,11 +21,12 @@ export async function POST(request: Request) {
             return new Response(JSON.stringify({ error: "Invalid team code" }), { status: 401 });
         }
 
-        if (activeTeam.has(team.id)) {
-            return new Response(JSON.stringify({ error: "This team is already logged in"}), { status: 403 });
-        }
+        // COMMENTED OUT FOR NOW FOR TESTING PURPOSsssES
+        // if (activeTeam.has(team.id)) {
+        //     return new Response(JSON.stringify({ error: "This team is already logged in"}), { status: 403 });
+        // }
 
-        activeTeam.add(team.id);
+        // activeTeam.add(team.id);
 
         return new Response(
             JSON.stringify({
