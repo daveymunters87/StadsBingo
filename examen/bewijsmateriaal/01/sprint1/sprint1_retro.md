@@ -1,6 +1,6 @@
 # Sprint 1 Retrospectief
 
-**Sprint 1 Periode:** 04-11-2025 t/m 18-11-2025  
+**Sprint 1 Periode:** 08-12-2025 t/m 15-12-2025  
 **Project:** StadsBingo  
 
 ---

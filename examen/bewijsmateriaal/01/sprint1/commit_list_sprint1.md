@@ -1,6 +1,6 @@
 # Sprint 1 – Commit overzicht
 
-**Periode:** 08-12-2025 t/m 08-01-2026  
+**Periode:** 08-12-2025 t/m 22-12-2025  
 **Project:** StadsBingo  
 
 ---
