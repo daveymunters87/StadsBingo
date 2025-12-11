@@ -6,6 +6,8 @@ criteria 1.1–1.4
 
 # Logs
 
+---
+
 ## Dag 1 (08-12-2025) 
 ### Davey & Jada
 **Screenshot:**  
