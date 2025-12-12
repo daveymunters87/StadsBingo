@@ -68,6 +68,7 @@ criteria 1.1–1.4
 ### Jada  
 **Gepland:** Create Frontend for Team Login Page (US1)  
 **Gerealiseerd:**
+- Uitwerking login pagina voltooid (Mobile first)
 - Helpen met de API-functionaliteit implementeren in de opzet die gebouwd is.
 
 **Afwegingen/keuzes:** Geen aanpassingen nodig, alles volgens planning.
