@@ -2,13 +2,15 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
-  // Verwijder eerst alles (optioneel, alleen lokaal)
+  // --- CLEAN DB (optional, for local dev)
   await prisma.submission.deleteMany();
+  await prisma.teamAssignment.deleteMany();
   await prisma.teamPlayer.deleteMany();
   await prisma.team.deleteMany();
+  await prisma.assignment.deleteMany();
   await prisma.user.deleteMany();
 
-  // Maak een docent/admin aan
+  // --- CREATE TEACHER
   const teacher = await prisma.user.create({
     data: {
       email: "teacher@example.com",
@@ -17,16 +19,16 @@ async function main() {
     },
   });
 
-  // Maak een testteam aan
+  // --- CREATE TEAM
   const team = await prisma.team.create({
     data: {
       name: "Test Team",
-      code: "TEST123", // dit wordt de login code
+      code: "TEST123", // login code
       createdById: teacher.id,
     },
   });
 
-  // Maak 1 captain + max 4 spelers
+  // --- CREATE CAPTAIN
   const captain = await prisma.teamPlayer.create({
     data: {
       name: "Captain One",
@@ -35,13 +37,13 @@ async function main() {
     },
   });
 
-  // Stel captain in op het team
+  // Set captainId on team
   await prisma.team.update({
     where: { id: team.id },
     data: { captainId: captain.id },
   });
 
-  // Voeg nog 4 spelers toe
+  // --- CREATE OTHER PLAYERS
   const playersData = [
     { name: "Speler Twee", studentNumber: "S002" },
     { name: "Speler Drie", studentNumber: "S003" },
@@ -55,7 +57,42 @@ async function main() {
     });
   }
 
-  console.log("✅ Seed complete: Test team and players created");
+  // --- CREATE ASSIGNMENTS
+  const assignments = await prisma.assignment.createMany({
+    data: [
+      {
+        title: "Maak een foto van het standbeeld",
+        description: "Maak een foto van het standbeeld op het marktplein",
+        location: "Marktplein",
+        order: 1,
+      },
+      {
+        title: "Interview een docent",
+        description: "Vraag een docent naar hun favoriete vak",
+        location: "School",
+        order: 2,
+      },
+      {
+        title: "Vind de stadsbibliotheek",
+        description: "Ga naar de stadsbibliotheek en maak een foto van de ingang",
+        location: "Bibliotheek",
+        order: 3,
+      },
+    ],
+  });
+
+  // --- LINK ASSIGNMENTS TO TEAM
+  const allAssignments = await prisma.assignment.findMany();
+  for (const a of allAssignments) {
+    await prisma.teamAssignment.create({
+      data: {
+        teamId: team.id,
+        assignmentId: a.id,
+      },
+    });
+  }
+
+  console.log("✅ Seed complete: Teacher, Team, Players, Assignments & TeamAssignments created");
 }
 
 main()
