@@ -82,3 +82,25 @@ criteria 1.1–1.4
 
 ---
 
+## Dag 5 (12-12-2025)
+**Screenshot:**  
+![Dag 5 Scrum Board](./scrumboard/dag5-board.png)
+
+### Jada  
+**Gepland:** Create Frontend for Exercises dashboard (US2)  
+**Gerealiseerd:**
+- Uitwerking dashboard pagina voltooid (Mobile first)
+
+**Afwegingen/keuzes:** Geen aanpassingen nodig, alles volgens planning.
+
+### Davey  
+**Gepland:** Create Backend API to Fetch Team Exercises (US2)  
+**Gerealiseerd:** 
+- API route aanmaken om opdrachten van de teams op te halen vanuit de DB.
+- API Getest
+
+**Afwegingen/keuzes:** Geen aanpassingen nodig, alles volgens planning.
+
+---
+
+
