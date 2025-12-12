@@ -1,55 +1,61 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Lock } from "lucide-react";
+import Image from "next/image";
 
 export default function LoginPage() {
-  // State variables for team code and error message
   const [code, setCode] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  // Handle form submission
-  async function handleSubmit(e: React.FormEvent) {
+  const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
-    // Fetch team login data from API
+    if (!code.trim()) {
+      setError("Vul een teamcode in");
+      return;
+    }
+
+    setLoading(true);
+
+    let data;
     const res = await fetch("/api/auth/team-login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ code }),
     });
 
-    // Parse response data
-    const data = await res.json();
-
-    // If response is not ok, set error message
-    if (!res.ok) {
-      setError(data.error || "Er ging iets mis");
+    try {
+      data = await res.json();
+    } catch {
+      setLoading(false);
+      setError("Er ging iets mis");
       return;
     }
 
-    // tore team info in localStorage for now (Comment if not used anymore)
-    // localStorage.setItem("team", JSON.stringify(data));
+    if (!res.ok) {
+      setLoading(false);
+      setError(data?.error || "Er ging iets mis");
+      return;
+    }
 
-    // Redirect user to dashboard
     router.push("/dashboard");
-  }
+  }, [code, router]);
 
   return (
     <main className="min-h-screen w-full bg-[#EDE6DC] flex flex-col items-center justify-center px-6 py-10">
-      {/* Logo */}
       <div className="w-full max-w-xs mb-20 mt-8 md:absolute md:top-6 md:left-6">
-        <img src="/logo.png" alt="NexEd" className="w-32" />
+        <Image src="/logo.png" alt="NexEd" width={128} height={128} />
       </div>
 
-      {/* Title */}
       <div className="text-center mb-8">
         <h1 className="text-4xl font-bold text-[#2C2C2C]">Bit Bingo</h1>
         <p className="text-lg text-[#2C2C2C] mt-1">Ontgrendel Groningen</p>
@@ -57,13 +63,13 @@ export default function LoginPage() {
 
       <form onSubmit={handleSubmit} className="w-full max-w-xs space-y-4">
         <div className="space-y-1">
-          <Label htmlFor="teamcode" className="sr-only">
-            Teamcode
-          </Label>
+          <Label htmlFor="teamcode" className="sr-only">Teamcode</Label>
           <div className="relative">
             <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-[#2C2C2C]" />
             <Input
               id="teamcode"
+              type="text"
+              autoComplete="off"
               placeholder="Voer teamcode in"
               value={code}
               onChange={(e) => setCode(e.target.value)}
@@ -79,8 +85,9 @@ export default function LoginPage() {
         <Button
           type="submit"
           className="w-full bg-[#FFE600] text-[#2C2C2C] font-semibold hover:bg-[#2C2C2C] hover:text-[#FFE600]"
+          disabled={loading}
         >
-          Log in →
+          {loading ? "Even wachten..." : "Log in →"}
         </Button>
       </form>
     </main>
