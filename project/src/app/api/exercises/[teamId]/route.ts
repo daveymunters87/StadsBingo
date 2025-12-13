@@ -27,19 +27,66 @@ export async function GET(
           },
         },
       },
-      orderBy: { createdAt: "asc" },
+      orderBy: {
+        assignment: {
+          order: "asc",
+        },
+      },
     });
 
-    // Format the assignments
-    const formatted = teamAssignments.map((ta) => {
+    // Format the assignments and determine status
+    const formatted = teamAssignments.map((ta, index) => {
       const a = ta.assignment;
+      const submission = a.submissions[0];
+      
+      // If there's a submission, use its status
+      if (submission) {
+        return {
+          id: a.id,
+          title: a.title,
+          description: a.description,
+          location: a.location,
+          order: a.order,
+          status: submission.status,
+        };
+      }
+      
+      // If no submission, check if previous assignments are completed
+      // First assignment is always available
+      if (index === 0) {
+        return {
+          id: a.id,
+          title: a.title,
+          description: a.description,
+          location: a.location,
+          order: a.order,
+          status: "AVAILABLE" as const,
+        };
+      }
+      
+      // Check if previous assignment is approved
+      const previousAssignment = teamAssignments[index - 1];
+      const previousSubmission = previousAssignment.assignment.submissions[0];
+      
+      if (previousSubmission?.status === "APPROVED") {
+        return {
+          id: a.id,
+          title: a.title,
+          description: a.description,
+          location: a.location,
+          order: a.order,
+          status: "AVAILABLE" as const,
+        };
+      }
+      
+      // Otherwise, it's locked
       return {
         id: a.id,
         title: a.title,
         description: a.description,
         location: a.location,
         order: a.order,
-        status: a.submissions[0]?.status ?? "AVAILABLE",
+        status: "LOCKED" as const,
       };
     });
 
