@@ -18,67 +18,89 @@ model User {
   role      Role     @default(TEACHER)
   createdAt DateTime @default(now())
 
-  teams     Team[]   @relation("TeacherTeams")
+  // Teams created by this teacher
+  teams Team[] @relation("TeacherTeams")
 }
 
 model TeamPlayer {
-  id            String   @id @default(cuid())
+  id            String @id @default(cuid())
   name          String
   studentNumber String
   teamId        String
-  team          Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  team          Team   @relation(fields: [teamId], references: [id], onDelete: Cascade)
 
-  // inverse side of the captain relation (one-to-one)
-  captainOf     Team?    @relation("Captain")
+  // Optional: if this player is captain of a team
+  captainOf Team? @relation("Captain")
 
-  // inverse side of Submission relation
-  submissions   Submission[]
+  // Submissions made by this player
+  submissions Submission[]
 }
 
 model Team {
-  id          String        @id @default(cuid())
+  id          String   @id @default(cuid())
   name        String
-  code        String        @unique
-  createdAt   DateTime      @default(now())
+  code        String   @unique
+  createdAt   DateTime @default(now())
   createdById String
-  createdBy   User          @relation("TeacherTeams", fields: [createdById], references: [id])
+  createdBy   User     @relation("TeacherTeams", fields: [createdById], references: [id])
 
-  // One-to-one relation: each team has at most one captain
-  captainId   String?       @unique
-  captain     TeamPlayer?   @relation("Captain", fields: [captainId], references: [id])
+  // One-to-one relation for captain
+  captainId String?     @unique
+  captain   TeamPlayer? @relation("Captain", fields: [captainId], references: [id])
 
+  // Players in this team
   players     TeamPlayer[]
   submissions Submission[]
+
+  // Assignments assigned to this team
+  assignments TeamAssignment[]
 }
 
 model Assignment {
-  id          String       @id @default(cuid())
+  id          String   @id @default(cuid())
   title       String
   description String
-  location    String       // e.g., "Bij de bibliotheek"
-  order       Int          // fixed release order
-  createdAt   DateTime     @default(now())
+  location    String // e.g., "Bij de bibliotheek"
+  order       Int // fixed release order
+  createdAt   DateTime @default(now())
 
   submissions Submission[]
+
+  // Teams assigned to this assignment
+  teams TeamAssignment[]
+}
+
+model TeamAssignment {
+  id           String   @id @default(cuid())
+  teamId       String
+  assignmentId String
+  createdAt    DateTime @default(now())
+
+  team       Team       @relation(fields: [teamId], references: [id])
+  assignment Assignment @relation(fields: [assignmentId], references: [id])
+
+  @@unique([teamId, assignmentId])
+  @@index([teamId])
+  @@index([assignmentId])
 }
 
 model Submission {
-  id           String      @id @default(cuid())
+  id           String   @id @default(cuid())
   teamId       String
   assignmentId String
-  playerId     String?     // optional, for traceability; not for login
+  playerId     String? // optional, for traceability; not for login
   answerText   String?
   answerImage  String?
-  status       Status      @default(PENDING)
+  status       Status   @default(PENDING)
   feedback     String?
-  createdAt    DateTime    @default(now())
-  updatedAt    DateTime    @updatedAt
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
-  team       Team         @relation(fields: [teamId], references: [id], onDelete: Cascade)
-  assignment Assignment   @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
-  player     TeamPlayer?  @relation(fields: [playerId], references: [id], onDelete: SetNull)
+  team       Team        @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  assignment Assignment  @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  player     TeamPlayer? @relation(fields: [playerId], references: [id], onDelete: SetNull)
 
-  @@unique([teamId, assignmentId]) // one submission per team per assignment
+  @@unique([teamId, assignmentId])
   @@index([status])
 }
 
@@ -92,9 +114,9 @@ enum Role {
 }
 
 enum Status {
-  LOCKED      // Not yet available
-  AVAILABLE   // Can be completed
-  PENDING     // Waiting for review
-  FEEDBACK    // Rejected / feedback provided
-  APPROVED    // Approved by teacher
+  LOCKED // Not yet available
+  AVAILABLE // Can be completed
+  PENDING // Waiting for review
+  FEEDBACK // Rejected / feedback provided
+  APPROVED // Approved by teacher
 }
