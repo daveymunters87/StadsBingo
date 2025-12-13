@@ -5,12 +5,16 @@
 
 ---
 
-## 1. Commits overzicht
-Hieronder een overzicht van belangrijke commits in Sprint 1. Screenshots kunnen toegevoegd worden bij elke commit. Auteurs toegevoegd en gekoppeld aan user stories.
+## 1. Commits overzicht – Sprint 1
 
-| Datum | Commit ID / Screenshot | Beschrijving | User Story | Auteur |
-|-------|----------------------|------------|-----------|-------|
-| 08-12-2025 | n.v.t. (documentatie) | Documentatie-update planning/bewijs (geen codecommit) | Planning (1.3/1.4) | Davey & Jada |
+Hieronder staat een overzicht van de belangrijkste commits binnen Sprint 1.  
+Per commit is aangegeven op welke datum deze is uitgevoerd, welke functionaliteit is toegevoegd of aangepast, aan welke user story dit gekoppeld is en door wie het werk is uitgevoerd.  
+Waar van toepassing kunnen screenshots als aanvullend bewijs worden toegevoegd.
+
+| Datum        | Commit ID / Screenshot      | Beschrijving                                                                                                                                              | User Story           | Auteur(s)        |
+|-------------|-----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------|------------------|
+| 08-12-2025  | n.v.t. (documentatie)       | Documentatie-update voor planning en bewijsvoering. Geen codecommit; focus op vastleggen van sprintafspraken, takenverdeling en voortgang.                  | Planning (1.3 / 1.4) | Davey & Jada     |
+| 12-12-2025  | 28b4677                     | Merge development → main: Implementatie van de team-login functionaliteit. Frontend loginpagina en backend API-routes toegevoegd. Leerlingen kunnen inloggen met een teamcode en krijgen toegang tot hun teamdashboard. Inclusief validatie van teamcodes, foutafhandeling en sessiebeheer. | US1                  | Davey & Jada     |
 
 ---
 
