@@ -62,6 +62,7 @@ Een user story is **done** wanneer:
 | **DoD** | API controleert code, foutmeldingen correct, actieve sessies beperkt |
 | **Verantwoordelijke** | Davey & Jada |
 | **Tijdsindicatie** | M (4 uur) |
+| **Gerelateerde eisen** | E2 |
 
 #### 2. Opdrachtenlijst en statussen bekijken
 | **Als een...** | Leerling |
@@ -74,6 +75,7 @@ Een user story is **done** wanneer:
 | **DoD** | Lijst rendert stabiel, correcte statussen weergegeven |
 | **Verantwoordelijke** | Davey & Jada |
 | **Tijdsindicatie** | M (4 uur) |
+| **Gerelateerde eisen** | E3, E5 |
 
 #### 3. Opdracht indienen & feedback verwerken
 | **Als een...** | Leerling |
@@ -85,7 +87,8 @@ Een user story is **done** wanneer:
 | **Scenario** | 1. Open opdracht → 2. Vul tekst/foto → 3. Verstuur → 4. Status `Pending` → 5. Docent keurt af → 6. Leerling dient opnieuw in |
 | **DoD** | Status-flow (`Available` → `Pending` → `Feedback`/`Approved`) werkt correct |
 | **Verantwoordelijke** | Davey |
-| **Tijdsindicatie** | M (2–4 uur) |
+| **Tijdsindicatie** | M (3 uur) |
+| **Gerelateerde eisen** | E4, E5 |
 
 ---
 
@@ -102,6 +105,7 @@ Een user story is **done** wanneer:
 | **DoD** | Status/feedback zichtbaar voor leerling |
 | **Verantwoordelijke** | Jada |
 | **Tijdsindicatie** | M (4 uur) |
+| **Gerelateerde eisen** | E5, E6 |
 
 #### 2. Filteren in docentoverzicht
 | **Als een...** | Docent |
@@ -113,6 +117,7 @@ Een user story is **done** wanneer:
 | **DoD** | Filters wijzigen lijst correct |
 | **Verantwoordelijke** | Jada |
 | **Tijdsindicatie** | S (2 uur) |
+| **Gerelateerde eisen** | E7 |
 
 #### 3. Visuele voortgang per team/leerling
 | **Als een...** | Docent |
@@ -124,6 +129,7 @@ Een user story is **done** wanneer:
 | **DoD** | Vooruitgang correct weergegeven voor alle teams/leerlingen |
 | **Verantwoordelijke** | Jada |
 | **Tijdsindicatie** | M (4 uur) |
+| **Gerelateerde eisen** | E7, W1 |
 
 ---
 
@@ -174,7 +180,7 @@ Een user story is **done** wanneer:
 | Sprint | Stories (uren) | Totaal uren | Past binnen 40u? |
 |--------|----------------|-------------|-----------------|
 | Sprint 1 | Team login (4u), Opdrachtenlijst (4u), Opdrachtdetails bekijken (2u) | 10u | ✅ |
-| Sprint 2 | Dashboard (4–6u), Feedback verwerking (2–4u), Filters docent (2u), Voortgangsbalken (4u) | 12–16u | ✅ |
+| Sprint 2 | Dashboard (5u), Feedback verwerking (3u), Filters docent (2u), Voortgangsbalken (4u) | 14u | ✅ |
 
 ---
 

@@ -20,9 +20,11 @@
 ### Jada  
 **Gepland:** US4 – Inzendingen beoordelen
 **Gerealiseerd:**
+- Frontend gemaakt voor het Admin dashboard (Crud system for teams en opdrachten)
+- API integratie voor aangemaakte Teams en opdrachten
 - 
 
-**Afwegingen/keuzes:** Geen aanpassingen nodig, alles volgens planning.
+**Afwegingen/keuzes:** Deel van de frontend niet afgemaakt, kwam niet uit met de planning er en ging wat meer tijd in.
 
 ---
 
