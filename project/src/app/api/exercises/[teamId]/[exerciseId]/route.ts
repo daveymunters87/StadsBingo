@@ -107,3 +107,68 @@ export async function GET(
   }
 }
 
+export async function POST(
+  req: Request,
+  { params }: { params: { teamId: string; exerciseId: string } }
+) {
+  try {
+    const { teamId, exerciseId } = params;
+    if (!teamId || !exerciseId) {
+      return new Response(
+        JSON.stringify({ error: "Team ID and Exercise ID are required" }),
+        { status: 400 }
+      );
+    }
+
+    const body = await req.json();
+    const { answerText, answerImage } = body;
+
+    // Check if the user really submitted the answer and the image.
+    if (!answerText && !answerImage) {
+      return new Response(
+        JSON.stringify({ error: "You must submit text or an image" }),
+        { status: 400 }
+      );
+    }
+
+    // Check if the assignment exists for this team
+    const teamAssignment = await prisma.teamAssignment.findFirst({
+      where: { teamId, assignmentId: exerciseId },
+      include: { assignment: true },
+    });
+
+    // If no assigment return status 404
+    if (!teamAssignment) {
+      return new Response(
+        JSON.stringify({ error: "Exercise not assigned to this team" }),
+        { status: 404 }
+      );
+    }
+
+    // Create new submission
+    const submission = await prisma.submission.create({
+      data: {
+        teamId,
+        assignmentId: exerciseId,
+        answerText: answerText || null,
+        answerImage: answerImage || null,
+        status: "PENDING",
+      },
+    });
+
+    return new Response(
+      JSON.stringify({
+        message: "Opdracht ingeleverd!",
+        submission,
+      }),
+      { status: 201 }
+    );
+  } catch (error) {
+    console.error(error);
+    return new Response(
+      JSON.stringify({ message: (error as Error).message }),
+      { status: 500 }
+    );
+  }
+}
+

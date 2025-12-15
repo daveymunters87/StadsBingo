@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { Menu, User, Phone, Mail, Link } from "lucide-react";
+import Link from "next/link";
+import { Menu, User, Phone, Mail } from "lucide-react";
 
 interface TeamData {
   teamId: string;

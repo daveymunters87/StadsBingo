@@ -60,7 +60,7 @@ Een user story is **done** wanneer:
 | **Acceptatiecriteria** | 1️⃣ Teamcode veld aanwezig op login scherm<br>2️⃣ Geldige code geeft toegang tot dashboard<br>3️⃣ Ongeldige code geeft duidelijke foutmelding<br>4️⃣ Alleen één actieve sessie per team toegestaan<br>5️⃣ Maximaal 5 spelers per team kunnen inloggen |
 | **Scenario** | 1. Leerling opent app → 2. Voert teamcode in → 3. Ziet opdrachtenoverzicht |
 | **DoD** | API controleert code, foutmeldingen correct, actieve sessies beperkt |
-| **Verantwoordelijke** | Davey |
+| **Verantwoordelijke** | Davey & Jada |
 | **Tijdsindicatie** | M (4 uur) |
 
 #### 2. Opdrachtenlijst en statussen bekijken
@@ -72,7 +72,7 @@ Een user story is **done** wanneer:
 | **Acceptatiecriteria** | 1️⃣ Lijst toont titel/beschrijving + status<br>2️⃣ `Locked` opdrachten zijn niet klikbaar<br>3️⃣ `Available`, `Pending`, `Feedback`, `Approved` duidelijk onderscheidbaar |
 | **Scenario** | 1. Leerling logt in → 2. Ziet opdrachtenlijst → 3. Opent beschikbare opdracht |
 | **DoD** | Lijst rendert stabiel, correcte statussen weergegeven |
-| **Verantwoordelijke** | Davey |
+| **Verantwoordelijke** | Davey & Jada |
 | **Tijdsindicatie** | M (4 uur) |
 
 #### 3. Opdracht indienen & feedback verwerken
@@ -127,37 +127,41 @@ Een user story is **done** wanneer:
 
 ---
 
-## Sprint Planning
-
 ### 🔹 Sprint 1 (Week 1–2)
-**Doel:** Basisflow leerling en docent, inclusief login, opdrachtenoverzicht en beoordelen.
+**Doel:** Basis leerlingflow realiseren: inloggen met teamcode en opdrachten bekijken.
 
 | To Do | In Progress | Done |
 |-------|------------|------|
-| Team login API & dashboard backend (Davey, 4u) | Opdrachtenlijst bekijken (Davey, 4u) | |
-| Inzendingen beoordelen (Jada, 4u) | | |
+| Team login API & dashboard backend (Davey & Jada, 4u) | Opdrachtenlijst bekijken (Davey & Jada, 4u) | |
+| Opdrachtdetails bekijken (Davey & Jada, 2u) | | |
 
 **Sprint 1 DoD:**  
 - Leerling kan inloggen met teamcode  
-- Leerling ziet opdrachtenlijst  
-- Docent kan inzendingen beoordelen  
+- Leerling ziet een overzicht van opdrachten met bijbehorende status  
+- Leerling kan een beschikbare opdracht openen en de details bekijken  
+- Locked opdrachten zijn niet klikbaar  
+- Basis navigatie tussen overzicht en detailpagina werkt  
 
 ---
 
 ### 🔹 Sprint 2 (Week 3–4)
-**Doel:** Frontend dashboard, filters, voortgangsbalken, feedback verwerking.
+**Doel:** Inleveren en beoordelen van opdrachten inclusief feedback en statusflow.
 
 | To Do | In Progress | Done |
 |-------|------------|------|
-| Dashboard frontend (Davey, 4–6u) | Visuele voortgang per team/leerling (Jada, 4u) | |
-| Opdracht indienen & feedback verwerken (Davey, 2–4u) | Status & feedback bekijken (Davey, 2u) | |
-| Filteren docentoverzicht (Jada, 2u) | | |
+| Opdracht indienen (tekst/foto) (Davey, 2–4u) | Status & feedback bekijken (Davey, 2u) | |
+| Inzendingen beoordelen (approve/reject + feedback) (Jada, 4u) | Dashboard frontend (Davey, 4–6u) | |
+| Filteren docentoverzicht (Jada, 2u) | Visuele voortgang per team/leerling (Jada, 4u) | |
 
 **Sprint 2 DoD:**  
-- Dashboard functioneel voor leerlingen en docenten  
-- Feedback en status correct weergegeven  
-- Filters werken correct  
-- Voortgangsbalken zichtbaar en stabiel  
+- Leerling kan een opdracht indienen met tekst en/of foto  
+- Na indienen verandert status naar `Pending`  
+- Docent kan inzendingen goed- of afkeuren met verplichte feedback bij afkeuren  
+- Leerling ziet feedback en kan opnieuw indienen bij status `Feedback`  
+- Bij goedkeuring (`Approved`) wordt de volgende opdracht beschikbaar  
+- Dashboard toont actuele status en feedback correct  
+- Docent kan filteren op status en leerling  
+- Visuele voortgang per team en leerling wordt correct weergegeven  
 
 ---
 
@@ -169,8 +173,8 @@ Een user story is **done** wanneer:
 
 | Sprint | Stories (uren) | Totaal uren | Past binnen 40u? |
 |--------|----------------|-------------|-----------------|
-| Sprint 1 | Team login (4u), Opdrachtenlijst (4u), Inzendingen beoordelen (4u) | 12u | ✅ |
-| Sprint 2 | Dashboard frontend (4–6u), Feedback verwerking (2–4u), Filters docent (2u), Voortgangsbalken (4u) | 12–16u | ✅ |
+| Sprint 1 | Team login (4u), Opdrachtenlijst (4u), Opdrachtdetails bekijken (2u) | 10u | ✅ |
+| Sprint 2 | Dashboard (4–6u), Feedback verwerking (2–4u), Filters docent (2u), Voortgangsbalken (4u) | 12–16u | ✅ |
 
 ---
 
