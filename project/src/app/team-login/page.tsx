@@ -47,6 +47,9 @@ export default function LoginPage() {
       return;
     }
 
+    // Store team data in localStorage
+    localStorage.setItem("teamData", JSON.stringify(data));
+
     router.push("/dashboard");
   }, [code, router]);
 
