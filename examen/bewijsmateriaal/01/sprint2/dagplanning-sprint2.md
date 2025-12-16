@@ -33,18 +33,20 @@
 ![Dag 2 Scrum Board](./scrumboard/dag2-board.png)
 
 ### Jada  
-**Gepland:** Create Frontend for Team Login Page (US1)   
-**Gerealiseerd:** Ik heb een basis opgezet zodat we makkelijk kunnen beginnen met het testen van de auth  
+**Gepland:** Edit Frontend for admin panel (US15 / US6)   
+**Gerealiseerd:** Ik heb de nav bar van de admin panel aangepast, het is nu een stuk duidelijker dan dat we hadden. Ik heb dit eerst in Figma gemaakt en vervolgens overgenomen.
+ Ook heb ik mijn opzet van gisteren aangepast zodat het overzichtiger word.
 - 
 
-**Afwegingen/keuzes:** Geen aanpassingen nodig, alles volgens planning.
+**Afwegingen/keuzes:** Ik heb deze keuzes gemaakt omdat dit onze userflow en UI verbeterd en het er simpel weg beter uit ziet.
 
 ### Davey  
-**Gepland:**     
+**Gepland:**  Make Admin dashboard functional (US15 / US6)  
 **Gerealiseerd:** 
-- 
+- API Routes gemaakt voor onderdelen admin dashboard
+- Middleware gebouwd om toegang te blokkeren voor secure routes.
 
-**Afwegingen/keuzes:** Geen aanpassingen nodig, alles volgens planning.
+**Afwegingen/keuzes:** Nog niet alles in de admin dashboard volledig functioneel, planning doorgeschoven naar morgen.
 
 
 ---
