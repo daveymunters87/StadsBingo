@@ -1,44 +1,14 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, FileText, Map, Phone } from "lucide-react";
+import { Menu, FileText, Phone } from "lucide-react";
+import { getTeamFromSession } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
-interface TeamData {
-  teamId: string;
-  teamName: string;
-  captainId: string | null;
-  players: Array<{ id: string; name: string }>;
-}
-
-export default function Dashboard() {
-  const [teamData, setTeamData] = useState<TeamData | null>(null);
-  const router = useRouter();
-
-  useEffect(() => {
-    // Get team data from localStorage
-    const stored = localStorage.getItem("teamData");
-    if (!stored) {
-      router.push("/team-login");
-      return;
-    }
-
-    try {
-      const data = JSON.parse(stored);
-      setTeamData(data);
-    } catch {
-      router.push("/team-login");
-    }
-  }, [router]);
-
-  if (!teamData) {
-    return (
-      <div className="min-h-screen bg-[#EDE6DC] flex items-center justify-center">
-        <p className="text-[#2C2C2C]">Laden...</p>
-      </div>
-    );
+export default async function Dashboard() {
+  const team = await getTeamFromSession();
+  
+  if (!team) {
+    redirect("/team-login");
   }
 
   return (
@@ -50,13 +20,15 @@ export default function Dashboard() {
           <Image src="/logo.png" alt="NexEd" width={128} height={128} />
         </Link>
       </div>
-        <button
-          type="button"
-          className="text-[#2C2C2C] p-2 md:hidden"
-          aria-label="Menu"
-        >
-          <Menu className="h-6 w-6" />
-        </button>
+        <div className="flex items-center gap-4">
+          <button
+            type="button"
+            className="text-[#2C2C2C] p-2 md:hidden"
+            aria-label="Menu"
+          >
+            <Menu className="h-6 w-6" />
+          </button>
+        </div>
       </header>
 
       <div className="px-4 md:px-6 md:max-w-4xl md:mx-auto">
@@ -66,7 +38,7 @@ export default function Dashboard() {
             Welkom,
           </h2>
           <p className="text-xl font-semibold text-[#2C2C2C] mb-3 md:text-2xl">
-            {teamData.teamName}
+            Team {team.name}
           </p>
           <p className="text-base text-[#2C2C2C] leading-relaxed md:text-lg">
             De Groningse stads bingo voor de

@@ -4,13 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import { useRouter, useParams } from "next/navigation";
 import Image from "next/image";
 import { Menu, Upload, ArrowRight, X } from "lucide-react";
-
-interface TeamData {
-  teamId: string;
-  teamName: string;
-  captainId: string | null;
-  players: Array<{ id: string; name: string }>;
-}
+import Link from "next/link";
 
 interface ExerciseDetail {
   id: string;
@@ -30,7 +24,6 @@ interface ExerciseDetail {
 }
 
 export default function ExerciseDetailPage() {
-  const [teamData, setTeamData] = useState<TeamData | null>(null);
   const [exercise, setExercise] = useState<ExerciseDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
@@ -41,38 +34,27 @@ export default function ExerciseDetailPage() {
   const exerciseId = params.id as string;
 
   useEffect(() => {
-    const stored = localStorage.getItem("teamData");
-    if (!stored) {
-      router.push("/team-login");
-      return;
-    }
-
-    try {
-      const data = JSON.parse(stored);
-      setTeamData(data);
-
-      // Fetch exercise details
-      fetch(`/api/exercises/${data.teamId}/${exerciseId}`)
-        .then((res) => {
-          if (!res.ok) {
-            throw new Error("Exercise not found");
-          }
-          return res.json();
-        })
-        .then((exerciseData) => {
-          setExercise(exerciseData);
-          if (exerciseData.submission?.answerImage) {
-            setUploadedImage(exerciseData.submission.answerImage);
-          }
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.error("Error fetching exercise:", error);
-          router.push("/dashboard/exercises");
-        });
-    } catch {
-      router.push("/team-login");
-    }
+    // Fetch exercise details - middleware handles authentication
+    fetch(`/api/exercises/${exerciseId}`, {
+      credentials: 'include'
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Exercise not found");
+        }
+        return res.json();
+      })
+      .then((exerciseData) => {
+        setExercise(exerciseData);
+        if (exerciseData.submission?.answerImage) {
+          setUploadedImage(exerciseData.submission.answerImage);
+        }
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching exercise:", error);
+        router.push("/dashboard/exercises");
+      });
   }, [router, exerciseId]);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -95,7 +77,7 @@ export default function ExerciseDetailPage() {
   };
 
   const handleSubmit = async () => {
-    if (!uploadedImage || !teamData || !exercise) return;
+    if (!uploadedImage || !exercise) return;
 
     setSubmitting(true);
     try {
@@ -111,7 +93,7 @@ export default function ExerciseDetailPage() {
     }
   };
 
-  if (!teamData || loading) {
+  if (loading) {
     return (
       <div className="min-h-screen bg-[#EDE6DC] flex items-center justify-center">
         <p className="text-[#2C2C2C]">Laden...</p>
@@ -135,7 +117,9 @@ export default function ExerciseDetailPage() {
       {/* Header */}
       <header className="flex items-center justify-between px-4 py-4 md:px-6">
       <div className="w-full max-w-xs mb-6 mt-8 md:absolute">
-        <Image src="/logo.png" alt="NexEd" width={128} height={128} />
+        <Link href={"/dashboard/exercises"}>
+          <Image src="/logo.png" alt="NexEd" width={128} height={128} />
+        </Link>
       </div>
         <button
           type="button"

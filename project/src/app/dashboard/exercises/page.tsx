@@ -1,17 +1,8 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { Menu, CheckCircle2, ArrowRight, Lock } from "lucide-react";
-
-interface TeamData {
-  teamId: string;
-  teamName: string;
-  captainId: string | null;
-  players: Array<{ id: string; name: string }>;
-}
+import { getTeamFromSession } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
 interface Exercise {
   id: string;
@@ -22,45 +13,103 @@ interface Exercise {
   status: "LOCKED" | "AVAILABLE" | "PENDING" | "FEEDBACK" | "APPROVED";
 }
 
-export default function Exercises() {
-  const [teamData, setTeamData] = useState<TeamData | null>(null);
-  const [exercises, setExercises] = useState<Exercise[]>([]);
-  const [loading, setLoading] = useState(true);
-  const router = useRouter();
+import { PrismaClient } from "@prisma/client";
 
-  useEffect(() => {
-    const stored = localStorage.getItem("teamData");
-    if (!stored) {
-      router.push("/team-login");
-      return;
-    }
+const prisma = new PrismaClient();
 
-    try {
-      const data = JSON.parse(stored);
-      setTeamData(data);
+async function getExercises(teamId: string): Promise<Exercise[]> {
+  try {
+    // fetch only assignments assigned to this team
+    const teamAssignments = await prisma.teamAssignment.findMany({
+      where: { teamId },
+      include: {
+        assignment: {
+          include: {
+            submissions: {
+              where: { teamId },
+              take: 1,
+            },
+          },
+        },
+      },
+      orderBy: {
+        assignment: {
+          order: "asc",
+        },
+      },
+    });
+
+    // Format the assignments and determine status
+    const formatted = teamAssignments.map((ta, index) => {
+      const a = ta.assignment;
+      const submission = a.submissions[0];
       
-      fetch(`/api/exercises/${data.teamId}`)
-        .then((res) => res.json())
-        .then((data) => {
-          setExercises(data);
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.error("Error fetching exercises:", error);
-          setLoading(false);
-        });
-    } catch {
-      router.push("/team-login");
-    }
-  }, [router]);
+      // If there's a submission, use its status
+      if (submission) {
+        return {
+          id: a.id,
+          title: a.title,
+          description: a.description,
+          location: a.location,
+          order: a.order,
+          status: submission.status as Exercise["status"],
+        };
+      }
+      
+      // If no submission, check if previous assignments are completed
+      // First assignment is always available
+      if (index === 0) {
+        return {
+          id: a.id,
+          title: a.title,
+          description: a.description,
+          location: a.location,
+          order: a.order,
+          status: "AVAILABLE" as const,
+        };
+      }
+      
+      // Check if previous assignment is approved
+      const previousAssignment = teamAssignments[index - 1];
+      const previousSubmission = previousAssignment.assignment.submissions[0];
+      
+      if (previousSubmission?.status === "APPROVED") {
+        return {
+          id: a.id,
+          title: a.title,
+          description: a.description,
+          location: a.location,
+          order: a.order,
+          status: "AVAILABLE" as const,
+        };
+      }
+      
+      // Otherwise, it's locked
+      return {
+        id: a.id,
+        title: a.title,
+        description: a.description,
+        location: a.location,
+        order: a.order,
+        status: "LOCKED" as const,
+      };
+    });
 
-  if (!teamData) {
-    return (
-      <div className="min-h-screen bg-[#EDE6DC] flex items-center justify-center">
-        <p className="text-[#2C2C2C]">Laden...</p>
-      </div>
-    );
+    return formatted;
+  } catch (error) {
+    console.error("Error fetching exercises:", error);
+    return [];
   }
+}
+
+export default async function Exercises() {
+  const team = await getTeamFromSession();
+  
+  if (!team) {
+    redirect("/team-login");
+  }
+
+  const exercises = await getExercises(team.id);
 
   const completedCount = exercises.filter(
     (ex) => ex.status === "APPROVED"
@@ -110,7 +159,7 @@ export default function Exercises() {
         </div>
 
         {/* Progress Section */}
-        {!loading && exercises.length > 0 && (
+        {exercises.length > 0 && (
           <div className="mb-6">
             <div className="flex items-center gap-3 mb-2">
               <CheckCircle2 className="h-5 w-5 text-green-600" />
@@ -125,11 +174,7 @@ export default function Exercises() {
         )}
 
         {/* Exercises List */}
-        {loading ? (
-          <div className="text-center py-8">
-            <p className="text-[#2C2C2C]">Laden...</p>
-          </div>
-        ) : exercises.length === 0 ? (
+        {exercises.length === 0 ? (
           <div className="bg-[#F5F0E8] rounded-2xl p-6 text-center">
             <p className="text-[#2C2C2C]">Geen opdrachten beschikbaar</p>
           </div>

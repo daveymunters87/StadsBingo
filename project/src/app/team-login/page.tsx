@@ -47,9 +47,7 @@ export default function LoginPage() {
       return;
     }
 
-    // Store team data in localStorage
-    localStorage.setItem("teamData", JSON.stringify(data));
-
+    // Cookie is set by the API, just redirect
     router.push("/dashboard");
   }, [code, router]);
 

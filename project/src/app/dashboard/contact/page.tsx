@@ -1,17 +1,8 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { Menu, User, Phone, Mail } from "lucide-react";
-
-interface TeamData {
-  teamId: string;
-  teamName: string;
-  captainId: string | null;
-  players: Array<{ id: string; name: string }>;
-}
+import { getTeamFromSession } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
 interface Mentor {
   name: string;
@@ -41,31 +32,11 @@ const mentors: Mentor[] = [
   },
 ];
 
-export default function ContactPage() {
-  const [teamData, setTeamData] = useState<TeamData | null>(null);
-  const router = useRouter();
-
-  useEffect(() => {
-    const stored = localStorage.getItem("teamData");
-    if (!stored) {
-      router.push("/team-login");
-      return;
-    }
-
-    try {
-      const data = JSON.parse(stored);
-      setTeamData(data);
-    } catch {
-      router.push("/team-login");
-    }
-  }, [router]);
-
-  if (!teamData) {
-    return (
-      <div className="min-h-screen bg-[#EDE6DC] flex items-center justify-center">
-        <p className="text-[#2C2C2C]">Laden...</p>
-      </div>
-    );
+export default async function ContactPage() {
+  const team = await getTeamFromSession();
+  
+  if (!team) {
+    redirect("/team-login");
   }
 
   return (
