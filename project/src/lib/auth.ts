@@ -1,5 +1,5 @@
 import { cookies } from 'next/headers'
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient, Role } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
@@ -39,7 +39,7 @@ export async function getAdminFromSession() {
     const admin = await prisma.user.findUnique({
       where: { 
         id: adminSession.value,
-        role: "ADMIN" as any
+        role: "ADMIN" as Role
       },
     })
     

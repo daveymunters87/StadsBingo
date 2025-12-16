@@ -29,7 +29,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const isValidPassword = admin.password === password;
+    const isValidPassword = (admin as any).password === password;
 
     if (!isValidPassword) {
       return NextResponse.json(

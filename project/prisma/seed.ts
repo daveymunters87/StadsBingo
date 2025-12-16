@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Role } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
@@ -16,17 +16,17 @@ async function main() {
       email: "admin@example.com",
       name: "Admin User",
       password: "admin123",
-      role: "ADMIN",
+      role: "ADMIN" as Role,
     },
   });
 
-  // --- CREATE TEACHER
-  const teacher = await prisma.user.create({
+  // --- CREATE USER (for team management)
+  const user = await prisma.user.create({
     data: {
-      email: "teacher@example.com",
-      name: "Docent Test",
-      password: "teacher123",
-      role: "TEACHER",
+      email: "user@example.com",
+      name: "Regular User",
+      password: "user123",
+      role: "USER" as Role,
     },
   });
 
@@ -35,7 +35,7 @@ async function main() {
     data: {
       name: "Test Team",
       code: "TEST123", 
-      createdById: teacher.id,
+      createdById: user.id,
     },
   });
 
@@ -103,7 +103,7 @@ async function main() {
     });
   }
 
-  console.log("✅ Seed complete: Admin, Teacher, Team, Players, Assignments & TeamAssignments created");
+  console.log("✅ Seed complete: Admin, User, Team, Players, Assignments & TeamAssignments created");
 }
 
 main()

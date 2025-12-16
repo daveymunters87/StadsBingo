@@ -16,7 +16,7 @@ model User {
   email     String   @unique
   name      String
   password  String?
-  role      Role     @default(TEACHER)
+  role      Role     @default(USER)
   createdAt DateTime @default(now())
 
   // Teams created by this teacher
@@ -110,8 +110,7 @@ model Submission {
 /////////////////////////
 
 enum Role {
-  STUDENT
-  TEACHER
+  USER
   ADMIN
 }
 
