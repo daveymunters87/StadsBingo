@@ -1,9 +1,9 @@
-'use client';
-
-import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ChevronRight, Check } from 'lucide-react';
+import { getAdminFromSession } from "@/lib/auth";
+import { redirect } from "next/navigation";
+import AdminLogoutButton from "@/components/AdminLogoutButton";
 
 interface Team {
   id: string;
@@ -19,27 +19,15 @@ interface Team {
   };
 }
 
-export default function TeacherDashboard() {
-  const [teams, setTeams] = useState<Team[]>([]);
-  const [loading, setLoading] = useState(true);
+export default async function TeacherDashboard() {
+  const admin = await getAdminFromSession();
+  
+  if (!admin) {
+    redirect("/admin/login");
+  }
 
-  useEffect(() => {
-    fetchTeams();
-  }, []);
-
-  const fetchTeams = async () => {
-    try {
-      const response = await fetch('/api/teams');
-      if (response.ok) {
-        const data = await response.json();
-        setTeams(data);
-      }
-    } catch (error) {
-      console.error('Error fetching teams:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  // TODO: Fetch teams from database
+  const teams: Team[] = [];
 
   // Mock data for assignments (as shown in Figma)
   const mockAssignments = [
@@ -86,12 +74,17 @@ export default function TeacherDashboard() {
         </Link>
       </div>
 
+      {/* Logout Button */}
+      <div className="absolute top-6 right-6">
+        <AdminLogoutButton />
+      </div>
+
       {/* Left Sidebar */}
       <aside className="w-80 bg-[#EAE2D5] shadow-sm pt-32 pb-10 px-6 hidden md:block min-h-screen">
         {/* Admin Welcome Section */}
         <div className="bg-[#FFE600] rounded-2xl p-5 mb-10">
           <h2 className="text-2xl font-extrabold text-[#2C2C2C]">Welkom,</h2>
-          <p className="text-2xl font-extrabold text-[#2C2C2C]">Admin</p>
+          <p className="text-2xl font-extrabold text-[#2C2C2C]">{admin.name}</p>
         </div>
 
         {/* Teams Section */}
@@ -100,9 +93,7 @@ export default function TeacherDashboard() {
             Teams
           </h3>
           <div className="space-y-1">
-            {loading ? (
-              <div className="text-sm text-[#6B7280]">Teams laden...</div>
-            ) : teams.length === 0 ? (
+            {teams.length === 0 ? (
               <>
                 <div className="flex items-center justify-between py-3 cursor-pointer rounded hover:bg-[#F5F0E8]">
                   <div>

@@ -1,15 +1,12 @@
 import { PrismaClient } from "@prisma/client";
+import { getTeamIdFromHeaders } from "@/lib/auth";
 
 const prisma = new PrismaClient();
 
-export async function GET(
-  request: Request,
-  { params }: { params: { teamId: string } }
-) {
+export async function GET(request: Request) {
   try {
-    const { teamId } = params;
+    const teamId = getTeamIdFromHeaders(request);
 
-    // if no teamId is found return response
     if (!teamId) {
       return new Response(JSON.stringify({ error: "Team ID is required" }), { status: 400 });
     }
@@ -90,7 +87,6 @@ export async function GET(
       };
     });
 
-    // Return the formated response
     return Response.json(formatted);
   } catch (error) {
     console.error(error);

@@ -10,11 +10,22 @@ async function main() {
   await prisma.assignment.deleteMany();
   await prisma.user.deleteMany();
 
+  // --- CREATE ADMIN
+  const admin = await prisma.user.create({
+    data: {
+      email: "admin@example.com",
+      name: "Admin User",
+      password: "admin123",
+      role: "ADMIN",
+    },
+  });
+
   // --- CREATE TEACHER
   const teacher = await prisma.user.create({
     data: {
       email: "teacher@example.com",
       name: "Docent Test",
+      password: "teacher123",
       role: "TEACHER",
     },
   });
@@ -23,7 +34,7 @@ async function main() {
   const team = await prisma.team.create({
     data: {
       name: "Test Team",
-      code: "TEST123", // login code
+      code: "TEST123", 
       createdById: teacher.id,
     },
   });
@@ -92,7 +103,7 @@ async function main() {
     });
   }
 
-  console.log("✅ Seed complete: Teacher, Team, Players, Assignments & TeamAssignments created");
+  console.log("✅ Seed complete: Admin, Teacher, Team, Players, Assignments & TeamAssignments created");
 }
 
 main()
