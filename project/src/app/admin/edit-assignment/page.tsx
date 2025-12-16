@@ -64,7 +64,7 @@ export default function EditAssignmentPage() {
     <main className="min-h-screen bg-[#EDE6DC] flex relative pb-10 items-stretch">
       {/* Logo */}
       <div className="w-full max-w-xs mb-6 mt-8 md:absolute md:top-6 md:left-6">
-        <Link href="/teacher-dashboard">
+        <Link href="/admin">
           <Image src="/logo.png" alt="NexEd" width={128} height={128} />
         </Link>
       </div>
@@ -108,7 +108,7 @@ export default function EditAssignmentPage() {
       {/* Main Content */}
       <section className="flex-1 px-6 pt-32 md:pt-32 md:px-16 max-w-3xl">
         <Link
-          href="/teacher-dashboard"
+          href="/admin"
           className="mb-6 inline-block text-sm text-[#4B5563] hover:text-[#111827]"
         >
           ← Ga terug
@@ -129,7 +129,7 @@ export default function EditAssignmentPage() {
             assignments.map((assignment, index) => (
               <Link
                 key={assignment.id}
-                href={`/teacher-dashboard/edit-assignment/${assignment.id}`}
+                href={`/admin/edit-assignment/${assignment.id}`}
                 className="flex items-center justify-between bg-white rounded-2xl border border-[#E5E7EB] px-6 py-4 shadow-sm hover:shadow-md hover:border-[#D1D5DB] transition"
               >
                 <span className="font-medium text-[#111827]">

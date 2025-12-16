@@ -81,7 +81,7 @@ export default function TeacherDashboard() {
     <main className="min-h-screen bg-[#EDE6DC] flex relative pb-10 items-stretch">
       {/* Logo */}
       <div className="w-full max-w-xs mb-6 mt-8 md:absolute md:top-6 md:left-6">
-        <Link href="/teacher-dashboard">
+        <Link href="/admin">
           <Image src="/logo.png" alt="NexEd" width={128} height={128} />
         </Link>
       </div>
@@ -235,7 +235,7 @@ export default function TeacherDashboard() {
             <div className="space-y-4">
               {/* Opdracht toevoegen */}
               <Link
-                href="/teacher-dashboard/add-assignment"
+                href="/admin/add-assignment"
                 className="w-full bg-white rounded-2xl border border-[#E5E7EB] px-5 py-4 flex items-center justify-between hover:shadow-md hover:border-[#D1D5DB] transition shadow-sm"
               >
                 <span className="font-medium text-[#111827]">
@@ -248,7 +248,7 @@ export default function TeacherDashboard() {
 
               {/* Opdracht wijzigen */}
               <Link
-                href="/teacher-dashboard/edit-assignment"
+                href="/admin/edit-assignment"
                 className="w-full bg-white rounded-2xl border border-[#E5E7EB] px-5 py-4 flex items-center justify-between hover:shadow-md hover:border-[#D1D5DB] transition shadow-sm"
               >
                 <span className="font-medium text-[#111827]">
@@ -261,7 +261,7 @@ export default function TeacherDashboard() {
 
               {/* Team aanmaken */}
               <Link
-                href="/teacher-dashboard/create-team"
+                href="/admin/create-team"
                 className="w-full bg-white rounded-2xl border border-[#E5E7EB] px-5 py-4 flex items-center justify-between hover:shadow-md hover:border-[#D1D5DB] transition shadow-sm"
               >
                 <span className="font-medium text-[#111827]">
@@ -274,7 +274,7 @@ export default function TeacherDashboard() {
 
               {/* Team wijzigen */}
               <Link
-                href="/teacher-dashboard/edit-team"
+                href="/admin/edit-team"
                 className="w-full bg-white rounded-2xl border border-[#E5E7EB] px-5 py-4 flex items-center justify-between hover:shadow-md hover:border-[#D1D5DB] transition shadow-sm"
               >
                 <span className="font-medium text-[#111827]">
