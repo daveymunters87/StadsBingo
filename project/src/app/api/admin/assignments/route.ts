@@ -39,7 +39,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Admin authentication required" }, { status: 401 });
     }
 
-    const { title, description, location, order } = await request.json();
+    const { title, description, location, order, teamIds } = await request.json();
 
     if (!title || !description || !location || order === undefined) {
       return NextResponse.json({ 
@@ -57,10 +57,18 @@ export async function POST(request: Request) {
       }
     });
 
-    // Assign to all existing teams
-    const teams = await prisma.team.findMany();
+    // Assign to selected teams or all teams if none specified
+    let teamsToAssign;
+    if (teamIds && Array.isArray(teamIds) && teamIds.length > 0) {
+      teamsToAssign = await prisma.team.findMany({
+        where: { id: { in: teamIds } }
+      });
+    } else {
+      teamsToAssign = await prisma.team.findMany();
+    }
+
     await Promise.all(
-      teams.map(team =>
+      teamsToAssign.map(team =>
         prisma.teamAssignment.create({
           data: {
             teamId: team.id,

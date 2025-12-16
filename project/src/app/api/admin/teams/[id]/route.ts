@@ -46,7 +46,7 @@ export async function GET(
   }
 }
 
-// PUT update team
+// Update team
 export async function PUT(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
@@ -64,20 +64,17 @@ export async function PUT(
       return NextResponse.json({ error: "Team name is required" }, { status: 400 });
     }
 
-    // Update team name
+    // Update name of the team
     await prisma.team.update({
       where: { id },
       data: { name }
     });
 
-    // If playerNames provided, update players
     if (playerNames && Array.isArray(playerNames)) {
-      // Delete existing players
       await prisma.teamPlayer.deleteMany({
         where: { teamId: id }
       });
 
-      // Create new players
       const players = await Promise.all(
         playerNames.map((playerName: string, index: number) =>
           prisma.teamPlayer.create({
@@ -90,7 +87,6 @@ export async function PUT(
         )
       );
 
-      // Set first player as captain
       if (players.length > 0) {
         await prisma.team.update({
           where: { id },
@@ -130,6 +126,23 @@ export async function DELETE(
 
     const { id } = await params;
 
+    // Delete in the correct order to handle foreign key constraints
+    // 1. Delete submissions first
+    await prisma.submission.deleteMany({
+      where: { teamId: id }
+    });
+
+    // 2. Delete team assignments
+    await prisma.teamAssignment.deleteMany({
+      where: { teamId: id }
+    });
+
+    // 3. Delete team players
+    await prisma.teamPlayer.deleteMany({
+      where: { teamId: id }
+    });
+
+    // 4. Finally delete the team
     await prisma.team.delete({
       where: { id }
     });

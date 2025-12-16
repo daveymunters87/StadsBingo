@@ -22,8 +22,15 @@ interface Assignment {
   };
 }
 
+interface Team {
+  id: string;
+  name: string;
+  code: string;
+}
+
 export default function AssignmentsPage() {
   const [assignments, setAssignments] = useState<Assignment[]>([]);
+  const [teams, setTeams] = useState<Team[]>([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [editingAssignment, setEditingAssignment] = useState<Assignment | null>(null);
@@ -31,11 +38,13 @@ export default function AssignmentsPage() {
     title: "",
     description: "",
     location: "",
-    order: ""
+    order: "",
+    selectedTeams: [] as string[]
   });
 
   useEffect(() => {
     fetchAssignments();
+    fetchTeams();
   }, []);
 
   const fetchAssignments = async () => {
@@ -54,6 +63,20 @@ export default function AssignmentsPage() {
     }
   };
 
+  const fetchTeams = async () => {
+    try {
+      const response = await fetch("/api/admin/teams", {
+        credentials: 'include'
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setTeams(data);
+      }
+    } catch (error) {
+      console.error("Error fetching teams:", error);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -66,16 +89,23 @@ export default function AssignmentsPage() {
       const url = editingAssignment ? `/api/admin/assignments/${editingAssignment.id}` : "/api/admin/assignments";
       const method = editingAssignment ? "PUT" : "POST";
       
+      const requestBody: any = {
+        title: formData.title,
+        description: formData.description,
+        location: formData.location,
+        order: parseInt(formData.order)
+      };
+
+      // Only include teamIds for new assignments (not for updates)
+      if (!editingAssignment && formData.selectedTeams.length > 0) {
+        requestBody.teamIds = formData.selectedTeams;
+      }
+      
       const response = await fetch(url, {
         method,
         headers: { "Content-Type": "application/json" },
         credentials: 'include',
-        body: JSON.stringify({
-          title: formData.title,
-          description: formData.description,
-          location: formData.location,
-          order: parseInt(formData.order)
-        })
+        body: JSON.stringify(requestBody)
       });
 
       if (response.ok) {
@@ -117,7 +147,8 @@ export default function AssignmentsPage() {
       title: assignment.title,
       description: assignment.description,
       location: assignment.location,
-      order: assignment.order.toString()
+      order: assignment.order.toString(),
+      selectedTeams: [] // Teams can't be edited for existing assignments
     });
     setShowForm(true);
   };
@@ -125,7 +156,16 @@ export default function AssignmentsPage() {
   const resetForm = () => {
     setShowForm(false);
     setEditingAssignment(null);
-    setFormData({ title: "", description: "", location: "", order: "" });
+    setFormData({ title: "", description: "", location: "", order: "", selectedTeams: [] });
+  };
+
+  const handleTeamToggle = (teamId: string) => {
+    setFormData(prev => ({
+      ...prev,
+      selectedTeams: prev.selectedTeams.includes(teamId)
+        ? prev.selectedTeams.filter(id => id !== teamId)
+        : [...prev.selectedTeams, teamId]
+    }));
   };
 
   return (
@@ -143,7 +183,7 @@ export default function AssignmentsPage() {
             onClick={() => {
               setShowForm(true);
               setEditingAssignment(null);
-              setFormData({ title: "", description: "", location: "", order: "" });
+              setFormData({ title: "", description: "", location: "", order: "", selectedTeams: [] });
             }}
             className="bg-[#FFE600] text-[#2C2C2C] hover:bg-[#2C2C2C] hover:text-[#FFE600]"
           >
@@ -216,6 +256,43 @@ export default function AssignmentsPage() {
                       min="1"
                     />
                   </div>
+
+                  {!editingAssignment && (
+                    <div>
+                      <Label>Teams Toewijzen</Label>
+                      <div className="mt-2 space-y-2 max-h-32 overflow-y-auto border rounded-md p-2">
+                        <div className="flex items-center space-x-2">
+                          <input
+                            type="checkbox"
+                            id="all-teams"
+                            checked={formData.selectedTeams.length === 0}
+                            onChange={() => setFormData(prev => ({ ...prev, selectedTeams: [] }))}
+                            className="rounded"
+                          />
+                          <label htmlFor="all-teams" className="text-sm font-medium">
+                            Alle teams (standaard)
+                          </label>
+                        </div>
+                        {teams.map((team) => (
+                          <div key={team.id} className="flex items-center space-x-2">
+                            <input
+                              type="checkbox"
+                              id={`team-${team.id}`}
+                              checked={formData.selectedTeams.includes(team.id)}
+                              onChange={() => handleTeamToggle(team.id)}
+                              className="rounded"
+                            />
+                            <label htmlFor={`team-${team.id}`} className="text-sm">
+                              {team.name} ({team.code})
+                            </label>
+                          </div>
+                        ))}
+                      </div>
+                      <p className="text-xs text-[#6B7280] mt-1">
+                        Laat leeg om aan alle teams toe te wijzen
+                      </p>
+                    </div>
+                  )}
 
                   <Button type="submit" className="w-full bg-[#FFE600] text-[#2C2C2C] hover:bg-[#2C2C2C] hover:text-[#FFE600]">
                     {editingAssignment ? "Bijwerken" : "Aanmaken"}
