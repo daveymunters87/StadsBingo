@@ -1,13 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-
-import { Plus, Trash2, Edit, BookOpen, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "../../../components/ui/textarea";
-import AdminLayout from "@/components/AdminLayout";
+import ActionButtons from "@/components/admin/ui/ActionButtons";
+import AdminLayout from "@/components/admin/AdminLayout";
+import PageHeader from "@/components/admin/ui/PageHeader";
+import AssignmentListColumn from "@/components/admin/assignments/AssignmentListColumn";
+import AssignmentFormModal from "@/components/admin/assignments/AssignmentFormModal";
 
 interface Assignment {
   id: string;
@@ -171,195 +169,38 @@ export default function AssignmentsPage() {
   return (
     <AdminLayout>
       <div className="max-w-6xl mx-auto">
-        {/* Title */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-[#2C2C2C] mb-2">Opdrachten Beheren</h1>
-          <p className="text-[#4B5563]">Maak en beheer opdrachten voor StadsBingo</p>
-        </div>
+        <PageHeader title="Opdrachten Beheren" subtitle="Maak en beheer opdrachten voor StadsBingo" />
 
-        {/* Action Buttons */}
-        <div className="mb-6 flex gap-4">
-          <Button
-            onClick={() => {
-              setShowForm(true);
-              setEditingAssignment(null);
-              setFormData({ title: "", description: "", location: "", order: "", selectedTeams: [] });
-            }}
-            className="bg-[#FFE600] text-[#2C2C2C] hover:bg-[#2C2C2C] hover:text-[#FFE600]"
-          >
-            <Plus className="h-4 w-4 mr-2" />
-            Nieuwe Opdracht
-          </Button>
-          {showForm && (
-            <Button
-              onClick={resetForm}
-              variant="outline"
-            >
-              <X className="h-4 w-4 mr-2" />
-              Annuleren
-            </Button>
-          )}
-        </div>
+        <ActionButtons
+          onAdd={() => {
+            setShowForm(true);
+            setEditingAssignment(null);
+            setFormData({ title: "", description: "", location: "", order: "", selectedTeams: [] });
+          }}
+          onCancel={resetForm}
+          showCancel={false}
+          addLabel="Nieuwe Opdracht"
+        />
 
-        <div className="grid gap-6 lg:grid-cols-3">
-          {/* Form Column */}
-          <div className="lg:col-span-1">
-            {showForm && (
-              <div className="bg-white rounded-2xl p-6 shadow-sm sticky top-4">
-                <h2 className="text-xl font-bold text-[#2C2C2C] mb-4">
-                  {editingAssignment ? "Opdracht Bewerken" : "Nieuwe Opdracht"}
-                </h2>
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div>
-                    <Label htmlFor="title">Titel</Label>
-                    <Input
-                      id="title"
-                      value={formData.title}
-                      onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                      placeholder="Voer opdracht titel in"
-                      className="mt-1"
-                    />
-                  </div>
-                  
-                  <div>
-                    <Label htmlFor="description">Beschrijving</Label>
-                    <Textarea
-                      id="description"
-                      value={formData.description}
-                      onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setFormData({ ...formData, description: e.target.value })}
-                      placeholder="Voer opdracht beschrijving in"
-                      className="mt-1"
-                      rows={4}
-                    />
-                  </div>
+        {/* Assignments List - Full Width */}
+        <AssignmentListColumn
+          assignments={assignments}
+          loading={loading}
+          onEdit={startEdit}
+          onDelete={handleDelete}
+        />
 
-                  <div>
-                    <Label htmlFor="location">Locatie</Label>
-                    <Input
-                      id="location"
-                      value={formData.location}
-                      onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                      placeholder="Voer locatie in"
-                      className="mt-1"
-                    />
-                  </div>
-
-                  <div>
-                    <Label htmlFor="order">Volgorde</Label>
-                    <Input
-                      id="order"
-                      type="number"
-                      value={formData.order}
-                      onChange={(e) => setFormData({ ...formData, order: e.target.value })}
-                      placeholder="Voer volgorde nummer in"
-                      className="mt-1"
-                      min="1"
-                    />
-                  </div>
-
-                  {!editingAssignment && (
-                    <div>
-                      <Label>Teams Toewijzen</Label>
-                      <div className="mt-2 space-y-2 max-h-32 overflow-y-auto border rounded-md p-2">
-                        <div className="flex items-center space-x-2">
-                          <input
-                            type="checkbox"
-                            id="all-teams"
-                            checked={formData.selectedTeams.length === 0}
-                            onChange={() => setFormData(prev => ({ ...prev, selectedTeams: [] }))}
-                            className="rounded"
-                          />
-                          <label htmlFor="all-teams" className="text-sm font-medium">
-                            Alle teams (standaard)
-                          </label>
-                        </div>
-                        {teams.map((team) => (
-                          <div key={team.id} className="flex items-center space-x-2">
-                            <input
-                              type="checkbox"
-                              id={`team-${team.id}`}
-                              checked={formData.selectedTeams.includes(team.id)}
-                              onChange={() => handleTeamToggle(team.id)}
-                              className="rounded"
-                            />
-                            <label htmlFor={`team-${team.id}`} className="text-sm">
-                              {team.name} ({team.code})
-                            </label>
-                          </div>
-                        ))}
-                      </div>
-                      <p className="text-xs text-[#6B7280] mt-1">
-                        Laat leeg om aan alle teams toe te wijzen
-                      </p>
-                    </div>
-                  )}
-
-                  <Button type="submit" className="w-full bg-[#FFE600] text-[#2C2C2C] hover:bg-[#2C2C2C] hover:text-[#FFE600]">
-                    {editingAssignment ? "Bijwerken" : "Aanmaken"}
-                  </Button>
-                </form>
-              </div>
-            )}
-          </div>
-
-          {/* Assignments List Column */}
-          <div className="lg:col-span-2">
-            {loading ? (
-              <div className="text-center py-8">
-                <p className="text-[#2C2C2C]">Opdrachten laden...</p>
-              </div>
-            ) : assignments.length === 0 ? (
-              <div className="bg-[#F5F0E8] rounded-2xl p-6 text-center">
-                <BookOpen className="h-12 w-12 text-[#2C2C2C] mx-auto mb-4" />
-                <p className="text-[#2C2C2C]">Geen opdrachten gevonden</p>
-                <p className="text-[#6B7280] text-sm mt-2">Klik op "Nieuwe Opdracht" om je eerste opdracht aan te maken</p>
-              </div>
-            ) : (
-              <div className="grid gap-4">
-                {assignments.map((assignment) => (
-                  <div key={assignment.id} className="bg-white rounded-2xl p-5 shadow-sm">
-                    <div className="flex items-start justify-between mb-3">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-3 mb-2">
-                          <h3 className="text-lg font-bold text-[#2C2C2C]">{assignment.title}</h3>
-                          <span className="px-2 py-1 bg-[#FFE600] text-[#2C2C2C] text-xs font-medium rounded-full">
-                            #{assignment.order}
-                          </span>
-                        </div>
-                        <p className="text-sm text-[#6B7280] mb-2">{assignment.description}</p>
-                        <p className="text-sm text-[#6B7280]">
-                          <strong>Locatie:</strong> {assignment.location}
-                        </p>
-                      </div>
-                      <div className="flex gap-1 ml-4">
-                        <button
-                          onClick={() => startEdit(assignment)}
-                          className="p-2 text-[#6B7280] hover:text-[#2C2C2C] hover:bg-[#F5F0E8] rounded-lg"
-                        >
-                          <Edit className="h-4 w-4" />
-                        </button>
-                        <button
-                          onClick={() => handleDelete(assignment.id)}
-                          className="p-2 text-red-600 hover:text-red-800 hover:bg-red-50 rounded-lg"
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </button>
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-center gap-4 text-sm text-[#6B7280] pt-2 border-t">
-                      <span>{assignment._count.teams} teams toegewezen</span>
-                      <span>{assignment._count.submissions} inzendingen</span>
-                      <span className="text-xs">
-                        Aangemaakt: {new Date(assignment.createdAt).toLocaleDateString('nl-NL')}
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
+        {/* Assignment Form Modal */}
+        <AssignmentFormModal
+          showForm={showForm}
+          editingAssignment={editingAssignment}
+          formData={formData}
+          setFormData={setFormData}
+          onSubmit={handleSubmit}
+          onClose={resetForm}
+          teams={teams}
+          onTeamToggle={handleTeamToggle}
+        />
       </div>
     </AdminLayout>
   );

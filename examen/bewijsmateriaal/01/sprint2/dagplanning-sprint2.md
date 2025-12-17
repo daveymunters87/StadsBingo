@@ -56,15 +56,16 @@
 ![Dag 3 Scrum Board](./scrumboard/dag3-board.png)
 
 ### Jada  
-**Gepland:** 
-**Gerealiseerd:** 
+**Gepland:** US5/US6 Optimaliseren en refactoren van de frontend
+**Gerealiseerd:** Ik heb elke pagina in de admin dashboard gerefactored door middel van gebruik te maken van components om het overzichterlijker te maken. Ook ben ik wat dieper op de UX/UI gegaan voor de teams/opdrachten paginas met het tonen van de form. Ik heb dit eerst in Figma gedesigned en vervolgens in het project uitgebouwd
 
-**Afwegingen/keuzes:** Geen aanpassingen nodig, alles volgens planning.
+**Afwegingen/keuzes:** Ik heb de keuze gemaakt om van het design af te wijken om de UX en userflow te verbeteren.
 
-### Davey  
-**Gepland:**   
+### Davey 
+**Gepland:** Make Admin dashboard functional (US15 / US6)  Part 2
 **Gerealiseerd:** 
-- 
+- Alle componenten voorzien van de betreffende api integraties
+- Middleware voor de admin beter gemaakt. De /admin was nog niet goed beveiligd.
 
 **Afwegingen/keuzes:** Geen aanpassingen nodig, alles volgens planning.
 

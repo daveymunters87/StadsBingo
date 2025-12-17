@@ -35,7 +35,7 @@ export default function AdminSidebar() {
       {/* Admin Welcome Section */}
       <div className="bg-[#FFE600] rounded-2xl p-5 mb-10">
         <h2 className="text-2xl font-extrabold text-[#2C2C2C]">Welkom,</h2>
-        <p className="text-2xl font-extrabold text-[#2C2C2C]">Admin</p>
+        <p className="text-2xl font-bold text-[#2C2C2C]">Admin</p>
       </div>
 
       {/* Navigation Section */}
@@ -43,7 +43,7 @@ export default function AdminSidebar() {
         <h3 className="text-lg font-extrabold text-[#2C2C2C] mb-4">
           Navigatie
         </h3>
-        <div className="space-y-1">
+        <nav className="space-y-2">
           {navigationItems.map((item) => {
             const Icon = item.icon;
             const isActive = pathname === item.href;
@@ -52,18 +52,27 @@ export default function AdminSidebar() {
               <Link
                 key={item.name}
                 href={item.href}
-                className={`flex items-center gap-3 py-3 px-3 rounded-lg transition-colors ${
-                  isActive
-                    ? "bg-[#FFE600] text-[#2C2C2C] font-semibold"
-                    : "text-[#111827] hover:bg-[#F5F0E8]"
-                }`}
+                className={`
+                  group flex items-center gap-4 px-4 py-3 rounded-xl 
+                  transition-all duration-200 ease-in-out
+                  ${isActive
+                    ? "bg-[#FFE600] text-[#2C2C2C] font-semibold shadow-sm"
+                    : "text-[#4B5563] hover:bg-white hover:text-[#2C2C2C] hover:shadow-sm"
+                  }
+                `}
               >
-                <Icon className="w-5 h-5" />
-                <span className="font-medium">{item.name}</span>
+                <Icon 
+                  className={`w-5 h-5 transition-colors ${
+                    isActive ? "text-[#2C2C2C]" : "text-[#6B7280] group-hover:text-[#2C2C2C]"
+                  }`} 
+                />
+                <span className="font-medium text-sm tracking-wide">
+                  {item.name}
+                </span>
               </Link>
             );
           })}
-        </div>
+        </nav>
       </div>
     </aside>
   );
