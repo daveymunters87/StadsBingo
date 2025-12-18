@@ -12,7 +12,7 @@ Waar van toepassing kunnen screenshots als aanvullend bewijs worden toegevoegd.
 
 | Datum        | Commit ID / Screenshot                          | Beschrijving                                                     | User Story | Auteur(s)        |
 |-------------|--------------------------------------------------|------------------------------------------------------------------|------------|------------------|
-| 15-12-2025  | n.v.t.                                           | Start Sprint 2                                                   | US3        | Davey & Jada     |
+| 15-12-2025  | n.v.t.                                           | Start Sprint 2                                                   |  n.v.t.     | Davey & Jada     |
 | 15-12-2025  | fe9d20842937dac3e510280502d5344ee474f626         | Opdracht API aangemaakt en geïmplementeerd in de frontend       | US3        | Davey & Jada     |
 | 16-12-2025  | 156fd1a8abed746fed3902c4398b549b21ff2073         | Inzendingen beoordelen (review functionaliteit)                 | US4        | Davey & Jada     |
 | 17-12-2025  | 603aecdeeef1ad7c714dd5527a9d051adf61f38e         | Status & feedback bekijken voor leerlingen                      | US5        | Davey & Jada     |
