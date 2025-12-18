@@ -9,10 +9,10 @@ criteria 1.1–1.4
 ---
 
 ## Dag 1 (08-12-2025) 
-### Davey & Jada
 **Screenshot:**  
 ![Dag 1 Scrum Board](./scrumboard/dag1-board.png)
 
+### Davey & Jada
 **Gepland:** Planning sprint 1, bewijsmaterialen, repo structure
 **Gerealiseerd:** 
 - Planning sprint 1
@@ -52,7 +52,7 @@ criteria 1.1–1.4
 
 **Afwegingen/keuzes:** Geen aanpassingen nodig, alles volgens planning.
 
-### Davey  
+### Davey  ß
 **Gepland:** Create login functionality (US1)    
 **Gerealiseerd:** 
 - Verder uitwerken/testen van de API routes.

@@ -14,9 +14,9 @@
 ## 2. Bereikte resultaten
 | User Story / Issue | Status | Opmerkingen |
 |-------------------|--------|------------|
-| US1 – Inloggen met teamcode | ✅ Afgerond | Teamcodes werken correct, leerling kan inloggen |
-| US2 – Opdrachtenlijst en statussen bekijken | ✅ Afgerond | Opdrachten en statussen worden correct weergegeven |
-| Navigatie naar opdracht | ✅ Afgerond | Beschikbare opdrachten zijn klikbaar en tonen details |
+| US1 – Inloggen met teamcode | Afgerond | Teamcodes werken correct, leerling kan inloggen |
+| US2 – Opdrachtenlijst en statussen bekijken | Afgerond | Opdrachten en statussen worden correct weergegeven |
+| Navigatie naar opdracht | Afgerond | Beschikbare opdrachten zijn klikbaar en tonen details |
 
 ---
 
@@ -24,24 +24,22 @@
 - De team-login functionaliteit werkt stabiel.
 - Opdrachten worden correct gefilterd en gekoppeld aan het team.
 - Statusweergave (`Locked`, `Available`, etc.) is duidelijk voor de gebruiker
-- Er is een goede takenverdeling bij elke taak.
+- Er is een goede takenverdeling bij elke taak. (Frontend en Backend)
 
 ---
 
 ## 4. Wat kan beter
 - Sommige taken namen meer tijd in beslag dan vooraf ingeschat
-- Styling en UX zijn in deze sprint bewust minimaal gehouden (Mobile first)
-- Documentatie en bewijsstukken kunnen eerder tijdens de sprint worden vastgelegd
+- Styling en UX zijn in deze sprint bewust minimaal gehouden en worden verder uitgewerkt indien er tijd over is in sprint 2.
 
 ---
 
 ## 5. Afwegingen / Aanpassingen voor Sprint 2
 - US3 – Opdracht indienen & feedback verwerken wordt opgepakt in Sprint 2
-- Beoordelen van inzendingen door docenten wordt toegevoegd in Sprint 2
 - De volledige statusflow (`Available`, `Pending`, `Feedback`, `Approved`) wordt verder uitgewerkt
 
 ---
 
 ## 6. Lessen & Acties
-- **Lessen:** Het duidelijk verdelen van user stories voorkomt overlap tussen sprints
-- **Acties:** Sprint 2 start met focus op inleveren en beoordelen van opdrachten.
+- **Lessen:** Het duidelijk verdelen van user stories voorkomt problemen tussen sprints
+- **Acties:** Sprint 2 start met focus op het admin paneel waar de docent alles kan doen zoals: CRUD: opdrachten, teams. En waar de admin (docent) opdrachten kan goedkeuren of afkeuren met feedback.

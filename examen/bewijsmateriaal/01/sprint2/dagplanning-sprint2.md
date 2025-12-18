@@ -7,24 +7,24 @@
 ---
 
 ## Dag 1 (15-12-2025) 
-### Davey
 **Screenshot:**  
 ![Dag 1 Scrum Board](./scrumboard/dag1-board.png)
-
-**Gepland:** US3 – Opdracht indienen 
-**Gerealiseerd:** 
-- API route gemaakte waarin de user de gemaakte exercise kan submitten, deze komt dan in de DB.
-
-**Afwegingen/keuzes:** Geen aanpassingen nodig, alles volgens planning.
 
 ### Jada  
 **Gepland:** US4 – Inzendingen beoordelen
 **Gerealiseerd:**
 - Frontend gemaakt voor het Admin dashboard (Crud system for teams en opdrachten)
 - API integratie voor aangemaakte Teams en opdrachten
-- 
 
 **Afwegingen/keuzes:** Deel van de frontend niet afgemaakt, kwam niet uit met de planning er en ging wat meer tijd in.
+ßßßßßßßßßßß
+### Davey
+**Gepland:** US3 – Opdracht indienen 
+**Gerealiseerd:** 
+- API route gemaakte waarin de user de gemaakte exercise kan submitten, deze komt dan in de DB.
+
+**Afwegingen/keuzes:** Geen aanpassingen nodig, alles volgens planning.
+
 
 ---
 
@@ -76,17 +76,18 @@
 ![Dag 4 Scrum Board](./scrumboard/dag4-board.png)
 
 ### Jada  
-**Gepland:** 
+**Gepland:** US7 - Filteren docentoverzicht / US8 – Feedbackloop leerling (Frontend)
 **Gerealiseerd:**
-- 
-- 
+- UX van de teams verbetered door sweat alerts toe te voegen en status van opdracht beter te laten zien.
+- Image modal gemaakt waardoor de docent de ingeleverde foto makkelijker en duidelijker kan bekijken.
 
 **Afwegingen/keuzes:** Geen aanpassingen nodig, alles volgens planning.
 
 ### Davey  
-**Gepland:** 
+**Gepland:** US7 - Filteren docentoverzicht / US8 – Feedbackloop leerling (Backend)
 **Gerealiseerd:** 
-- 
+- Filter voor admin gemaakt. Deze kan filteren op Alle, Voltooide, Wachtende en Feedback opdrachten. Ook kan er per team gefiltert worden.
+- Feedback systeem gemaakt waardoor docenten opdrachten kunnen goedkeuren of afkeuren met bijbehorden feedback. Deze word dan in het team dashboard van de gebruiker weergeven.
 
 **Afwegingen/keuzes:** Geen aanpassingen nodig, alles volgens planning.
 

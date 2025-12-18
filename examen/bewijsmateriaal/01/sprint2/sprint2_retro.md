@@ -1,47 +1,49 @@
 # Sprint 1 Retrospectief
 
-**Sprint 1 Periode:** 08-12-2025 t/m 15-12-2025  
+**Sprint 1 Periode:** 15-12-2025 t/m 21-12-2025  
 
 ---
 
-## 1. Doelen van Sprint 1
-- Team-login functionaliteit implementeren
-- Opdrachtenlijst per team tonen met bijbehorende statussen
-- Basis navigatie naar een beschikbare opdracht realiseren
+## 1. Doelen van Sprint 2
+- De admin dashboard volledig functioneel maken
+- Feedback flow volledig maken.
+- UX/UI aanpakken waardoor alles er netjes uit ziet.
+- Code refactoren voor leesbare nette code.
 
 ---
 
 ## 2. Bereikte resultaten
-| User Story / Issue | Status | Opmerkingen |
-|-------------------|--------|------------|
-| US1 – Inloggen met teamcode | ✅ Afgerond | Teamcodes werken correct, leerling kan inloggen |
-| US2 – Opdrachtenlijst en statussen bekijken | ✅ Afgerond | Opdrachten en statussen worden correct weergegeven |
-| Navigatie naar opdracht | ✅ Afgerond | Beschikbare opdrachten zijn klikbaar en tonen details |
+| User Story / Issue | Status        | Opmerkingen                                                                 |
+|-------------------|---------------|------------------------------------------------------------------------------|
+| US3 – Opdracht indienen | Afgerond | Leerlingen kunnen opdrachten succesvol indienen via de submission API |
+| US4 – Inzendingen beoordelen | Afgerond | Docenten kunnen inzendingen bekijken, beoordelen en van feedback voorzien |
+| US5 – Status & feedback bekijken | Afgerond | Leerlingen zien de status van hun inzending en ontvangen feedback |
+| US6 – Visuele voortgang per team/leerling | Afgerond | Docenten kunnen per team zien wat ze al hebben ingeleverd |
+| US7 – Filteren docentoverzicht | Afgerond | Filterfunctionaliteit volledig geïmplementeerd in admin dashboard |
+| US8 – Feedbackloop leerling | Afgerond | Leerlingen kunnen feedback verwerken en verbeterde inzendingen indienen |
 
 ---
 
 ## 3. Wat goed ging
-- De team-login functionaliteit werkt stabiel.
-- Opdrachten worden correct gefilterd en gekoppeld aan het team.
-- Statusweergave (`Locked`, `Available`, etc.) is duidelijk voor de gebruiker
-- Er is een goede takenverdeling bij elke taak.
+- De functionaliteit voor het indienen van opdrachten werkt stabiel.
+- Inzendingen worden correct gekoppeld aan het juiste team en kunnen beordeeld worden.
+- De statusweergave (`Available`, `Pending`, `Feedback`, `Approved`) is duidelijk voor leerlingen.
+- Docenten kunnen inzendingen overzichtelijk beoordelen en van feedback voorzien.
+- Er was een duidelijke takenverdeling binnen het team, waardoor er weer goed en snel gewerkt kon worden.
 
 ---
 
 ## 4. Wat kan beter
-- Sommige taken namen meer tijd in beslag dan vooraf ingeschat
-- Styling en UX zijn in deze sprint bewust minimaal gehouden (Mobile first)
-- Documentatie en bewijsstukken kunnen eerder tijdens de sprint worden vastgelegd
+- Sommige user stories (zoals filtering en visuele voortgang) waren niet duidelijk gemaakt waardoor het soms wat verwarring binnen het team gaf.
 
 ---
 
-## 5. Afwegingen / Aanpassingen voor Sprint 2
-- US3 – Opdracht indienen & feedback verwerken wordt opgepakt in Sprint 2
-- Beoordelen van inzendingen door docenten wordt toegevoegd in Sprint 2
-- De volledige statusflow (`Available`, `Pending`, `Feedback`, `Approved`) wordt verder uitgewerkt
+## 5. Afwegingen / Aanpassingen binnen Sprint 2
+- Focus is gelegd op de kernworkflow: **indienen → beoordelen → feedback ontvangen**.
+- Extra aandacht is besteed aan de feedbackloop (US8) om herinzendingen zo duidelijk en UX friendly mogelijk te maken.
 
 ---
 
 ## 6. Lessen & Acties
-- **Lessen:** Het duidelijk verdelen van user stories voorkomt overlap tussen sprints
-- **Acties:** Sprint 2 start met focus op inleveren en beoordelen van opdrachten.
+- **Lessen:** Duidelijke user stories voorkomt verwarring binnen een sprint.
+- **Acties:** Volgende keer samen goed zitten voor de user stories zodat dit duidelijk is voor het team.
