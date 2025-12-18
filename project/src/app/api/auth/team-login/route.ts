@@ -1,43 +1,56 @@
 import { PrismaClient } from "@prisma/client";
+import { NextResponse } from "next/server";
 
 const prisma = new PrismaClient();
-// const activeTeam = new Set<string>();
 
 export async function POST(request: Request) {
-    try {
-        const body = await request.json();
-        const { code } = body;
+  try {
+    // Get teamcode from the request
+    const { code } = await request.json();
 
-        if (!code || code.trim() === "") {
-            return new Response(JSON.stringify({ error: "Team code is required" }), { status: 400 });
-        }
-
-        const team = await prisma.team.findUnique({
-            where: { code },
-            include: { captain: true, players: true },
-        });
-
-        if (!team) {
-            return new Response(JSON.stringify({ error: "Invalid team code" }), { status: 401 });
-        }
-
-        // COMMENTED OUT FOR NOW FOR TESTING PURPOSsssES
-        // if (activeTeam.has(team.id)) {
-        //     return new Response(JSON.stringify({ error: "This team is already logged in"}), { status: 403 });
-        // }
-
-        // activeTeam.add(team.id);
-
-        return new Response(
-            JSON.stringify({
-                teamId: team.id,
-                captainId: team.captain?.id || null,
-                players: team.players.map(p => ({ id: p.id, name: p.name})),
-            }),
-            { status: 200 }
-        );
-    } catch (error) {
-        console.log(error);
-        return new Response(JSON.stringify({ error: "Server error"}), { status: 500 })
+    // Error handling for provided teamcode
+    if (!code || code.trim() === "") {
+      return NextResponse.json(
+        { error: "Team code is required" },
+        { status: 400 }
+      );
     }
+
+    // Get the team based on the provided code
+    const team = await prisma.team.findUnique({
+      where: { code },
+      include: { captain: true, players: true },
+    });
+
+    // If not team is found, return error
+    if (!team) {
+      return NextResponse.json(
+        { error: "Invalid team code" },
+        { status: 401 }
+      );
+    }
+
+    // Create response
+    const response = NextResponse.json({
+      teamId: team.id,
+      captainId: team.captain?.id ?? null,
+      players: team.players.map(p => ({ id: p.id, name: p.name })),
+    });
+
+    // Set cookie
+    response.cookies.set("team-session", team.id, {
+      httpOnly: true,
+      path: "/",
+      sameSite: "lax",
+      // secure: true, // enable in production
+    });
+
+    return response;
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(
+      { error: "Server error" },
+      { status: 500 }
+    );
+  }
 }

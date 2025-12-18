@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Role } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
@@ -10,12 +10,23 @@ async function main() {
   await prisma.assignment.deleteMany();
   await prisma.user.deleteMany();
 
-  // --- CREATE TEACHER
-  const teacher = await prisma.user.create({
+  // --- CREATE ADMIN
+  const admin = await prisma.user.create({
     data: {
-      email: "teacher@example.com",
-      name: "Docent Test",
-      role: "TEACHER",
+      email: "admin@example.com",
+      name: "Admin User",
+      password: "admin123",
+      role: "ADMIN" as Role,
+    },
+  });
+
+  // --- CREATE USER (for team management)
+  const user = await prisma.user.create({
+    data: {
+      email: "user@example.com",
+      name: "Regular User",
+      password: "user123",
+      role: "USER" as Role,
     },
   });
 
@@ -23,8 +34,8 @@ async function main() {
   const team = await prisma.team.create({
     data: {
       name: "Test Team",
-      code: "TEST123", // login code
-      createdById: teacher.id,
+      code: "TEST123", 
+      createdById: user.id,
     },
   });
 
@@ -92,7 +103,7 @@ async function main() {
     });
   }
 
-  console.log("✅ Seed complete: Teacher, Team, Players, Assignments & TeamAssignments created");
+  console.log("✅ Seed complete: Admin, User, Team, Players, Assignments & TeamAssignments created");
 }
 
 main()
