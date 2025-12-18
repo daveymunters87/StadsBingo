@@ -36,11 +36,11 @@ export async function getAdminFromSession() {
   }
 
   try {
-    const admin = await prisma.user.findUnique({
-      where: { 
+    const admin = await prisma.user.findFirst({
+      where: {
         id: adminSession.value,
-        role: "ADMIN" as Role
-      },
+        role: Role.ADMIN
+      }
     })
     
     return admin
