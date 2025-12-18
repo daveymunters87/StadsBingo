@@ -57,9 +57,11 @@ export default function RecentSubmissions({ submissions, loading }: RecentSubmis
         )}
 
         <div className="mt-6">
-          <button className="text-sm text-[#4B5563] hover:text-[#111827]">
-            Alle ingeleverde opdrachten →
-          </button>
+          <Link href={"/admin/review"}>
+            <button className="text-sm text-[#4B5563] hover:text-[#111827]">
+              Alle ingeleverde opdrachten →
+            </button>
+          </Link>
         </div>
       </div>
     </div>

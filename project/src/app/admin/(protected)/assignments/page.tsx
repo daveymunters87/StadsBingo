@@ -94,7 +94,6 @@ export default function AssignmentsPage() {
         order: parseInt(formData.order)
       };
 
-      // Only include teamIds for new assignments (not for updates)
       if (!editingAssignment && formData.selectedTeams.length > 0) {
         requestBody.teamIds = formData.selectedTeams;
       }
@@ -146,7 +145,7 @@ export default function AssignmentsPage() {
       description: assignment.description,
       location: assignment.location,
       order: assignment.order.toString(),
-      selectedTeams: [] // Teams can't be edited for existing assignments
+      selectedTeams: []
     });
     setShowForm(true);
   };

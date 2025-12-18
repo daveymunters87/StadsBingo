@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, CheckCircle2, ArrowRight, Lock } from "lucide-react";
+import { Menu, CheckCircle2, ArrowRight, Lock, AlertCircle, Clock } from "lucide-react";
 import { getTeamFromSession } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
@@ -116,18 +116,20 @@ export default async function Exercises() {
   ).length;
   const totalCount = exercises.length;
 
-  const getStatusText = (status: Exercise["status"]) => {
+  const getStatusInfo = (status: Exercise["status"]) => {
     switch (status) {
       case "APPROVED":
-        return "Done";
+        return { text: "Voltooid", color: "text-green-600", bgColor: "bg-green-50", icon: CheckCircle2 };
       case "AVAILABLE":
+        return { text: "Beschikbaar", color: "text-blue-600", bgColor: "bg-blue-50", icon: ArrowRight };
       case "PENDING":
+        return { text: "In behandeling", color: "text-yellow-600", bgColor: "bg-yellow-50", icon: Clock };
       case "FEEDBACK":
-        return "Active";
+        return { text: "Feedback ontvangen", color: "text-red-600", bgColor: "bg-red-50", icon: AlertCircle };
       case "LOCKED":
-        return "Locked";
+        return { text: "Vergrendeld", color: "text-gray-500", bgColor: "bg-gray-50", icon: Lock };
       default:
-        return "Active";
+        return { text: "Beschikbaar", color: "text-blue-600", bgColor: "bg-blue-50", icon: ArrowRight };
     }
   };
 
@@ -181,35 +183,54 @@ export default async function Exercises() {
         ) : (
           <div className="space-y-3">
             {exercises.map((exercise, index) => {
-              const statusText = getStatusText(exercise.status);
+              const statusInfo = getStatusInfo(exercise.status);
               const isLocked = exercise.status === "LOCKED";
               const isDone = exercise.status === "APPROVED";
+              const needsAction = exercise.status === "FEEDBACK";
+              const StatusIcon = statusInfo.icon;
 
               return (
                 <div
                   key={exercise.id}
-                  className="bg-[#F5F0E8] rounded-2xl p-5 flex items-center justify-between shadow-sm"
+                  className={`rounded-2xl p-5 flex items-center justify-between shadow-sm transition-all ${
+                    needsAction 
+                      ? "bg-red-50 border-2 border-red-200 animate-pulse" 
+                      : "bg-[#F5F0E8]"
+                  }`}
                 >
                   <div className="flex items-center gap-3 flex-1">
-                    {isDone && (
-                      <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0" />
-                    )}
+                    <div className={`p-2 rounded-full ${statusInfo.bgColor}`}>
+                      <StatusIcon className={`h-4 w-4 ${statusInfo.color}`} />
+                    </div>
                     <div>
                       <h3 className="text-lg font-bold text-[#2C2C2C] mb-1">
                         Opdracht {exercise.order || index + 1}
                       </h3>
-                      <p className="text-sm text-[#2C2C2C]/70">{statusText}</p>
+                      <div className="flex items-center gap-2">
+                        <span className={`text-sm font-medium ${statusInfo.color}`}>
+                          {statusInfo.text}
+                        </span>
+                        {needsAction && (
+                          <span className="text-xs bg-red-100 text-red-800 px-2 py-1 rounded-full font-medium">
+                            Actie vereist
+                          </span>
+                        )}
+                      </div>
                     </div>
                   </div>
                   <div className="flex-shrink-0">
                     {isLocked ? (
-                      <div className="bg-[#2C2C2C] rounded-full p-2">
+                      <div className="bg-gray-400 rounded-full p-2">
                         <Lock className="h-4 w-4 text-white" />
                       </div>
                     ) : (
                       <Link
                         href={`/dashboard/exercises/${exercise.id}`}
-                        className="bg-[#2C2C2C] rounded-full p-2 inline-block hover:opacity-80 transition-opacity"
+                        className={`rounded-full p-2 inline-block hover:opacity-80 transition-opacity ${
+                          needsAction 
+                            ? "bg-red-600 animate-pulse" 
+                            : "bg-[#2C2C2C]"
+                        }`}
                       >
                         <ArrowRight className="h-4 w-4 text-white" />
                       </Link>
