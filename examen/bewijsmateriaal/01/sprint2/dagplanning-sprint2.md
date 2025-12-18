@@ -17,7 +17,7 @@
 - API integratie voor aangemaakte Teams en opdrachten
 
 **Afwegingen/keuzes:** Deel van de frontend niet afgemaakt, kwam niet uit met de planning er en ging wat meer tijd in.
-ßßßßßßßßßßß
+
 ### Davey
 **Gepland:** US3 – Opdracht indienen 
 **Gerealiseerd:** 
@@ -47,7 +47,6 @@
 - Middleware gebouwd om toegang te blokkeren voor secure routes.
 
 **Afwegingen/keuzes:** Nog niet alles in de admin dashboard volledig functioneel, planning doorgeschoven naar morgen.
-
 
 ---
 
