@@ -6,6 +6,7 @@ import AdminLayout from "@/components/admin/AdminLayout";
 import PageHeader from "@/components/admin/ui/PageHeader";
 import SubmissionsList from "@/components/admin/submissions/SubmissionsList";
 import FeedbackModal from "@/components/admin/submissions/FeedbackModal";
+import toast, { Toaster } from 'react-hot-toast';
 
 interface Submission {
   id: string;
@@ -91,13 +92,31 @@ export default function SubmissionsReview() {
         await fetchSubmissions();
         setSelectedSubmission(null);
         setFeedback("");
+        
+        if (status === "APPROVED") {
+          toast.success("Inzending goedgekeurd! ✅", {
+            duration: 3000,
+            position: 'top-center',
+          });
+        } else {
+          toast.success("Feedback verzonden! 📝", {
+            duration: 3000,
+            position: 'top-center',
+          });
+        }
       } else {
         const error = await response.json();
-        alert(error.error || "Something went wrong");
+        toast.error(error.error || "Er ging iets mis", {
+          duration: 3000,
+          position: 'top-center',
+        });
       }
     } catch (error) {
       console.error("Error updating submission:", error);
-      alert("Something went wrong");
+      toast.error("Er ging iets mis bij het bijwerken", {
+        duration: 3000,
+        position: 'top-center',
+      });
     }
   };
 
@@ -132,6 +151,8 @@ export default function SubmissionsReview() {
           onClose={handleCloseFeedbackModal}
         />
       </div>
+      
+      <Toaster />
     </AdminLayout>
   );
 }

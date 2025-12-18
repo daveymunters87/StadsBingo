@@ -31,26 +31,49 @@ export async function POST(request: Request) {
       }
     });
 
-    if (existingSubmission) {
-      return NextResponse.json({ error: "Submission already exists for this assignment" }, { status: 400 });
-    }
+    let submission;
 
-    // Create submission and set status to pending
-    const submission = await prisma.submission.create({
-      data: {
-        teamId,
-        assignmentId,
-        playerId: playerId || null,
-        answerText: answerText || null,
-        answerImage: answerImage || null,
-        status: "PENDING"
-      },
-      include: {
-        assignment: true,
-        team: true,
-        player: true
+    if (existingSubmission) {
+      // If submission exists and status is FEEDBACK, allow resubmission
+      if (existingSubmission.status === "FEEDBACK") {
+        submission = await prisma.submission.update({
+          where: {
+            id: existingSubmission.id
+          },
+          data: {
+            answerText: answerText || null,
+            answerImage: answerImage || null,
+            status: "PENDING",
+            feedback: null, // Clear previous feedback
+            updatedAt: new Date()
+          },
+          include: {
+            assignment: true,
+            team: true,
+            player: true
+          }
+        });
+      } else {
+        return NextResponse.json({ error: "Submission already exists for this assignment" }, { status: 400 });
       }
-    });
+    } else {
+      // Create new submission
+      submission = await prisma.submission.create({
+        data: {
+          teamId,
+          assignmentId,
+          playerId: playerId || null,
+          answerText: answerText || null,
+          answerImage: answerImage || null,
+          status: "PENDING"
+        },
+        include: {
+          assignment: true,
+          team: true,
+          player: true
+        }
+      });
+    }
 
     return NextResponse.json(submission);
   } catch (error) {

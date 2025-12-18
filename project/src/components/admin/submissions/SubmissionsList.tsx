@@ -2,6 +2,8 @@
 
 import { Check, X, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import ImageModal from "./ImageModal";
 
 interface Submission {
   id: string;
@@ -37,6 +39,7 @@ export default function SubmissionsList({
   onApprove,
   onReject
 }: SubmissionsListProps) {
+  const [selectedImage, setSelectedImage] = useState<{ url: string; title: string } | null>(null);
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "PENDING":
@@ -102,9 +105,18 @@ export default function SubmissionsList({
             {submission.answerImage && (
               <div className="mb-3">
                 <p className="text-sm font-medium text-[#2C2C2C] mb-1">Foto:</p>
-                <div className="w-full h-32 bg-gray-100 rounded-lg flex items-center justify-center">
-                  <span className="text-sm text-[#6B7280]">Foto beschikbaar</span>
+                <div className="w-full h-32 bg-gray-100 rounded-lg overflow-hidden">
+                  <img 
+                    src={submission.answerImage} 
+                    alt="Submission" 
+                    className="w-full h-full object-cover cursor-pointer hover:opacity-90 transition-opacity"
+                    onClick={() => setSelectedImage({
+                      url: submission.answerImage!,
+                      title: `${submission.assignment.title} - Team ${submission.team.name}`
+                    })}
+                  />
                 </div>
+                <p className="text-xs text-[#6B7280] mt-1">Klik om te vergroten</p>
               </div>
             )}
           </div>
@@ -145,6 +157,15 @@ export default function SubmissionsList({
           </div>
         </div>
       ))}
+      
+      {/* Image Modal */}
+      {selectedImage && (
+        <ImageModal
+          imageUrl={selectedImage.url}
+          title={selectedImage.title}
+          onClose={() => setSelectedImage(null)}
+        />
+      )}
     </div>
   );
 }

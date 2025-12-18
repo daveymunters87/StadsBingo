@@ -3,8 +3,9 @@
 import { useEffect, useState, useRef } from "react";
 import { useRouter, useParams } from "next/navigation";
 import Image from "next/image";
-import { Menu, Upload, ArrowRight, X } from "lucide-react";
+import { Menu, Upload, ArrowRight, X, AlertCircle, CheckCircle } from "lucide-react";
 import Link from "next/link";
+import toast, { Toaster } from 'react-hot-toast';
 
 interface ExerciseDetail {
   id: string;
@@ -81,13 +82,54 @@ export default function ExerciseDetailPage() {
 
     setSubmitting(true);
     try {
-      // TODO: Implement actual submission API
-      // For now, just show success message
-      alert("Opdracht ingeleverd!");
-      router.push("/dashboard/exercises");
+      const response = await fetch('/api/submissions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+          assignmentId: exercise.id,
+          answerImage: uploadedImage,
+          answerText: null,
+          playerId: null
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to submit');
+      }
+
+      const submission = await response.json();
+      console.log('Submission created:', submission);
+      
+      // Update exercise state to reflect the new submission
+      setExercise(prev => prev ? {
+        ...prev,
+        status: "PENDING",
+        submission: {
+          id: submission.id,
+          answerText: submission.answerText,
+          answerImage: submission.answerImage,
+          status: submission.status,
+          feedback: submission.feedback,
+          createdAt: submission.createdAt
+        }
+      } : null);
+      
+      toast.success("Opdracht succesvol ingeleverd! 🎉", {
+        duration: 4000,
+        position: 'top-center',
+      });
+      
+      // Don't navigate away, let user see the updated status
     } catch (error) {
       console.error("Error submitting:", error);
-      alert("Er ging iets mis bij het inleveren");
+      toast.error(`Er ging iets mis: ${error instanceof Error ? error.message : 'Onbekende fout'}`, {
+        duration: 4000,
+        position: 'top-center',
+      });
     } finally {
       setSubmitting(false);
     }
@@ -111,6 +153,35 @@ export default function ExerciseDetailPage() {
 
   const hasSubmission = exercise.submission !== null;
   const submissionStatus = exercise.submission?.status || "Niet ingeleverd";
+  const canResubmit = exercise.submission?.status === "FEEDBACK";
+  const isApproved = exercise.submission?.status === "APPROVED";
+  const isPending = exercise.submission?.status === "PENDING";
+  
+  const getStatusDisplay = () => {
+    switch (submissionStatus) {
+      case "PENDING":
+        return "In behandeling";
+      case "APPROVED":
+        return "Goedgekeurd";
+      case "FEEDBACK":
+        return "Feedback ontvangen - Opnieuw indienen mogelijk";
+      default:
+        return "Niet ingeleverd";
+    }
+  };
+
+  const getStatusColor = () => {
+    switch (submissionStatus) {
+      case "PENDING":
+        return "text-yellow-600";
+      case "APPROVED":
+        return "text-green-600";
+      case "FEEDBACK":
+        return "text-red-600";
+      default:
+        return "text-gray-600";
+    }
+  };
 
   return (
     <main className="min-h-screen bg-[#EDE6DC] pb-24">
@@ -217,9 +288,15 @@ export default function ExerciseDetailPage() {
               </div>
             )}
           </div>
-          <p className="text-sm text-[#2C2C2C] mt-3 font-medium">
-            Status: {submissionStatus}
-          </p>
+          <div className="mt-3 flex items-center gap-2">
+            <p className="text-sm font-medium text-[#2C2C2C]">Status:</p>
+            <div className={`flex items-center gap-1 ${getStatusColor()}`}>
+              {isPending && <AlertCircle className="h-4 w-4" />}
+              {isApproved && <CheckCircle className="h-4 w-4" />}
+              {submissionStatus === "FEEDBACK" && <AlertCircle className="h-4 w-4" />}
+              <span className="text-sm font-medium">{getStatusDisplay()}</span>
+            </div>
+          </div>
           </div>
         </section>
 
@@ -227,13 +304,34 @@ export default function ExerciseDetailPage() {
         <section className="mb-12">
         <div className="bg-white rounded-2xl p-4 shadow-sm">
           <h2 className="text-xl font-bold text-[#2C2C2C] mb-3">
-            Eventuele feedback
+            Feedback van docent
           </h2>
-          <div className="bg-gray-100 rounded-2xl p-4 min-h-[100px]">
+          <div className={`rounded-2xl p-4 min-h-[100px] ${
+            exercise.submission?.feedback 
+              ? exercise.submission.status === "FEEDBACK" 
+                ? "bg-red-50 border-2 border-red-200" 
+                : "bg-blue-50 border-2 border-blue-200"
+              : "bg-gray-100"
+          }`}>
             {exercise.submission?.feedback ? (
-              <p className="text-base text-[#2C2C2C]">
-                {exercise.submission.feedback}
-              </p>
+              <div>
+                {exercise.submission.status === "FEEDBACK" && (
+                  <div className="flex items-center gap-2 mb-3">
+                    <AlertCircle className="h-5 w-5 text-red-600" />
+                    <span className="font-semibold text-red-800">Actie vereist</span>
+                  </div>
+                )}
+                <p className="text-base text-[#2C2C2C] leading-relaxed">
+                  {exercise.submission.feedback}
+                </p>
+                {exercise.submission.status === "FEEDBACK" && (
+                  <div className="mt-3 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+                    <p className="text-sm text-yellow-800 font-medium">
+                      💡 Je kunt een nieuwe foto uploaden en opnieuw indienen
+                    </p>
+                  </div>
+                )}
+              </div>
             ) : (
               <p className="text-sm text-[#2C2C2C]/60">
                 Hier verschijnt feedback van je docent nadat je de opdracht hebt
@@ -246,19 +344,47 @@ export default function ExerciseDetailPage() {
 
         {/* Submit Button */}
         <div className="fixed bottom-0 left-0 right-0 bg-[#EDE6DC] border-t border-gray-300 p-4 md:relative md:border-0 md:p-0 md:mt-6">
-          <button
-            onClick={handleSubmit}
-            disabled={!uploadedImage || submitting || hasSubmission}
-            className="w-full bg-[#2C2C2C] text-white rounded-2xl py-4 px-6 font-semibold text-lg flex items-center justify-center gap-2 hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed md:w-auto md:min-w-[300px]"
-          >
-            Lever je opdracht in
-            <ArrowRight className="h-5 w-5" />
-          </button>
+          {isApproved ? (
+            <div className="w-full bg-green-600 text-white rounded-2xl py-4 px-6 font-semibold text-lg flex items-center justify-center gap-2 md:w-auto md:min-w-[300px]">
+              <CheckCircle className="h-5 w-5" />
+              Opdracht goedgekeurd!
+            </div>
+          ) : (
+            <button
+              onClick={handleSubmit}
+              disabled={!uploadedImage || submitting || (hasSubmission && !canResubmit)}
+              className="w-full bg-[#2C2C2C] text-white rounded-2xl py-4 px-6 font-semibold text-lg flex items-center justify-center gap-2 hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed md:w-auto md:min-w-[300px]"
+            >
+              {submitting ? (
+                <>
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                  Bezig met indienen...
+                </>
+              ) : canResubmit ? (
+                <>
+                  Opnieuw indienen
+                  <ArrowRight className="h-5 w-5" />
+                </>
+              ) : isPending ? (
+                <>
+                  <AlertCircle className="h-5 w-5" />
+                  Ingeleverd - In behandeling
+                </>
+              ) : (
+                <>
+                  Lever je opdracht in
+                  <ArrowRight className="h-5 w-5" />
+                </>
+              )}
+            </button>
+          )}
           <p className="text-xs text-[#2C2C2C]/60 mt-2 text-center md:text-left">
             Heb je problemen met het inleveren? Neem contact op met een docent
           </p>
         </div>
       </div>
+      
+      <Toaster />
     </main>
   );
 }
