@@ -59,7 +59,7 @@ export async function PUT(
     }
 
     const { id } = await params;
-    const { title, description, location, order } = await request.json();
+    const { title, description, location, order, exampleImage } = await request.json();
 
     if (!title || !description || !location || order === undefined) {
       return NextResponse.json({ 
@@ -73,7 +73,8 @@ export async function PUT(
         title,
         description,
         location,
-        order: parseInt(order)
+        order: parseInt(order),
+        exampleImage: exampleImage || null
       }
     });
 
@@ -97,6 +98,12 @@ export async function DELETE(
 
     const { id } = await params;
 
+    // Delete related records first to avoid foreign key constraint violations
+    await prisma.teamAssignment.deleteMany({
+      where: { assignmentId: id }
+    });
+
+    // Then delete the assignment
     await prisma.assignment.delete({
       where: { id }
     });

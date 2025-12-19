@@ -44,6 +44,7 @@ export async function GET(request: Request) {
           description: a.description,
           location: a.location,
           order: a.order,
+          exampleImage: a.exampleImage,
           status: submission.status,
         };
       }
@@ -57,6 +58,7 @@ export async function GET(request: Request) {
           description: a.description,
           location: a.location,
           order: a.order,
+          exampleImage: a.exampleImage,
           status: "AVAILABLE" as const,
         };
       }
@@ -72,6 +74,7 @@ export async function GET(request: Request) {
           description: a.description,
           location: a.location,
           order: a.order,
+          exampleImage: a.exampleImage,
           status: "AVAILABLE" as const,
         };
       }
@@ -83,6 +86,7 @@ export async function GET(request: Request) {
         description: a.description,
         location: a.location,
         order: a.order,
+        exampleImage: a.exampleImage,
         status: "LOCKED" as const,
       };
     });

@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Menu, Upload, ArrowRight, X, AlertCircle, CheckCircle } from "lucide-react";
 import Link from "next/link";
 import toast, { Toaster } from 'react-hot-toast';
+import ImageModal from "@/components/shared/ImageModal";
 
 interface ExerciseDetail {
   id: string;
@@ -13,6 +14,7 @@ interface ExerciseDetail {
   description: string;
   location: string;
   order: number;
+  exampleImage?: string | null;
   status: "LOCKED" | "AVAILABLE" | "PENDING" | "FEEDBACK" | "APPROVED";
   submission: {
     id: string;
@@ -33,6 +35,9 @@ export default function ExerciseDetailContent({ exerciseId }: ExerciseDetailCont
   const [loading, setLoading] = useState(true);
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [showImageModal, setShowImageModal] = useState(false);
+  const [modalImageUrl, setModalImageUrl] = useState<string>("");
+  const [modalImageTitle, setModalImageTitle] = useState<string>("");
   const fileInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
@@ -77,6 +82,18 @@ export default function ExerciseDetailContent({ exerciseId }: ExerciseDetailCont
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
+  };
+
+  const handleImageClick = (imageUrl: string, title: string) => {
+    setModalImageUrl(imageUrl);
+    setModalImageTitle(title);
+    setShowImageModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowImageModal(false);
+    setModalImageUrl("");
+    setModalImageTitle("");
   };
 
   const handleSubmit = async () => {
@@ -239,16 +256,28 @@ export default function ExerciseDetailContent({ exerciseId }: ExerciseDetailCont
         </section>
 
         {/* Inspiratie Section */}
-        <section className="mb-6">
-          <div className="bg-white rounded-2xl p-4 shadow-sm">
-            <h2 className="text-xl font-bold text-[#2C2C2C] mb-3">Inspiratie</h2>
-            <div className="w-full h-48 bg-gray-100 rounded-xl mb-3 flex items-center justify-center">
+        {exercise.exampleImage && (
+          <section className="mb-6">
+            <div className="bg-white rounded-2xl p-4 shadow-sm">
+              <h2 className="text-xl font-bold text-[#2C2C2C] mb-3">Inspiratie</h2>
+              <div 
+                className="w-full h-48 bg-gray-100 rounded-xl mb-3 overflow-hidden cursor-pointer hover:opacity-90 transition-opacity"
+                onClick={() => handleImageClick(exercise.exampleImage!, "Voorbeeld afbeelding")}
+              >
+                <Image
+                  src={exercise.exampleImage}
+                  alt="Voorbeeld afbeelding"
+                  width={400}
+                  height={192}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <p className="text-sm text-[#2C2C2C]">
+                Probeer verschillende poses uit en wees creatief met je compositie! Klik op de afbeelding om deze groter te bekijken.
+              </p>
             </div>
-            <p className="text-sm text-[#2C2C2C]">
-              Probeer verschillende poses uit en wees creatief met je compositie!
-            </p>
-          </div>
-        </section>
+          </section>
+        )}
 
         {/* Upload Section */}
         <section className="mb-6">
@@ -387,6 +416,15 @@ export default function ExerciseDetailContent({ exerciseId }: ExerciseDetailCont
           </p>
         </div>
       </div>
+      
+      {/* Image Modal */}
+      {showImageModal && (
+        <ImageModal
+          imageUrl={modalImageUrl}
+          title={modalImageTitle}
+          onClose={handleCloseModal}
+        />
+      )}
       
       <Toaster />
     </main>

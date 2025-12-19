@@ -39,7 +39,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Admin authentication required" }, { status: 401 });
     }
 
-    const { title, description, location, order, teamIds } = await request.json();
+    const { title, description, location, order, exampleImage, teamIds } = await request.json();
 
     if (!title || !description || !location || order === undefined) {
       return NextResponse.json({ 
@@ -53,7 +53,8 @@ export async function POST(request: Request) {
         title,
         description,
         location,
-        order: parseInt(order)
+        order: parseInt(order),
+        exampleImage: exampleImage || null
       }
     });
 
