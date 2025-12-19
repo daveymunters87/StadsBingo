@@ -64,6 +64,7 @@ model Assignment {
   location    String // e.g., "Bij de bibliotheek"
   order       Int // fixed release order
   createdAt   DateTime @default(now())
+  exampleImage String? // Base64 encoded example image
 
   submissions Submission[]
 

@@ -54,6 +54,7 @@ export async function GET(
       description: assignment.description,
       location: assignment.location,
       order: assignment.order,
+      exampleImage: assignment.exampleImage,
       status: submission?.status || "AVAILABLE",
       submission: submission ? {
         id: submission.id,

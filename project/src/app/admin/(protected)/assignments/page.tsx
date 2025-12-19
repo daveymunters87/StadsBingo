@@ -6,6 +6,7 @@ import AdminLayout from "@/components/admin/AdminLayout";
 import PageHeader from "@/components/admin/ui/PageHeader";
 import AssignmentListColumn from "@/components/admin/assignments/AssignmentListColumn";
 import AssignmentFormModal from "@/components/admin/assignments/AssignmentFormModal";
+import ConfirmModal from "@/components/shared/ConfirmModal";
 
 interface Assignment {
   id: string;
@@ -13,6 +14,7 @@ interface Assignment {
   description: string;
   location: string;
   order: number;
+  exampleImage?: string | null;
   createdAt: string;
   _count: {
     submissions: number;
@@ -32,11 +34,14 @@ export default function AssignmentsPage() {
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [editingAssignment, setEditingAssignment] = useState<Assignment | null>(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [assignmentToDelete, setAssignmentToDelete] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     title: "",
     description: "",
     location: "",
     order: "",
+    exampleImage: "",
     selectedTeams: [] as string[]
   });
 
@@ -91,7 +96,8 @@ export default function AssignmentsPage() {
         title: formData.title,
         description: formData.description,
         location: formData.location,
-        order: parseInt(formData.order)
+        order: parseInt(formData.order),
+        exampleImage: formData.exampleImage || null
       };
 
       if (!editingAssignment && formData.selectedTeams.length > 0) {
@@ -119,10 +125,15 @@ export default function AssignmentsPage() {
   };
 
   const handleDelete = async (assignmentId: string) => {
-    if (!confirm("Weet je zeker dat je deze opdracht wilt verwijderen?")) return;
+    setAssignmentToDelete(assignmentId);
+    setShowDeleteModal(true);
+  };
+
+  const confirmDelete = async () => {
+    if (!assignmentToDelete) return;
 
     try {
-      const response = await fetch(`/api/admin/assignments/${assignmentId}`, {
+      const response = await fetch(`/api/admin/assignments/${assignmentToDelete}`, {
         method: "DELETE",
         credentials: 'include'
       });
@@ -135,6 +146,8 @@ export default function AssignmentsPage() {
     } catch (error) {
       console.error("Error deleting assignment:", error);
       alert("Er is iets misgegaan");
+    } finally {
+      setAssignmentToDelete(null);
     }
   };
 
@@ -145,6 +158,7 @@ export default function AssignmentsPage() {
       description: assignment.description,
       location: assignment.location,
       order: assignment.order.toString(),
+      exampleImage: assignment.exampleImage || "",
       selectedTeams: []
     });
     setShowForm(true);
@@ -153,7 +167,7 @@ export default function AssignmentsPage() {
   const resetForm = () => {
     setShowForm(false);
     setEditingAssignment(null);
-    setFormData({ title: "", description: "", location: "", order: "", selectedTeams: [] });
+    setFormData({ title: "", description: "", location: "", order: "", exampleImage: "", selectedTeams: [] });
   };
 
   const handleTeamToggle = (teamId: string) => {
@@ -174,7 +188,7 @@ export default function AssignmentsPage() {
           onAdd={() => {
             setShowForm(true);
             setEditingAssignment(null);
-            setFormData({ title: "", description: "", location: "", order: "", selectedTeams: [] });
+            setFormData({ title: "", description: "", location: "", order: "", exampleImage: "", selectedTeams: [] });
           }}
           onCancel={resetForm}
           showCancel={false}
@@ -199,6 +213,21 @@ export default function AssignmentsPage() {
           onClose={resetForm}
           teams={teams}
           onTeamToggle={handleTeamToggle}
+        />
+
+        {/* Delete Confirmation Modal */}
+        <ConfirmModal
+          isOpen={showDeleteModal}
+          onClose={() => {
+            setShowDeleteModal(false);
+            setAssignmentToDelete(null);
+          }}
+          onConfirm={confirmDelete}
+          title="Opdracht Verwijderen"
+          message="Weet je zeker dat je deze opdracht wilt verwijderen? Deze actie kan niet ongedaan worden gemaakt. Alle gerelateerde inzendingen en team-toewijzingen worden ook verwijderd."
+          confirmText="Verwijderen"
+          cancelText="Annuleren"
+          variant="danger"
         />
       </div>
     </AdminLayout>

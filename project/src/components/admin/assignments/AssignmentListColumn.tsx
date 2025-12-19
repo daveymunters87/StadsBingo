@@ -1,6 +1,7 @@
 "use client";
 
-import { Trash2, Edit, BookOpen } from "lucide-react";
+import { Trash2, Edit, BookOpen, Image as ImageIcon } from "lucide-react";
+import Image from "next/image";
 
 interface Assignment {
   id: string;
@@ -8,6 +9,7 @@ interface Assignment {
   description: string;
   location: string;
   order: number;
+  exampleImage?: string | null;
   createdAt: string;
   _count: {
     submissions: number;
@@ -51,17 +53,40 @@ export default function AssignmentListColumn({
       {assignments.map((assignment) => (
         <div key={assignment.id} className="bg-white rounded-2xl p-5 shadow-sm">
           <div className="flex items-start justify-between mb-3">
-            <div className="flex-1">
-              <div className="flex items-center gap-3 mb-2">
-                <h3 className="text-lg font-bold text-[#2C2C2C]">{assignment.title}</h3>
-                <span className="px-2 py-1 bg-[#FFE600] text-[#2C2C2C] text-xs font-medium rounded-full">
-                  #{assignment.order}
-                </span>
+            <div className="flex gap-4 flex-1">
+              {/* Example Image Thumbnail */}
+              {assignment.exampleImage && (
+                <div className="flex-shrink-0">
+                  <div className="w-16 h-16 rounded-lg overflow-hidden bg-gray-100">
+                    <Image
+                      src={assignment.exampleImage}
+                      alt="Example"
+                      width={64}
+                      height={64}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
+              )}
+              
+              <div className="flex-1">
+                <div className="flex items-center gap-3 mb-2">
+                  <h3 className="text-lg font-bold text-[#2C2C2C]">{assignment.title}</h3>
+                  <span className="px-2 py-1 bg-[#FFE600] text-[#2C2C2C] text-xs font-medium rounded-full">
+                    #{assignment.order}
+                  </span>
+                  {assignment.exampleImage && (
+                    <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded-full flex items-center gap-1">
+                      <ImageIcon className="h-3 w-3" />
+                      Voorbeeld
+                    </span>
+                  )}
+                </div>
+                <p className="text-sm text-[#6B7280] mb-2">{assignment.description}</p>
+                <p className="text-sm text-[#6B7280]">
+                  <strong>Locatie:</strong> {assignment.location}
+                </p>
               </div>
-              <p className="text-sm text-[#6B7280] mb-2">{assignment.description}</p>
-              <p className="text-sm text-[#6B7280]">
-                <strong>Locatie:</strong> {assignment.location}
-              </p>
             </div>
             <div className="flex gap-1 ml-4">
               <button

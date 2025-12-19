@@ -4,7 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { X } from "lucide-react";
+import { X, Upload, Image as ImageIcon } from "lucide-react";
+import { useRef } from "react";
+import Image from "next/image";
 
 interface Assignment {
   id: string;
@@ -12,6 +14,7 @@ interface Assignment {
   description: string;
   location: string;
   order: number;
+  exampleImage?: string | null;
   createdAt: string;
   _count: {
     submissions: number;
@@ -33,6 +36,7 @@ interface AssignmentFormModalProps {
     description: string;
     location: string;
     order: string;
+    exampleImage: string;
     selectedTeams: string[];
   };
   setFormData: (data: {
@@ -40,6 +44,7 @@ interface AssignmentFormModalProps {
     description: string;
     location: string;
     order: string;
+    exampleImage: string;
     selectedTeams: string[];
   }) => void;
   onSubmit: (e: React.FormEvent) => void;
@@ -58,6 +63,26 @@ export default function AssignmentFormModal({
   teams,
   onTeamToggle
 }: AssignmentFormModalProps) {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData({ ...formData, exampleImage: reader.result as string });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleRemoveImage = () => {
+    setFormData({ ...formData, exampleImage: "" });
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
+
   if (!showForm) return null;
 
   return (
@@ -130,6 +155,55 @@ export default function AssignmentFormModal({
                   Bepaalt in welke volgorde opdrachten worden getoond
                 </p>
               </div>
+
+              {/* Example Image */}
+              <div>
+                <Label className="text-base font-semibold">
+                  Voorbeeld Afbeelding
+                </Label>
+                <div className="mt-2">
+                  {formData.exampleImage ? (
+                    <div className="relative">
+                      <div className="w-full h-32 rounded-lg overflow-hidden bg-gray-100">
+                        <Image
+                          src={formData.exampleImage}
+                          alt="Example"
+                          width={200}
+                          height={128}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <button
+                        type="button"
+                        onClick={handleRemoveImage}
+                        className="absolute top-2 right-2 bg-red-600 text-white rounded-full p-1 hover:bg-red-700 transition-colors"
+                      >
+                        <X className="h-4 w-4" />
+                      </button>
+                    </div>
+                  ) : (
+                    <div
+                      onClick={() => fileInputRef.current?.click()}
+                      className="w-full h-32 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center cursor-pointer hover:border-gray-400 transition-colors"
+                    >
+                      <div className="text-center">
+                        <ImageIcon className="h-8 w-8 text-gray-400 mx-auto mb-2" />
+                        <p className="text-sm text-gray-600">Klik om afbeelding te uploaden</p>
+                      </div>
+                    </div>
+                  )}
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    className="hidden"
+                  />
+                </div>
+                <p className="text-sm text-gray-600 mt-1">
+                  Optioneel: Upload een voorbeeld afbeelding ter inspiratie
+                </p>
+              </div>
             </div>
 
             {/* Right Column - Description & Teams */}
@@ -165,7 +239,7 @@ export default function AssignmentFormModal({
                           type="checkbox"
                           id="all-teams"
                           checked={formData.selectedTeams.length === 0}
-                          onChange={() => setFormData(prev => ({ ...prev, selectedTeams: [] }))}
+                          onChange={() => setFormData({ ...formData, selectedTeams: [] })}
                           className="w-4 h-4 text-[#FFE600] bg-gray-100 border-gray-300 rounded focus:ring-[#FFE600] focus:ring-2"
                         />
                         <label htmlFor="all-teams" className="text-sm font-medium text-gray-900">

@@ -10,6 +10,7 @@ interface Exercise {
   description: string;
   location: string;
   order: number;
+  exampleImage?: string | null;
   status: "LOCKED" | "AVAILABLE" | "PENDING" | "FEEDBACK" | "APPROVED";
 }
 
@@ -48,6 +49,7 @@ async function getExercises(teamId: string): Promise<Exercise[]> {
           description: a.description,
           location: a.location,
           order: a.order,
+          exampleImage: a.exampleImage,
           status: submission.status as Exercise["status"],
         };
       }
@@ -61,6 +63,7 @@ async function getExercises(teamId: string): Promise<Exercise[]> {
           description: a.description,
           location: a.location,
           order: a.order,
+          exampleImage: a.exampleImage,
           status: "AVAILABLE" as const,
         };
       }
@@ -76,6 +79,7 @@ async function getExercises(teamId: string): Promise<Exercise[]> {
           description: a.description,
           location: a.location,
           order: a.order,
+          exampleImage: a.exampleImage,
           status: "AVAILABLE" as const,
         };
       }
@@ -87,6 +91,7 @@ async function getExercises(teamId: string): Promise<Exercise[]> {
         description: a.description,
         location: a.location,
         order: a.order,
+        exampleImage: a.exampleImage,
         status: "LOCKED" as const,
       };
     });
