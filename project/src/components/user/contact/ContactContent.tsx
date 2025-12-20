@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Menu, User, Phone, Mail } from "lucide-react";
+import { User, Phone, Mail } from "lucide-react";
+import { HamburgerMenu, HamburgerTrigger, useHamburgerMenu } from "@/components/ui/hamburger-menu";
 
 interface Mentor {
   name: string;
@@ -33,8 +34,13 @@ const mentors: Mentor[] = [
 ];
 
 export default function ContactContent() {
+  const { isOpen, openMenu, closeMenu } = useHamburgerMenu();
+
   return (
     <main className="min-h-screen bg-[#EDE6DC] pb-8">
+      {/* Hamburger Menu */}
+      <HamburgerMenu isOpen={isOpen} onClose={closeMenu} />
+      
       {/* Header */}
       <header className="flex items-center justify-between px-4 py-4 md:px-6">
         <div className="w-full max-w-xs mb-6 mt-8 md:absolute">
@@ -42,13 +48,10 @@ export default function ContactContent() {
             <Image src="/logo.png" alt="NexEd" width={128} height={128} />
           </Link>
         </div>
-        <button
-          type="button"
-          className="text-[#2C2C2C] p-2 md:hidden"
-          aria-label="Menu"
-        >
-          <Menu className="h-6 w-6" />
-        </button>
+        <HamburgerTrigger 
+          onClick={openMenu}
+          className="md:hidden"
+        />
       </header>
 
       <div className="px-4 md:px-6 md:max-w-2xl md:mx-auto">

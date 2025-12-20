@@ -97,17 +97,17 @@
 ![Dag 5 Scrum Board](./scrumboard/dag5-board.png)
 
 ### Jada  
-**Gepland:**  
+**Gepland:**  Testing en verbeteren UX
 **Gerealiseerd:**
-- 
+- De laatste kleine dingen zoals locatie user aanpassen en hamburger voor user optimaliseren
 
 **Afwegingen/keuzes:** Geen aanpassingen nodig, alles volgens planning.
 
 ### Davey  
-**Gepland:** 
+**Gepland:** Testing en verbeteren UX
 **Gerealiseerd:** 
-- 
-- 
+- De laaste finishing touches gedaan aan de UI van de team dashboard.
+- Testen van alle functionaliteiten, zodat deze goed werken.
 
 **Afwegingen/keuzes:** Geen aanpassingen nodig, alles volgens planning.
 
