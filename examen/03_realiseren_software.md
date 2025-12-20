@@ -1,102 +1,142 @@
 # 📘 StadsBingo – 03_realiseren_software.md
 
-## 🎯 Doel
-Bewijs dat (onderdelen van) de software zijn gerealiseerd met goede codekwaliteit, duidelijke structuur en versiebeheer (conform eisen 3.1 t/m 3.6). Document toont wie welke feature heeft gerealiseerd (Persoon A / Persoon B).
+---
+
+## Repository & Uitvoerbaarheid
+
+**Repository:** https://github.com/daveymunters87/StadsBingo
+
+**Setup instructies:**
+- `README.md` bevat volledige setup instructies (Docker Postgres, Prisma, Next.js)
+- Quick Start: `docker-compose up -d` → `npm install` → `npm run db:generate` → `npm run db:migrate` → `npm run db:seed` → `npm run dev`
+- App draait op: `http://localhost:3000`
+
+**Tech Stack:**
+- **Frontend:** Next.js 15 + TypeScript + TailwindCSS + shadcn/ui
+- **Backend:** Next.js API Routes + Prisma ORM
+- **Database:** PostgreSQL (Docker)
+- **Development:** Biome (linting/formatting)
 
 ---
 
-## 📦 Repository & Uitvoerbaarheid
+## Functionaliteit
 
-- Repository: `README.md` bevat volledige setup (Docker Postgres, Prisma, scripts).  
-- Quick Start (samengevat, zie `README.md`):
-  1. `docker-compose up -d` (database)  
-  2. `npm install`  
-  3. `npx prisma generate`  
-  4. `npx prisma migrate dev --name init`  
-  5. `npm run dev` → `http://localhost:3000`
+Het project bevat een **statusgestuurde workflow** waarin opdrachten door verschillende statussen gaan:
+`LOCKED` → `AVAILABLE` → `PENDING` → `FEEDBACK`/`APPROVED`
 
----
+### Hoofdfunctionaliteiten
 
-## 🧩 Functionaliteit (Non-CRUD workflow)
+**Voor Leerlingen:**
+- Login met teamcode (`/team-login`)
+- Dashboard met opdrachten en statussen (`/dashboard`)
+- Opdrachten indienen met tekst/foto (`/dashboard/exercises/[id]`)
+- Feedback bekijken en opnieuw indienen
 
-Naast standaard CRUD bevat het project een workflow waarin docenten **teams beheren**, leerlingen via **teamcodes** inloggen en opdrachten in een **statusgestuurde flow** afronden.
+**Voor Docenten/Admin:**
+- Teams beheren (aanmaken, spelers toevoegen) (`/admin/teams`)
+- Opdrachten beheren (`/admin/assignments`)
+- Inzendingen beoordelen (`/admin/review`)
+- Filters op team, status, opdracht
 
-### Hoofdflows
-- **Docent/Admin**
-  - Maakt teams aan, genereert teamcodes en koppelt leerlingen (Persoon A).
-  - Beheert opdrachten (volgorde, optionele deadline/bijlage) (Persoon B).
-  - Bekijkt inzendingen per team/leerling/status, beoordeelt met `Approved` of `Feedback` en stuurt notificaties (Persoon A).
-  - Ziet visuele voortgang per team/leerling (Persoon B).
-- **Leerling**
-  - Logt in met teamcode en ziet opdrachtenlijst met statussen `Locked`, `Available`, `Pending`, `Feedback`, `Approved` (Persoon A/B gezamenlijk).
-  - Levert tekstantwoord in → `Pending` (Persoon B).
-  - Bij `Feedback` ziet hij feedback en kan opnieuw indienen; bij `Approved` wordt automatisch de volgende opdracht `Available` (Persoon A).
-
-### Endpoints (conceptueel)
-- `POST /api/auth/team-login` – valideert teamcode en koppelt leerling aan team-sessie (Persoon A).  
-- `GET /api/opdrachten` – levert opdrachten plus status per leerling/team (afgeleid uit volgorde en inzendingen) (Persoon B).  
-- `POST /api/inzendingen` – maakt inzending met `teamId`, `opdrachtId`, `tekstAntwoord`, status `Pending` (Persoon B).  
-- `GET /api/inzendingen?teamId=&status=&leerlingId=` – docentoverzicht inclusief filters (Persoon A).  
-- `PATCH /api/inzendingen/:id` – docent wijzigt status naar `Approved` of `Feedback` (feedback verplicht) (Persoon A).  
-- `POST /api/notifications` (optioneel) – docent kan notificatie naar leerlingen sturen bij feedback of updates (Persoon B).
+### API Endpoints
+- `POST /api/auth/team-login` – Teamcode validatie en sessie
+- `GET /api/exercises` – Opdrachten per team met status
+- `POST /api/submissions` – Inzending maken (status → PENDING)
+- `GET /api/admin/submissions` – Overzicht voor docent met filters
+- `PATCH /api/admin/submissions/[id]` – Status wijzigen (APPROVED/FEEDBACK)
+- `POST /api/admin/teams` – Team aanmaken met teamcode
+- `POST /api/admin/assignments` – Opdracht aanmaken
 
 ---
 
-## 🧱 Structuur (indicatief)
+## Projectstructuur
 
-- `app/` – Next.js routes voor team-login, leerlingdashboard, docentdashboard, teambeheer.  
-- `app/api/` – API routes voor auth, teams, teamleden, opdrachten, inzendingen, notificaties.  
-- `prisma/schema.prisma` – datamodel met `User`, `Team`, `TeamMembership`, `Assignment`, `Submission`, uitbreidingen voor status & volgorde.  
-- `components/` – UI componenten voor statusbadges, voortgangsbalken, filters, modals voor feedback/notificaties.
+```
+src/
+├── app/
+│   ├── admin/                    # Admin dashboard
+│   │   ├── (protected)/         # Beveiligde admin routes
+│   │   │   ├── assignments/     # Opdrachten beheer
+│   │   │   ├── teams/          # Teams beheer
+│   │   │   └── review/         # Inzendingen beoordelen
+│   │   └── login/              # Admin login
+│   ├── dashboard/               # Leerling dashboard
+│   │   └── exercises/          # Opdrachten bekijken/indienen
+│   ├── team-login/             # Teamcode login
+│   └── api/                    # Backend API routes
+│       ├── auth/               # Authenticatie
+│       ├── admin/              # Admin endpoints
+│       ├── exercises/          # Opdrachten API
+│       ├── submissions/        # Inzendingen API
+│       └── teams/              # Teams API
+├── components/
+│   ├── admin/                  # Admin UI componenten
+│   ├── user/                   # Leerling UI componenten
+│   ├── shared/                 # Gedeelde componenten
+│   └── ui/                     # shadcn/ui componenten
+└── lib/
+    ├── auth.ts                 # Authenticatie logica
+    └── utils.ts                # Utility functies
+```
+
+**Database Schema (Prisma):**
+- `User` (docenten/admin)
+- `Team` (teams met unieke codes)
+- `TeamPlayer` (leerlingen in teams)
+- `Assignment` (opdrachten met volgorde)
+- `Submission` (inzendingen met status)
+- `TeamAssignment` (koppeling team-opdracht)
 
 ---
 
-## ✅ Realisatie-eisen 3.1 t/m 3.5
+## Realisatie-eisen 3.1 t/m 3.5
 
 | Nr. | Onderdeel | Bewijs |
 | --- | --------- | ------ |
-| 3.1 | User stories gerealiseerd | Stories uit `01_plant_werkzaamheden.md` (team-login, statusweergave, feedbackloop, docentfilters) zijn volledig geïmplementeerd. Auteurs per story aangegeven (Persoon A / B). |
-| 3.2 | Voldoet aan eisen | E1–E7 + wensen (visuele voortgang, notificaties) werken in code en UI; screenshots in `examen/bewijsmateriaal/03/`. |
-| 3.3 | Codekwaliteit | TypeScript, Prisma, services per domein, server-side validaties op teamcode & statusovergangen; foutafhandeling en beveiliging aanwezig. |
-| 3.4 | Conventions | Biome lint/format toegepast; consistente naming conventions; feature branches gebruikt (`feature/team-login`, `feature/docent-dashboard`, etc.). |
-| 3.5 | Leesbaarheid | Componenten/API-handlers klein, gedocumenteerd, duidelijke mappenstructuur; code voorzien van commentaar. |
+| **3.1** | User stories gerealiseerd | Alle stories uit `01_plant_werkzaamheden.md` zijn geïmplementeerd:<br>• Team-login functionaliteit<br>• Opdrachtenlijst met statussen<br>• Inzending en feedback workflow<br>• Admin dashboard met filters |
+| **3.2** | Voldoet aan eisen | Alle eisen E1-E7 werkend:<br>• Teams beheren + teamcodes<br>• Login met teamcode<br>• Opdrachten bekijken per team<br>• Opdrachten indienen<br>• Status en feedback bekijken<br>• Inzendingen beoordelen<br>• Filters voor docent |
+| **3.3** | Codekwaliteit | • **TypeScript** voor type safety<br>• **Prisma ORM** voor database<br>• **Server-side validatie** (teamcodes, status)<br>• **Foutafhandeling** in API routes<br>• **Beveiliging** (admin middleware) |
+| **3.4** | Code conventions | • **Biome** linting en formatting<br>• Consistente naming (camelCase, PascalCase)<br>• **Feature branches** gebruikt<br>• Gestructureerde mappenindeling |
+| **3.5** | Leesbaarheid | • Kleine, herbruikbare componenten<br>• Duidelijke API route structuur<br>• Logische mappenorganisatie<br>• TypeScript interfaces voor type safety |
 
 ---
 
-## 🧩 Versiebeheer (3.6)
+## Versiebeheer (3.6)
 
-- Minimaal 10 commits, 2+ branches en PR’s.  
-- Branching voorbeeld:
-  - `feature/team-login`  
-  - `feature/team-management`  
-  - `feature/assignment-flow`  
-  - `feature/docent-filters`  
-  - `chore/tests`
+**Git statistieken:**
+- **98 commits** (veel meer dan minimum 10)
+- **Meerdere branches** (Feature/, Refactor/, Development)
+- **Pull Requests** gebruikt voor code review
+- **Informatieve commit messages** (feat:, fix:, refactor:)
 
-### Bewijs (plaats in `examen/bewijsmateriaal/03/`)
-- `commit_history.png` – schermfoto Git log  
-- `branches_prs.png` – schermfoto branches en PR’s  
-- `links.md` – links naar PR’s met korte toelichting en auteur
+**Branching strategie:**
+- `main` - productie branch
+- `Development` - development branch  
+- `Feature/*` - feature branches
+- `Refactor/*` - refactor branches
+
+**Recente commits (voorbeeld):**
+```
+e4efbcd Merge pull request #44 Feature/Improve-user-UI
+bd89567 Feat: made UI changes to user frontend and added example images
+f0a7b34 Merge pull request #43 Feature/Admin-add-example-image
+1fa0bae Feature: Made changes so the admin can upload example image
+90aaaf2 Merge pull request #42 Refactor/User-page-components
+```
 
 ---
 
-## 🔍 Screens & Bewijs (functioneel)
+## Bewijs Screenshots
 
 Plaats in `examen/bewijsmateriaal/03/`:
 
-| Screenshot | Bewijs / Functionaliteit | Auteur |
-|------------|-------------------------|--------|
-| `team_login.png` | Leerling logt in met teamcode. | Persoon A |
-| `leerling_opdrachten.png` | Dashboard met opdrachten en statusbadges. | Persoon B |
-| `leerling_indienen.png` | Leerling levert tekstantwoord in → `Pending`. | Persoon B |
-| `feedback_notificatie.png` | Leerling ontvangt melding bij feedback. | Persoon A |
-| `visuele_voortgang.png` | Voortgangsbalk per team/leerling. | Persoon B |
-| `docent_filters.png` | Docentdashboard met filters op team, leerling en status. | Persoon A |
-| `docent_beoordelen.png` | Docent beoordeelt inzendingen en geeft feedback. | Persoon A |
+| Screenshot | Functionaliteit |
+|------------|------------------|
+| `team_login.png` | Leerling login met teamcode |
+| `leerling_dashboard.png` | Dashboard met opdrachten en statussen |
+| `leerling_indienen.png` | Opdracht indienen interface |
+| `admin_teams.png` | Teams beheer in admin panel |
+| `admin_review.png` | Inzendingen beoordelen met feedback |
+| `commit_history.png` | Git commit geschiedenis |
 
 ---
-
-## 📌 Opmerkingen
-
-- Afbakening focust op teams, statusflow en notificaties; realtime features zijn niet nodig voor de eisen.  
-- Geen bestand-uploads of kaartintegratie; scope blijft beheersbaar en toetsbaar.

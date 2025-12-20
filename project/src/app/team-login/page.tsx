@@ -52,8 +52,8 @@ export default function LoginPage() {
   }, [code, router]);
 
   return (
-    <main className="min-h-screen w-full bg-[#EDE6DC] flex flex-col items-center justify-center px-6 py-10">
-      <div className="w-full max-w-xs mb-20 mt-8 md:absolute md:top-6 md:left-6">
+    <main className="min-h-screen w-full bg-[#EDE6DC] flex flex-col items-center justify-center px-6 py-10 relative">
+      <div className="absolute top-6 left-6">
         <Image src="/logo.png" alt="NexEd" width={128} height={128} />
       </div>
 
