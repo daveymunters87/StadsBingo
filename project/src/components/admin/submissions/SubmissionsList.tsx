@@ -3,7 +3,7 @@
 import { Check, X, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import ImageModal from "./ImageModal";
+import ImageModal from "@/components/shared/ImageModal";
 
 interface Submission {
   id: string;
