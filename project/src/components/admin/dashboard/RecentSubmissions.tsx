@@ -44,7 +44,7 @@ export default function RecentSubmissions({ submissions, loading }: RecentSubmis
                   </span>
                 </div>
                 <p className="text-sm text-[#6B7280]">
-                  Ingeleverd: {new Date(submission.createdAt).toLocaleDateString('nl-NL')}
+                  Ingeleverd: {new Date(submission.createdAt).toLocaleTimeString('nl-NL')}
                 </p>
               </div>
               <Link href="/admin/review" className="ml-4">

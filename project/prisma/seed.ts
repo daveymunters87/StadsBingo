@@ -34,7 +34,7 @@ async function main() {
   const team = await prisma.team.create({
     data: {
       name: "Test Team",
-      code: "TEST123", 
+      code: "TEST123",
       createdById: user.id,
     },
   });
@@ -73,21 +73,38 @@ async function main() {
     data: [
       {
         title: "Maak een foto van het standbeeld",
-        description: "Maak een foto van het standbeeld op het marktplein",
-        location: "Marktplein",
+        description: "Voor jullie eerste opdracht verzamelen jullie op de Grote Markt. Maak een foto van minstens drie teamleden die voor het stadhuis poseren als levende standbeelden.",
+        location: " Grote markt, Stadshuis",
+        exampleImage: "/example-image/image1.png",
         order: 1,
       },
       {
-        title: "Interview een docent",
-        description: "Vraag een docent naar hun favoriete vak",
-        location: "School",
+        title: "Lekker vissie?",
+        description: "Zoek een mooie plek op de Vismarkt en beeld met je team een ‘bevroren moment’ uit van iets dat met vissen of de markt te maken heeft. Maak een foto van jullie scene alsof het eens schilderij is",
+        location: "Vismarkt",
+        exampleImage: "/example-image/image2.png",
         order: 2,
       },
       {
-        title: "Vind de stadsbibliotheek",
-        description: "Ga naar de stadsbibliotheek en maak een foto van de ingang",
-        location: "Bibliotheek",
+        title: "Rondje Akerk",
+        description: "Loop een rondje om de Akerk en zoek: Een leuk of grappig detail Een symbool of leuke patronen in de stenen Iets moderns aan de kerk",
+        location: "Akerk",
+        exampleImage: "/example-image/image3.png",
         order: 3,
+      },
+      {
+        title: "Poseren voor de uni",
+        description: "Maak een foto van minstens drie teamleden die op het Broerplein poseren als studenten uit verschillende tijden (bijvoorbeeld: een student uit 1614, een uit de jaren ’70 en een van nu).",
+        location: "Rijksuniversiteit Groningen",
+        exampleImage: "/example-image/image4.png",
+        order: 4,
+      },
+            {
+        title: "The big finish",
+        description: "Voor jullie laatste opdracht, maak een leuke groepsfoto op het dakterras van het Forum en meld je af bij een docent.",
+        location: "Forum",
+        exampleImage: "/example-image/image5.png",
+        order: 5,
       },
     ],
   });

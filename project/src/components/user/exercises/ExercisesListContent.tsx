@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, CheckCircle2, ArrowRight, Lock, AlertCircle, Clock } from "lucide-react";
+import { CheckCircle2, ArrowRight, Lock, AlertCircle, Clock } from "lucide-react";
+import { HamburgerMenu, HamburgerTrigger, useHamburgerMenu } from "@/components/ui/hamburger-menu";
 
 interface Exercise {
   id: string;
@@ -18,6 +19,8 @@ interface ExercisesListContentProps {
 }
 
 export default function ExercisesListContent({ exercises }: ExercisesListContentProps) {
+  const { isOpen, openMenu, closeMenu } = useHamburgerMenu();
+  
   const completedCount = exercises.filter(
     (ex) => ex.status === "APPROVED"
   ).length;
@@ -42,18 +45,18 @@ export default function ExercisesListContent({ exercises }: ExercisesListContent
 
   return (
     <main className="min-h-screen bg-[#EDE6DC] pb-8">
+      {/* Hamburger Menu */}
+      <HamburgerMenu isOpen={isOpen} onClose={closeMenu} />
+      
       {/* Header */}
       <header className="flex items-center justify-between px-4 py-4 md:px-6">
         <div className="w-full max-w-xs mb-6 mt-8 md:absolute">
           <Image src="/logo.png" alt="NexEd" width={128} height={128} />
         </div>
-        <button
-          type="button"
-          className="text-[#2C2C2C] p-2 md:hidden"
-          aria-label="Menu"
-        >
-          <Menu className="h-6 w-6" />
-        </button>
+        <HamburgerTrigger 
+          onClick={openMenu}
+          className="md:hidden"
+        />
       </header>
 
       <div className="px-4 md:px-6 md:max-w-2xl md:mx-auto">
@@ -77,7 +80,7 @@ export default function ExercisesListContent({ exercises }: ExercisesListContent
               </p>
             </div>
             <p className="text-sm text-[#2C2C2C]/70 ml-8">
-              Haal bingo door 5 op een rij te voltooien!
+              Haal bingo door alle opdrachten te voltooien!
             </p>
           </div>
         )}

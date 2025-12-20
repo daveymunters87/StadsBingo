@@ -94,12 +94,12 @@ export default function SubmissionsReview() {
         setFeedback("");
         
         if (status === "APPROVED") {
-          toast.success("Inzending goedgekeurd! ✅", {
+          toast.success("Inzending goedgekeurd!", {
             duration: 3000,
             position: 'top-center',
           });
         } else {
-          toast.success("Feedback verzonden! 📝", {
+          toast.success("Feedback verzonden!", {
             duration: 3000,
             position: 'top-center',
           });

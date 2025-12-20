@@ -3,10 +3,11 @@
 import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { Menu, Upload, ArrowRight, X, AlertCircle, CheckCircle } from "lucide-react";
+import { Upload, ArrowRight, X, AlertCircle, CheckCircle } from "lucide-react";
 import Link from "next/link";
 import toast, { Toaster } from 'react-hot-toast';
 import ImageModal from "@/components/shared/ImageModal";
+import { HamburgerMenu, HamburgerTrigger, useHamburgerMenu } from "@/components/ui/hamburger-menu";
 
 interface ExerciseDetail {
   id: string;
@@ -31,6 +32,7 @@ interface ExerciseDetailContentProps {
 }
 
 export default function ExerciseDetailContent({ exerciseId }: ExerciseDetailContentProps) {
+  const { isOpen, openMenu, closeMenu } = useHamburgerMenu();
   const [exercise, setExercise] = useState<ExerciseDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
@@ -137,12 +139,15 @@ export default function ExerciseDetailContent({ exerciseId }: ExerciseDetailCont
         }
       } : null);
       
-      toast.success("Opdracht succesvol ingeleverd! 🎉", {
+      toast.success("Opdracht succesvol ingeleverd!", {
         duration: 4000,
         position: 'top-center',
       });
       
-      // Don't navigate away, let user see the updated status
+      // Redirect to exercises dashboard after showing success message
+      setTimeout(() => {
+        router.push('/dashboard/exercises');
+      }, 2000); // 2 second delay to let user see the success message
     } catch (error) {
       console.error("Error submitting:", error);
       toast.error(`Er ging iets mis: ${error instanceof Error ? error.message : 'Onbekende fout'}`, {
@@ -204,6 +209,9 @@ export default function ExerciseDetailContent({ exerciseId }: ExerciseDetailCont
 
   return (
     <main className="min-h-screen bg-[#EDE6DC] pb-24">
+      {/* Hamburger Menu */}
+      <HamburgerMenu isOpen={isOpen} onClose={closeMenu} />
+      
       {/* Header */}
       <header className="flex items-center justify-between px-4 py-4 md:px-6">
         <div className="w-full max-w-xs mb-6 mt-8 md:absolute">
@@ -211,13 +219,10 @@ export default function ExerciseDetailContent({ exerciseId }: ExerciseDetailCont
             <Image src="/logo.png" alt="NexEd" width={128} height={128} />
           </Link>
         </div>
-        <button
-          type="button"
-          className="text-[#2C2C2C] p-2 md:hidden"
-          aria-label="Menu"
-        >
-          <Menu className="h-6 w-6" />
-        </button>
+        <HamburgerTrigger 
+          onClick={openMenu}
+          className="md:hidden"
+        />
       </header>
 
       {/* Hero Image with Tag - Full Width */}
@@ -250,7 +255,18 @@ export default function ExerciseDetailContent({ exerciseId }: ExerciseDetailCont
             <h2 className="text-xl font-bold text-[#2C2C2C] mb-3">
               Locatie: {exercise.location}
             </h2>
-            <div className="w-full h-48 bg-gray-100 rounded-xl relative overflow-hidden">
+            <div className="mt-3 flex gap-2">
+              <a
+                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(exercise.location + ', Groningen, Netherlands')}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 bg-[#2C2C2C] text-white text-center py-3 px-4 rounded-lg text-sm font-medium hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
+              >
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                </svg>
+                Open in Google Maps
+              </a>
             </div>
           </div>
         </section>
