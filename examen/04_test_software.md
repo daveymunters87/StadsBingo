@@ -1,128 +1,127 @@
-# 📘 StadsBingo – 04_test_software.md
+## Doel
 
-## 🎯 Doel
-
-Dit document beschrijft het **testplan**, de **testscenario’s** en het **testrapport** voor de StadsBingo-applicatie met teams, teamcodes en statusgestuurde opdrachten-flow, conform examenopdracht 4.
+Dit document beschrijft het **testplan**, de **testscenario's** en het **testrapport** voor de applicatie met teams, teamcodes en statusgestuurde opdrachten-flow.
 
 ---
 
-## 📦 Testaanpak
+## Testaanpak - Geautomatiseerd Testen
 
-- Frameworks:
-  - [Jest](https://jestjs.io/) – unit & integratietests
-  - [React Testing Library](https://testing-library.com/) – componenttests (leerling- en docentdashboard)
-  - [Supertest](https://www.npmjs.com/package/supertest) – API tests (team-login, inzendingen, statusflow, notificaties)
+- Framework: [Jest](https://jestjs.io/) – eenvoudige unit tests
+- Testbestand: `tests/frontend.test.js`
+- **Totaal aantal tests: 10 geautomatiseerde tests**
+- **Uitvoeren tests:** `npm test`
 
-- Testbestanden (indicatief):
+---
+
+## Testplan (Criterium 4.1)
+
+| Test # | Functionaliteit | Testdoel |
+|--------|-----------------|----------|
+| 1 | Team Login | Validatie van teamcodes |
+| 2 | Assignment Status | Eerste opdracht altijd beschikbaar |
+| 3 | Submission Validatie | Tekst of foto verplicht |
+| 4 | Status Progressie | PENDING → APPROVED/FEEDBACK |
+| 5 | Feedback Loop | Herindienen na feedback mogelijk |
+| 6 | Assignment Unlock | Volgende opdracht vrijgeven |
+| 7 | Teacher Permissions | Alleen docenten kunnen beoordelen |
+| 8 | Feedback Requirement | Feedback tekst verplicht |
+| 9 | Assignment Order | Opdrachten in volgorde |
+| 10 | Complete Flow | Hele proces van begin tot eind |
+
+> **Samenhang getest:** team-login → opdrachtenlijst → indienen → feedback → herindienen → goedkeuring → volgende opdracht.
+
+---
+
+## Testscenario's
+
+### Test 1: Team Login Validatie
+**Hoofdscenario:** Geldige teamcode geeft toegang
+**Alternatieve scenario's:** 
+- Lege code → foutmelding
+- Ongeldige code → foutmelding
+
+### Test 2: Assignment Status Logic
+**Hoofdscenario:** Eerste opdracht altijd beschikbaar
+**Alternatieve scenario's:**
+- Volgende opdrachten vergrendeld tot vorige goedgekeurd
+
+### Test 3: Submission Validatie
+**Hoofdscenario:** Tekst of foto verplicht voor inzending
+**Alternatieve scenario's:**
+- Geen tekst en geen foto → validatiefout
+
+### Test 4: Status Progressie
+**Hoofdscenario:** Status verandert van PENDING naar APPROVED/FEEDBACK
+**Alternatieve scenario's:**
+- Verschillende acties geven verschillende statussen
+
+### Test 5: Feedback Loop
+**Hoofdscenario:** Herindienen mogelijk na feedback
+**Alternatieve scenario's:**
+- Geen herindienen bij andere statussen
+
+### Test 6: Assignment Unlock
+**Hoofdscenario:** Volgende opdracht wordt beschikbaar na goedkeuring
+**Alternatieve scenario's:**
+- Blijft vergrendeld bij andere statussen
+
+### Test 7: Teacher Permissions
+**Hoofdscenario:** Alleen docenten kunnen status wijzigen
+**Alternatieve scenario's:**
+- Studenten kunnen niet beoordelen
+
+### Test 8: Feedback Requirement
+**Hoofdscenario:** Feedback tekst verplicht bij feedback status
+**Alternatieve scenario's:**
+- Geen feedback tekst bij andere statussen
+
+### Test 9: Assignment Order
+**Hoofdscenario:** Opdrachten moeten in volgorde worden gedaan
+**Alternatieve scenario's:**
+- Latere opdrachten niet toegankelijk
+
+### Test 10: Complete Flow
+**Hoofdscenario:** Hele proces werkt van begin tot eind
+**Alternatieve scenario's:**
+- Alle stappen in de juiste volgorde
+
+---
+
+## Testrapport
+
+### Test Uitvoering
+```bash
+# Alle tests uitvoeren
+npm test
 ```
-tests/
-├─ frontend/
-│  ├─ TeamLogin.test.tsx
-│  ├─ AssignmentStatusList.test.tsx
-│  ├─ SubmissionFlow.test.tsx
-│  └─ TeacherDashboardFilters.test.tsx
-├─ backend/
-│  ├─ auth.team-login.post.test.ts
-│  ├─ assignments.get-status-flow.test.ts
-│  ├─ submissions.post.test.ts
-│  ├─ submissions.patch-status.test.ts
-│  └─ notifications.post.test.ts
-└─ jest.config.js
-```
 
-- Streefaantal tests: 12+  
-- Streefresultaat: alle tests groen
+### Testresultaten
 
----
+| Test # | Beschrijving | Resultaat | Status |
+|--------|--------------|-----------|--------|
+| 1 | Team login validatie | Geldige/ongeldige codes correct gevalideerd | ✅ Geslaagd |
+| 2 | Assignment status logic | Eerste opdracht beschikbaar, rest vergrendeld | ✅ Geslaagd |
+| 3 | Submission validatie | Tekst of foto verplicht werkt correct | ✅ Geslaagd |
+| 4 | Status progressie | PENDING → APPROVED/FEEDBACK correct | ✅ Geslaagd |
+| 5 | Feedback loop | Herindienen na feedback mogelijk | ✅ Geslaagd |
+| 6 | Assignment unlock | Volgende opdracht vrijgeven werkt | ✅ Geslaagd |
+| 7 | Teacher permissions | Alleen docenten kunnen beoordelen | ✅ Geslaagd |
+| 8 | Feedback requirement | Feedback tekst verplicht bij feedback | ✅ Geslaagd |
+| 9 | Assignment order | Opdrachten in juiste volgorde | ✅ Geslaagd |
+| 10 | Complete flow | Hele proces werkt correct | ✅ Geslaagd |
 
-## ⚙️ Testplan (Criterium 4.1)
+**Totaal: 10/10 tests geslaagd**
 
-| User Story / Flow | Testdoel | Testtype | Testdata |
-|-------------------|----------|----------|----------|
-| Team-login (E1/E2) | Geldige code geeft toegang; ongeldige code blokkeert | API + Component | Teamcode, mock team/leerling |
-| Opdrachtenlijst & statussen (E3) | Lijst toont juiste status (`Locked`, `Available`, `Pending`, `Feedback`, `Approved`) | Component | Mock opdrachten + inzendingen |
-| Submission flow (E4/E5) | Validatie tekst, status `Pending`, feedbackloop | Integratie + API | Tekst, opdrachtId, teamId |
-| Docentbeoordeling (E6) | Alleen docent kan status wijzigen; feedback verplicht | API | Docent JWT, inzendingId |
-| Docentfilters (E7/W1) | Filter op team/leerling/status werkt | Component + API | Mock inzendingen/teams |
-| Notificaties (W2) | Leerling ontvangt melding bij feedback | API | Mock notificatieservice |
-| Visuele voortgang (W1) | Voortgangsbalk berekent percentage correct | Component | Mock data per leerling |
+### Conclusie
 
-> Samenhang: team-login → opdrachtenlijst met statussen → indienen → feedback/goedkeuring → vrijgave volgende opdracht + notificatie.
+**Alle 10 geautomatiseerde tests zijn geslaagd**. De belangrijkste functionaliteiten van de StadsBingo applicatie werken correct:
 
----
-
-## ⚙️ Testscenario’s (Criterium 4.2)
-
-### Scenario 1: Team-login valideert toegang
-**Hoofdscenario:**
-1. Leerling voert geldige teamcode in.
-2. API valideert code en koppelt leerling aan team.
-3. Dashboard toont opdrachten voor het team.
-
-**Alternatieve scenario’s:**
-- Teamcode ongeldig → foutmelding.
-- Teamcode verlopen → instructie om docent te contacten.
-- Leerling niet gekoppeld aan team → toegang geweigerd.
-
-### Scenario 2: Opdrachtenlijst toont statussen
-**Hoofdscenario:**
-1. Leerling ziet lijst met alle opdrachten.
-2. `Locked` opdrachten zijn niet klikbaar; `Available` wel.
-3. Statusbadges tonen `Pending`, `Feedback`, `Approved` volgens inzendingen.
-
-**Alternatieve scenario’s:**
-- Geen opdrachten beschikbaar → lege-staat.
-- Serverfout → fallback melding + retry-knop.
-
-### Scenario 3: Submission + feedbackloop
-**Hoofdscenario:**
-1. Leerling opent een `Available` opdracht.
-2. Levert **tekst**, **foto** of **beide** in.
-3. Inzending wordt `Pending`.
-4. Docent geeft feedback; status wordt `Feedback`.
-5. Leerling ziet feedback, past opdracht aan (tekst/foto), dient opnieuw in → `Pending`.
-6. Docent keurt goed → status `Approved`, volgende opdracht `Available`.
-
-**Alternatieve scenario’s:**
-- Geen tekst of foto → validatiefout (client + server)
-- Bestand te groot of niet ondersteund → foutmelding
-- Dubbele inzending → duidelijke melding
-
-### Scenario 4: Docentfilters + beoordeling
-**Hoofdscenario:**
-1. Docent filtert op team + status `Pending`.
-2. Selecteert inzending, geeft `Approved` of `Feedback`.
-3. Volgende opdracht komt vrij (indien `Approved`).
-
-**Alternatieve scenario’s:**
-- Filter op onbekende status → lege lijst.
-- Docent zonder rechten → toegangsweigering.
-- Feedback te kort → validatiefout.
-
-### Scenario 5: Notificatie bij feedback
-**Hoofdscenario:**
-1. Docent geeft feedback via dashboard.
-2. Notificatieservice stuurt melding naar leerling.
-3. Leerling ziet badge “Nieuwe feedback” in dashboard.
-
-**Alternatieve scenario’s:**
-- Notificatie faalt → log + fallback boodschap.
-- Leerling al online → melding via toast/polling.
-
----
-
-## 🧪 Testrapport (Criterium 4.3)
-
-| Scenario | Verwacht resultaat | Resultaat | Conclusie |
-|----------|--------------------|-----------|-----------|
-| Team-login | Geldige code → toegang; ongeldig → foutmelding | ✅ Geslaagd | Toegang tot teams veilig geregeld |
-| Statuslijst | Statusbadges kloppen met inzendingen | ✅ Geslaagd | Statusberekening correct |
-| Submission + feedback | Flow `Available → Pending → Feedback/Approved` werkt end-to-end | ✅ Geslaagd | Validaties en feedbackloop aantoonbaar |
-| Docentfilters | Filters op team/leerling/status leveren juiste subset | ✅ Geslaagd | Docent vindt snel relevante inzendingen |
-| Notificaties | Leerling krijgt melding bij feedback | ✅ Geslaagd | Communicatie naar leerling aangetoond |
-
-**Conclusie:**  
-De belangrijkste flows (team-login, statusweergave, feedbackloop, filters, notificaties) zijn getest en geslaagd. Hiermee voldoet de app aan examenopdracht 4 (minimaal 10 geautomatiseerde tests of uitgewerkte scenario’s).
+1. **Team authenticatie** - Veilige toegang via teamcodes
+2. **Opdracht progressie** - Logische volgorde en vrijgave
+3. **Inzending validatie** - Correcte validatie van tekst/foto
+4. **Status management** - Juiste statusovergangen
+5. **Feedback systeem** - Werkende feedback loop
+6. **Docent functionaliteit** - Juiste permissies en validaties
 
 **Screenshot bewijs (plaats in `examen/bewijsmateriaal/04/`):**  
-`test_results.png` (+ optioneel `coverage.png`)
+- [test_results.png](bewijsmateriaal/04/test_results.png) - Jest test output met alle 10 tests geslaagd
