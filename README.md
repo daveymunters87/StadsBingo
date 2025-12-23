@@ -4,7 +4,7 @@ Een **bingo-applicatie** voor school waarbij leerlingen opdrachten uitvoeren in 
 
 > **Examen Project** - Bit Academy  
 > Ontwikkeld door: Davey & Jada  
-> Periode: November 2025
+> Periode: December 2025
 
 ---
 
@@ -110,8 +110,9 @@ docker-compose up -d
 npm install
 
 # 4. Setup database
-npx prisma generate
-npx prisma migrate dev --name init
+npm run db:generate
+npm run db:migrate
+npm run db:seed
 
 # 5. Start development server
 npm run dev
@@ -153,14 +154,26 @@ npm install
 ### Database Setup
 ```bash
 # Genereer Prisma client
-npx prisma generate
+npm run db:generate
 
 # Run migrations (maakt de tabellen aan)
-npx prisma migrate dev --name init
+npm run db:migrate
 
-# (Optioneel) Seed database met test data
-npx prisma db seed
+# Seed database met test data (admin, team, opdrachten)
+npm run db:seed
 ```
+
+**Test credentials na seeding:**
+- **Admin login:** admin@example.com / admin123
+- **Team code:** TEST123
+- **Test team:** "Test Team" met 5 spelers en 5 opdrachten
+
+**Seeded data includes:**
+- Admin user voor het beheren van teams en opdrachten
+- Test team met teamcode "TEST123"
+- 5 teamspelers (inclusief captain)
+- 5 opdrachten in Groningen (Grote Markt, Vismarkt, Akerk, RUG, Forum)
+- Team-opdracht koppelingen
 
 ### Start Development
 ```bash
@@ -202,16 +215,22 @@ docker-compose logs -f db
 
 ```bash
 # Genereer Prisma Client (na schema wijzigingen)
-npx prisma generate
+npm run db:generate
 
 # Maak nieuwe migration
-npx prisma migrate dev --name beschrijving_van_wijziging
+npm run db:migrate
+
+# Push schema changes zonder migration (development only)
+npm run db:push
+
+# Seed database met test data
+npm run db:seed
 
 # Reset database (WAARSCHUWING: verwijdert alle data!)
-npx prisma migrate reset
+npm run db:reset
 
 # Open Prisma Studio (database GUI)
-npx prisma studio
+npm run db:studio
 ```
 
 **Prisma Studio** opent op http://localhost:5555 en laat je database data bekijken/bewerken.
@@ -227,9 +246,9 @@ npx prisma studio
    ```
 
 2. **Bouw de feature**
-   - Wijzig Prisma schema indien nodig → `npx prisma migrate dev`
+   - Wijzig Prisma schema indien nodig → `npm run db:migrate`
    - Schrijf code
-   - Test lokaal
+   - Test lokaal met `npm test`
 
 3. **Commit je werk**
    ```bash
@@ -249,6 +268,15 @@ npm run lint
 
 # Format code
 npm run format
+
+# Run tests
+npm test
+
+# Run tests in watch mode
+npm run test:watch
+
+# Run tests with coverage
+npm run test:coverage
 ```
 
 ---
@@ -281,7 +309,7 @@ Dit project is onderdeel van het **portfolio examen**.
 docker-compose down
 
 # Format hele repository
-npx biome format --write
+npm run format
 
 # Bekijk Docker logs
 docker-compose logs -f
@@ -289,6 +317,13 @@ docker-compose logs -f
 # Rebuild Docker containers (bij problemen)
 docker-compose down
 docker-compose up -d --build
+
+# Reset database en seed opnieuw
+npm run db:reset
+npm run db:seed
+
+# Open database GUI
+npm run db:studio
 ```
 
 ---

@@ -13,7 +13,10 @@ interface RecentSubmissionsProps {
   loading: boolean;
 }
 
-export default function RecentSubmissions({ submissions, loading }: RecentSubmissionsProps) {
+export default function RecentSubmissions({
+  submissions,
+  loading,
+}: RecentSubmissionsProps) {
   return (
     <div>
       <h2 className="text-xl font-semibold text-[#111827] mb-6">
@@ -44,7 +47,8 @@ export default function RecentSubmissions({ submissions, loading }: RecentSubmis
                   </span>
                 </div>
                 <p className="text-sm text-[#6B7280]">
-                  Ingeleverd: {new Date(submission.createdAt).toLocaleTimeString('nl-NL')}
+                  Ingeleverd:{" "}
+                  {new Date(submission.createdAt).toLocaleTimeString("nl-NL")}
                 </p>
               </div>
               <Link href="/admin/review" className="ml-4">
@@ -67,4 +71,3 @@ export default function RecentSubmissions({ submissions, loading }: RecentSubmis
     </div>
   );
 }
-

@@ -15,40 +15,43 @@ export default function AdminLoginPage() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const handleSubmit = useCallback(async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
+  const handleSubmit = useCallback(
+    async (e: React.FormEvent) => {
+      e.preventDefault();
+      setError("");
 
-    if (!email.trim() || !password.trim()) {
-      setError("Vul email en wachtwoord in");
-      return;
-    }
-
-    setLoading(true);
-
-    try {
-      const res = await fetch("/api/auth/admin-login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-        credentials: 'include'
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        setError(data?.error || "Er ging iets mis");
+      if (!email.trim() || !password.trim()) {
+        setError("Vul email en wachtwoord in");
         return;
       }
 
-      // Cookie is set by the API, just redirect
-      router.push("/admin");
-    } catch (error) {
-      setError("Er ging iets mis");
-    } finally {
-      setLoading(false);
-    }
-  }, [email, password, router]);
+      setLoading(true);
+
+      try {
+        const res = await fetch("/api/auth/admin-login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password }),
+          credentials: "include",
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          setError(data?.error || "Er ging iets mis");
+          return;
+        }
+
+        // Cookie is set by the API, just redirect
+        router.push("/admin");
+      } catch (error) {
+        setError("Er ging iets mis");
+      } finally {
+        setLoading(false);
+      }
+    },
+    [email, password, router],
+  );
 
   return (
     <main className="min-h-screen w-full bg-[#EDE6DC] flex flex-col items-center justify-center px-6 py-10">
@@ -63,7 +66,9 @@ export default function AdminLoginPage() {
 
       <form onSubmit={handleSubmit} className="w-full max-w-xs space-y-4">
         <div className="space-y-1">
-          <Label htmlFor="email" className="sr-only">Email</Label>
+          <Label htmlFor="email" className="sr-only">
+            Email
+          </Label>
           <div className="relative">
             <User className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-[#2C2C2C]" />
             <Input
@@ -79,7 +84,9 @@ export default function AdminLoginPage() {
         </div>
 
         <div className="space-y-1">
-          <Label htmlFor="password" className="sr-only">Wachtwoord</Label>
+          <Label htmlFor="password" className="sr-only">
+            Wachtwoord
+          </Label>
           <div className="relative">
             <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-[#2C2C2C]" />
             <Input
@@ -94,9 +101,7 @@ export default function AdminLoginPage() {
           </div>
         </div>
 
-        {error && (
-          <p className="text-red-600 text-sm font-semibold">{error}</p>
-        )}
+        {error && <p className="text-red-600 text-sm font-semibold">{error}</p>}
 
         <Button
           type="submit"

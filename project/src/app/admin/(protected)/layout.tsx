@@ -1,16 +1,16 @@
-import { getAdminFromSession } from "@/lib/auth"
-import { redirect } from "next/navigation"
+import { getAdminFromSession } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
 export default async function ProtectedAdminLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
-  const admin = await getAdminFromSession()
+  const admin = await getAdminFromSession();
 
   if (!admin) {
-    redirect("/admin/login")
+    redirect("/admin/login");
   }
 
-  return <>{children}</>
+  return <>{children}</>;
 }

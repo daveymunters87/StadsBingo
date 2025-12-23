@@ -45,14 +45,14 @@ export default function TeamFormModal({
   formData,
   setFormData,
   onSubmit,
-  onClose
+  onClose,
 }: TeamFormModalProps) {
   if (!showForm) return null;
 
   const handleAddPlayer = () => {
     setFormData({
       ...formData,
-      playerNames: [...formData.playerNames, ""]
+      playerNames: [...formData.playerNames, ""],
     });
   };
 
@@ -90,7 +90,9 @@ export default function TeamFormModal({
               <Input
                 id="teamName"
                 value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, name: e.target.value })
+                }
                 placeholder="Voer een unieke team naam in"
                 className="mt-2 h-12 text-base"
                 required
@@ -101,7 +103,8 @@ export default function TeamFormModal({
             <div>
               <div className="flex items-center justify-between mb-3">
                 <Label className="text-base font-semibold">
-                  Spelers ({formData.playerNames.filter(name => name.trim()).length})
+                  Spelers (
+                  {formData.playerNames.filter((name) => name.trim()).length})
                 </Label>
                 <Button
                   type="button"
@@ -113,7 +116,7 @@ export default function TeamFormModal({
                   + Speler Toevoegen
                 </Button>
               </div>
-              
+
               <div className="space-y-3">
                 {formData.playerNames.map((name, index) => (
                   <div key={index} className="flex gap-3 items-center">
@@ -143,9 +146,10 @@ export default function TeamFormModal({
                   </div>
                 ))}
               </div>
-              
+
               <p className="text-sm text-gray-600 mt-2">
-                Voeg minimaal 1 speler toe. Je kunt later meer spelers toevoegen.
+                Voeg minimaal 1 speler toe. Je kunt later meer spelers
+                toevoegen.
               </p>
             </div>
           </div>

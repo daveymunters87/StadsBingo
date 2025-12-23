@@ -17,7 +17,7 @@ interface ReviewSidebarProps {
 export default function ReviewSidebar({
   teams,
   loadingTeams,
-  currentTeamId
+  currentTeamId,
 }: ReviewSidebarProps) {
   return (
     <>
@@ -55,7 +55,7 @@ export default function ReviewSidebar({
                       {team.name}
                     </div>
                     <div className="text-sm text-[#6B7280]">
-                      {team.id === currentTeamId ? 'Geselecteerd' : 'Active'}
+                      {team.id === currentTeamId ? "Geselecteerd" : "Active"}
                     </div>
                   </div>
                   <span className="text-[#9CA3AF] text-lg">›</span>

@@ -11,7 +11,7 @@ interface MenuItem {
   label: string;
   icon: React.ComponentType<{ className?: string }>;
   href: string;
-  action?: 'navigate' | 'close';
+  action?: "navigate" | "close";
 }
 
 interface HamburgerMenuProps {
@@ -22,63 +22,67 @@ interface HamburgerMenuProps {
 
 const menuItems: MenuItem[] = [
   {
-    id: 'close',
-    label: 'Sluiten',
+    id: "close",
+    label: "Sluiten",
     icon: X,
-    href: '#',
-    action: 'close'
+    href: "#",
+    action: "close",
   },
   {
-    id: 'dashboard',
-    label: 'Dashboard',
+    id: "dashboard",
+    label: "Dashboard",
     icon: Home,
-    href: '/dashboard'
+    href: "/dashboard",
   },
   {
-    id: 'exercises',
-    label: 'Opdrachten',
+    id: "exercises",
+    label: "Opdrachten",
     icon: FileText,
-    href: '/dashboard/exercises'
+    href: "/dashboard/exercises",
   },
   {
-    id: 'contact',
-    label: 'Contact',
+    id: "contact",
+    label: "Contact",
     icon: Phone,
-    href: '/dashboard/contact'
-  }
+    href: "/dashboard/contact",
+  },
 ];
 
-export function HamburgerMenu({ isOpen, onClose, currentPath }: HamburgerMenuProps) {
+export function HamburgerMenu({
+  isOpen,
+  onClose,
+  currentPath,
+}: HamburgerMenuProps) {
   const router = useRouter();
   const pathname = usePathname();
 
   // Close menu on escape key
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isOpen) {
+      if (e.key === "Escape" && isOpen) {
         onClose();
       }
     };
 
-    document.addEventListener('keydown', handleEscape);
-    return () => document.removeEventListener('keydown', handleEscape);
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
   }, [isOpen, onClose]);
 
   // Prevent body scroll when menu is open
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     }
 
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     };
   }, [isOpen]);
 
   const handleItemClick = (item: MenuItem) => {
-    if (item.action === 'close') {
+    if (item.action === "close") {
       onClose();
       return;
     }
@@ -94,7 +98,7 @@ export function HamburgerMenu({ isOpen, onClose, currentPath }: HamburgerMenuPro
       <div
         className={cn(
           "fixed inset-0 bg-black/20 backdrop-blur-sm z-40 transition-opacity duration-300",
-          isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+          isOpen ? "opacity-100" : "opacity-0 pointer-events-none",
         )}
         onClick={onClose}
       />
@@ -104,13 +108,13 @@ export function HamburgerMenu({ isOpen, onClose, currentPath }: HamburgerMenuPro
         className={cn(
           "fixed top-0 right-0  w-20 bg-[#F5F0E8] z-50 transition-transform duration-300 ease-in-out shadow-lg",
           "flex flex-col items-center py-6 rounded-l-2xl",
-          isOpen ? "translate-x-0" : "translate-x-full"
+          isOpen ? "translate-x-0" : "translate-x-full",
         )}
       >
         {menuItems.map((item, index) => {
           const Icon = item.icon;
-          const isActive = pathname === item.href && item.action !== 'close';
-          
+          const isActive = pathname === item.href && item.action !== "close";
+
           return (
             <button
               key={item.id}
@@ -120,16 +124,16 @@ export function HamburgerMenu({ isOpen, onClose, currentPath }: HamburgerMenuPro
                 "hover:bg-[#FFE600]/20 active:scale-95",
                 "focus:outline-none focus:ring-2 focus:ring-[#FFE600]/50",
                 isActive && "bg-[#FFE600]/30",
-                index > 0 && "mt-6" // Add spacing between icons except for the first one
+                index > 0 && "mt-6", // Add spacing between icons except for the first one
               )}
               aria-label={item.label}
             >
-              <Icon 
+              <Icon
                 className={cn(
                   "h-6 w-6 text-[#4A5568] transition-colors",
                   "hover:text-[#2C2C2C]",
-                  isActive && "text-[#2C2C2C]"
-                )} 
+                  isActive && "text-[#2C2C2C]",
+                )}
               />
             </button>
           );
@@ -144,7 +148,10 @@ interface HamburgerTriggerProps {
   className?: string;
 }
 
-export function HamburgerTrigger({ onClick, className }: HamburgerTriggerProps) {
+export function HamburgerTrigger({
+  onClick,
+  className,
+}: HamburgerTriggerProps) {
   return (
     <button
       type="button"
@@ -152,7 +159,7 @@ export function HamburgerTrigger({ onClick, className }: HamburgerTriggerProps) 
       className={cn(
         "text-[#2C2C2C] p-2 hover:bg-[#FFE600]/20 rounded-lg transition-colors",
         "focus:outline-none focus:ring-2 focus:ring-[#FFE600]/50",
-        className
+        className,
       )}
       aria-label="Menu openen"
     >
@@ -179,12 +186,12 @@ export function useHamburgerMenu() {
 
   const openMenu = () => setIsOpen(true);
   const closeMenu = () => setIsOpen(false);
-  const toggleMenu = () => setIsOpen(prev => !prev);
+  const toggleMenu = () => setIsOpen((prev) => !prev);
 
   return {
     isOpen,
     openMenu,
     closeMenu,
-    toggleMenu
+    toggleMenu,
   };
 }

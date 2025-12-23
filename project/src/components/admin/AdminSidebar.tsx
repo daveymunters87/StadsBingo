@@ -47,7 +47,7 @@ export default function AdminSidebar() {
           {navigationItems.map((item) => {
             const Icon = item.icon;
             const isActive = pathname === item.href;
-            
+
             return (
               <Link
                 key={item.name}
@@ -55,16 +55,19 @@ export default function AdminSidebar() {
                 className={`
                   group flex items-center gap-4 px-4 py-3 rounded-xl 
                   transition-all duration-200 ease-in-out
-                  ${isActive
-                    ? "bg-[#FFE600] text-[#2C2C2C] font-semibold shadow-sm"
-                    : "text-[#4B5563] hover:bg-white hover:text-[#2C2C2C] hover:shadow-sm"
+                  ${
+                    isActive
+                      ? "bg-[#FFE600] text-[#2C2C2C] font-semibold shadow-sm"
+                      : "text-[#4B5563] hover:bg-white hover:text-[#2C2C2C] hover:shadow-sm"
                   }
                 `}
               >
-                <Icon 
+                <Icon
                   className={`w-5 h-5 transition-colors ${
-                    isActive ? "text-[#2C2C2C]" : "text-[#6B7280] group-hover:text-[#2C2C2C]"
-                  }`} 
+                    isActive
+                      ? "text-[#2C2C2C]"
+                      : "text-[#6B7280] group-hover:text-[#2C2C2C]"
+                  }`}
                 />
                 <span className="font-medium text-sm tracking-wide">
                   {item.name}

@@ -7,7 +7,11 @@ interface StatusFilterProps {
   options: { value: string; label: string }[];
 }
 
-export default function StatusFilter({ value, onChange, options }: StatusFilterProps) {
+export default function StatusFilter({
+  value,
+  onChange,
+  options,
+}: StatusFilterProps) {
   return (
     <div className="mb-6 flex gap-4 items-center">
       <div className="flex items-center gap-2">
@@ -29,4 +33,3 @@ export default function StatusFilter({ value, onChange, options }: StatusFilterP
     </div>
   );
 }
-

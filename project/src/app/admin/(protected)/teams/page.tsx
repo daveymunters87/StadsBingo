@@ -36,7 +36,7 @@ export default function TeamsPage() {
   const [editingTeam, setEditingTeam] = useState<Team | null>(null);
   const [formData, setFormData] = useState({
     name: "",
-    playerNames: ["", "", "", "", ""] // Default 5 players
+    playerNames: ["", "", "", "", ""], // Default 5 players
   });
 
   useEffect(() => {
@@ -46,7 +46,7 @@ export default function TeamsPage() {
   const fetchTeams = async () => {
     try {
       const response = await fetch("/api/admin/teams", {
-        credentials: 'include'
+        credentials: "include",
       });
       if (response.ok) {
         const data = await response.json();
@@ -61,25 +61,29 @@ export default function TeamsPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    const playerNames = formData.playerNames.filter(name => name.trim() !== "");
+
+    const playerNames = formData.playerNames.filter(
+      (name) => name.trim() !== "",
+    );
     if (!formData.name.trim() || playerNames.length === 0) {
       alert("Team name and at least one player are required");
       return;
     }
 
     try {
-      const url = editingTeam ? `/api/admin/teams/${editingTeam.id}` : "/api/admin/teams";
+      const url = editingTeam
+        ? `/api/admin/teams/${editingTeam.id}`
+        : "/api/admin/teams";
       const method = editingTeam ? "PUT" : "POST";
-      
+
       const response = await fetch(url, {
         method,
         headers: { "Content-Type": "application/json" },
-        credentials: 'include',
+        credentials: "include",
         body: JSON.stringify({
           name: formData.name,
-          playerNames
-        })
+          playerNames,
+        }),
       });
 
       if (response.ok) {
@@ -101,7 +105,7 @@ export default function TeamsPage() {
     try {
       const response = await fetch(`/api/admin/teams/${teamId}`, {
         method: "DELETE",
-        credentials: 'include'
+        credentials: "include",
       });
 
       if (response.ok) {
@@ -120,9 +124,9 @@ export default function TeamsPage() {
     setFormData({
       name: team.name,
       playerNames: [
-        ...team.players.map(p => p.name),
-        ...Array(Math.max(0, 5 - team.players.length)).fill("")
-      ]
+        ...team.players.map((p) => p.name),
+        ...Array(Math.max(0, 5 - team.players.length)).fill(""),
+      ],
     });
     setShowForm(true);
   };
@@ -136,7 +140,10 @@ export default function TeamsPage() {
   return (
     <AdminLayout>
       <div className="max-w-6xl mx-auto">
-        <PageHeader title="Teams Beheren" subtitle="Maak en beheer teams voor StadsBingo" />
+        <PageHeader
+          title="Teams Beheren"
+          subtitle="Maak en beheer teams voor StadsBingo"
+        />
 
         <ActionButtons
           onAdd={() => {

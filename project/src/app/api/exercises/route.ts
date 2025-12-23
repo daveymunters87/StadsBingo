@@ -8,7 +8,9 @@ export async function GET(request: Request) {
     const teamId = getTeamIdFromHeaders(request);
 
     if (!teamId) {
-      return new Response(JSON.stringify({ error: "Team ID is required" }), { status: 400 });
+      return new Response(JSON.stringify({ error: "Team ID is required" }), {
+        status: 400,
+      });
     }
 
     // fetch only assignments assigned to this team
@@ -35,7 +37,7 @@ export async function GET(request: Request) {
     const formatted = teamAssignments.map((ta, index) => {
       const a = ta.assignment;
       const submission = a.submissions[0];
-      
+
       // If there's a submission, use its status
       if (submission) {
         return {
@@ -48,7 +50,7 @@ export async function GET(request: Request) {
           status: submission.status,
         };
       }
-      
+
       // If no submission, check if previous assignments are completed
       // First assignment is always available
       if (index === 0) {
@@ -62,11 +64,11 @@ export async function GET(request: Request) {
           status: "AVAILABLE" as const,
         };
       }
-      
+
       // Check if previous assignment is approved
       const previousAssignment = teamAssignments[index - 1];
       const previousSubmission = previousAssignment.assignment.submissions[0];
-      
+
       if (previousSubmission?.status === "APPROVED") {
         return {
           id: a.id,
@@ -78,7 +80,7 @@ export async function GET(request: Request) {
           status: "AVAILABLE" as const,
         };
       }
-      
+
       // Otherwise, it's locked
       return {
         id: a.id,
@@ -94,6 +96,8 @@ export async function GET(request: Request) {
     return Response.json(formatted);
   } catch (error) {
     console.error(error);
-    return new Response(JSON.stringify({ message: (error as Error).message }), { status: 500 });
+    return new Response(JSON.stringify({ message: (error as Error).message }), {
+      status: 500,
+    });
   }
 }

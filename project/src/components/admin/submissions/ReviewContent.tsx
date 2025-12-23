@@ -32,12 +32,12 @@ export default function ReviewContent({
   onApprove,
   onReject,
   feedback,
-  setFeedback
+  setFeedback,
 }: ReviewContentProps) {
   const pageTitle =
     assignment && currentTeam
       ? `${assignment.title} - ${currentTeam.name}`
-      : 'Opdracht - Team';
+      : "Opdracht - Team";
 
   const renderImagePlaceholder = () => (
     <div className="w-full rounded-2xl border border-[#E5E7EB] bg-[#F9FAFB] p-4">
@@ -55,7 +55,7 @@ export default function ReviewContent({
       </Link>
 
       <h1 className="text-3xl md:text-4xl font-bold text-[#2C2C2C] mb-10">
-        {loadingAssignment ? 'Opdracht laden...' : pageTitle}
+        {loadingAssignment ? "Opdracht laden..." : pageTitle}
       </h1>
 
       <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] gap-8 max-w-5xl">
@@ -105,21 +105,20 @@ export default function ReviewContent({
             </h2>
             <p className="text-sm text-[#4B5563] leading-relaxed">
               {assignment?.description ||
-                'Hier komt de beschrijving van de opdracht te staan.'}
+                "Hier komt de beschrijving van de opdracht te staan."}
             </p>
           </div>
 
           {/* Locatie */}
           <div className="bg-white rounded-2xl border border-[#E5E7EB] p-4">
             <h2 className="text-sm font-semibold text-[#111827] mb-2">
-              Locatie{assignment?.location ? `: ${assignment.location}` : ''}
+              Locatie{assignment?.location ? `: ${assignment.location}` : ""}
             </h2>
             <div className="mb-2 rounded-xl border border-[#E5E7EB] overflow-hidden">
               <div className="h-40 w-full bg-[repeating-linear-gradient(45deg,#E5E7EB,#E5E7EB_10px,#F9FAFB_10px,#F9FAFB_20px)]" />
             </div>
             <p className="text-xs text-[#6B7280]">
-              Kaartvoorbeeld van de locatie (later te vervangen door echte
-              map).
+              Kaartvoorbeeld van de locatie (later te vervangen door echte map).
             </p>
           </div>
 

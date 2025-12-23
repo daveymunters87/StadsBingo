@@ -40,7 +40,7 @@ async function getExercises(teamId: string): Promise<Exercise[]> {
     const formatted = teamAssignments.map((ta, index) => {
       const a = ta.assignment;
       const submission = a.submissions[0];
-      
+
       // If there's a submission, use its status
       if (submission) {
         return {
@@ -53,7 +53,7 @@ async function getExercises(teamId: string): Promise<Exercise[]> {
           status: submission.status as Exercise["status"],
         };
       }
-      
+
       // If no submission, check if previous assignments are completed
       // First assignment is always available
       if (index === 0) {
@@ -67,11 +67,11 @@ async function getExercises(teamId: string): Promise<Exercise[]> {
           status: "AVAILABLE" as const,
         };
       }
-      
+
       // Check if previous assignment is approved
       const previousAssignment = teamAssignments[index - 1];
       const previousSubmission = previousAssignment.assignment.submissions[0];
-      
+
       if (previousSubmission?.status === "APPROVED") {
         return {
           id: a.id,
@@ -83,7 +83,7 @@ async function getExercises(teamId: string): Promise<Exercise[]> {
           status: "AVAILABLE" as const,
         };
       }
-      
+
       // Otherwise, it's locked
       return {
         id: a.id,

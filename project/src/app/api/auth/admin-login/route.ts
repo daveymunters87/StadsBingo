@@ -11,21 +11,21 @@ export async function POST(request: Request) {
     if (!email || !password) {
       return NextResponse.json(
         { error: "Email and password are required" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
     const admin = await prisma.user.findUnique({
-      where: { 
+      where: {
         email,
-        role: "ADMIN" as Role
+        role: "ADMIN" as Role,
       },
     });
 
     if (!admin) {
       return NextResponse.json(
         { error: "Invalid credentials" },
-        { status: 401 }
+        { status: 401 },
       );
     }
 
@@ -34,7 +34,7 @@ export async function POST(request: Request) {
     if (!isValidPassword) {
       return NextResponse.json(
         { error: "Invalid credentials" },
-        { status: 401 }
+        { status: 401 },
       );
     }
 
@@ -56,9 +56,6 @@ export async function POST(request: Request) {
     return response;
   } catch (error) {
     console.error("Admin login error:", error);
-    return NextResponse.json(
-      { error: "Server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }

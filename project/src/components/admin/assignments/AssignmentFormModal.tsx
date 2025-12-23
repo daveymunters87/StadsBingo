@@ -61,7 +61,7 @@ export default function AssignmentFormModal({
   onSubmit,
   onClose,
   teams,
-  onTeamToggle
+  onTeamToggle,
 }: AssignmentFormModalProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -91,7 +91,9 @@ export default function AssignmentFormModal({
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
           <h2 className="text-2xl font-bold text-[#2C2C2C]">
-            {editingAssignment ? "Opdracht Bewerken" : "Nieuwe Opdracht Aanmaken"}
+            {editingAssignment
+              ? "Opdracht Bewerken"
+              : "Nieuwe Opdracht Aanmaken"}
           </h2>
           <button
             onClick={onClose}
@@ -114,7 +116,9 @@ export default function AssignmentFormModal({
                 <Input
                   id="title"
                   value={formData.title}
-                  onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, title: e.target.value })
+                  }
                   placeholder="Voer een duidelijke titel in"
                   className="mt-2 h-12 text-base"
                   required
@@ -129,7 +133,9 @@ export default function AssignmentFormModal({
                 <Input
                   id="location"
                   value={formData.location}
-                  onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, location: e.target.value })
+                  }
                   placeholder="Waar moet deze opdracht uitgevoerd worden?"
                   className="mt-2 h-12 text-base"
                   required
@@ -145,7 +151,9 @@ export default function AssignmentFormModal({
                   id="order"
                   type="number"
                   value={formData.order}
-                  onChange={(e) => setFormData({ ...formData, order: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, order: e.target.value })
+                  }
                   placeholder="1, 2, 3..."
                   className="mt-2 h-12 text-base"
                   min="1"
@@ -188,7 +196,9 @@ export default function AssignmentFormModal({
                     >
                       <div className="text-center">
                         <ImageIcon className="h-8 w-8 text-gray-400 mx-auto mb-2" />
-                        <p className="text-sm text-gray-600">Klik om afbeelding te uploaden</p>
+                        <p className="text-sm text-gray-600">
+                          Klik om afbeelding te uploaden
+                        </p>
                       </div>
                     </div>
                   )}
@@ -210,13 +220,16 @@ export default function AssignmentFormModal({
             <div className="space-y-6">
               {/* Description */}
               <div>
-                <Label htmlFor="description" className="text-base font-semibold">
+                <Label
+                  htmlFor="description"
+                  className="text-base font-semibold"
+                >
                   Beschrijving *
                 </Label>
                 <Textarea
                   id="description"
                   value={formData.description}
-                  onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => 
+                  onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
                     setFormData({ ...formData, description: e.target.value })
                   }
                   placeholder="Beschrijf wat teams moeten doen voor deze opdracht..."
@@ -239,18 +252,28 @@ export default function AssignmentFormModal({
                           type="checkbox"
                           id="all-teams"
                           checked={formData.selectedTeams.length === 0}
-                          onChange={() => setFormData({ ...formData, selectedTeams: [] })}
+                          onChange={() =>
+                            setFormData({ ...formData, selectedTeams: [] })
+                          }
                           className="w-4 h-4 text-[#FFE600] bg-gray-100 border-gray-300 rounded focus:ring-[#FFE600] focus:ring-2"
                         />
-                        <label htmlFor="all-teams" className="text-sm font-medium text-gray-900">
+                        <label
+                          htmlFor="all-teams"
+                          className="text-sm font-medium text-gray-900"
+                        >
                           Alle teams (aanbevolen)
                         </label>
                       </div>
-                      
+
                       <div className="border-t pt-3">
-                        <p className="text-xs text-gray-600 mb-2">Of selecteer specifieke teams:</p>
+                        <p className="text-xs text-gray-600 mb-2">
+                          Of selecteer specifieke teams:
+                        </p>
                         {teams.map((team) => (
-                          <div key={team.id} className="flex items-center space-x-3 py-1">
+                          <div
+                            key={team.id}
+                            className="flex items-center space-x-3 py-1"
+                          >
                             <input
                               type="checkbox"
                               id={`team-${team.id}`}
@@ -258,8 +281,14 @@ export default function AssignmentFormModal({
                               onChange={() => onTeamToggle(team.id)}
                               className="w-4 h-4 text-[#FFE600] bg-gray-100 border-gray-300 rounded focus:ring-[#FFE600] focus:ring-2"
                             />
-                            <label htmlFor={`team-${team.id}`} className="text-sm text-gray-700">
-                              {team.name} <span className="text-gray-500">({team.code})</span>
+                            <label
+                              htmlFor={`team-${team.id}`}
+                              className="text-sm text-gray-700"
+                            >
+                              {team.name}{" "}
+                              <span className="text-gray-500">
+                                ({team.code})
+                              </span>
                             </label>
                           </div>
                         ))}
@@ -267,7 +296,8 @@ export default function AssignmentFormModal({
                     </div>
                   </div>
                   <p className="text-xs text-gray-600 mt-2">
-                    💡 Tip: Laat leeg om automatisch aan alle teams toe te wijzen
+                    💡 Tip: Laat leeg om automatisch aan alle teams toe te
+                    wijzen
                   </p>
                 </div>
               )}

@@ -9,32 +9,36 @@ interface ImageModalProps {
   title?: string;
 }
 
-export default function ImageModal({ imageUrl, onClose, title }: ImageModalProps) {
+export default function ImageModal({
+  imageUrl,
+  onClose,
+  title,
+}: ImageModalProps) {
   useEffect(() => {
     // Prevent body scroll when modal is open
-    document.body.style.overflow = 'hidden';
-    
+    document.body.style.overflow = "hidden";
+
     // Handle escape key
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
+      if (e.key === "Escape") {
         onClose();
       }
     };
-    
-    window.addEventListener('keydown', handleEscape);
-    
+
+    window.addEventListener("keydown", handleEscape);
+
     return () => {
-      document.body.style.overflow = 'unset';
-      window.removeEventListener('keydown', handleEscape);
+      document.body.style.overflow = "unset";
+      window.removeEventListener("keydown", handleEscape);
     };
   }, [onClose]);
 
   return (
-    <div 
+    <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
       onClick={onClose}
     >
-      <div 
+      <div
         className="relative max-w-7xl max-h-[90vh] w-full"
         onClick={(e) => e.stopPropagation()}
       >
@@ -56,9 +60,9 @@ export default function ImageModal({ imageUrl, onClose, title }: ImageModalProps
 
         {/* Image */}
         <div className="bg-white rounded-2xl overflow-hidden shadow-2xl">
-          <img 
-            src={imageUrl} 
-            alt="Afbeelding preview" 
+          <img
+            src={imageUrl}
+            alt="Afbeelding preview"
             className="w-full h-full object-contain max-h-[85vh]"
           />
         </div>

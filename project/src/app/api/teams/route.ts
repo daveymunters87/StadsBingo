@@ -1,5 +1,5 @@
-import { NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
+import { NextResponse } from "next/server";
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -23,16 +23,16 @@ export async function GET() {
         },
       },
       orderBy: {
-        createdAt: 'desc',
+        createdAt: "desc",
       },
     });
 
     return NextResponse.json(teams);
   } catch (error) {
-    console.error('Error fetching teams:', error);
+    console.error("Error fetching teams:", error);
     return NextResponse.json(
-      { error: 'Failed to fetch teams' },
-      { status: 500 }
+      { error: "Failed to fetch teams" },
+      { status: 500 },
     );
   }
 }

@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
 
 export async function POST() {
-  const response = NextResponse.json({ message: "Admin logged out successfully" });
-  
+  const response = NextResponse.json({
+    message: "Admin logged out successfully",
+  });
+
   // Clear the admin session cookie
   response.cookies.set("admin-session", "", {
     httpOnly: true,

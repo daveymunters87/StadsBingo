@@ -7,32 +7,35 @@ const prisma = new PrismaClient();
 // GET single team
 export async function GET(
   request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     const adminId = getAdminIdFromHeaders(request);
     if (!adminId) {
-      return NextResponse.json({ error: "Admin authentication required" }, { status: 401 });
+      return NextResponse.json(
+        { error: "Admin authentication required" },
+        { status: 401 },
+      );
     }
 
     const { id } = await params;
-    
+
     const team = await prisma.team.findUnique({
       where: { id },
       include: {
         captain: true,
         players: true,
         createdBy: {
-          select: { name: true, email: true }
+          select: { name: true, email: true },
         },
         submissions: {
           include: {
             assignment: true,
-            player: true
+            player: true,
           },
-          orderBy: { createdAt: 'desc' }
-        }
-      }
+          orderBy: { createdAt: "desc" },
+        },
+      },
     });
 
     if (!team) {
@@ -49,30 +52,36 @@ export async function GET(
 // Update team
 export async function PUT(
   request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     const adminId = getAdminIdFromHeaders(request);
     if (!adminId) {
-      return NextResponse.json({ error: "Admin authentication required" }, { status: 401 });
+      return NextResponse.json(
+        { error: "Admin authentication required" },
+        { status: 401 },
+      );
     }
 
     const { id } = await params;
     const { name, playerNames } = await request.json();
 
     if (!name) {
-      return NextResponse.json({ error: "Team name is required" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Team name is required" },
+        { status: 400 },
+      );
     }
 
     // Update name of the team
     await prisma.team.update({
       where: { id },
-      data: { name }
+      data: { name },
     });
 
     if (playerNames && Array.isArray(playerNames)) {
       await prisma.teamPlayer.deleteMany({
-        where: { teamId: id }
+        where: { teamId: id },
       });
 
       const players = await Promise.all(
@@ -82,15 +91,15 @@ export async function PUT(
               name: playerName,
               studentNumber: `S${Date.now()}${index}`,
               teamId: id,
-            }
-          })
-        )
+            },
+          }),
+        ),
       );
 
       if (players.length > 0) {
         await prisma.team.update({
           where: { id },
-          data: { captainId: players[0].id }
+          data: { captainId: players[0].id },
         });
       }
     }
@@ -101,9 +110,9 @@ export async function PUT(
         captain: true,
         players: true,
         createdBy: {
-          select: { name: true, email: true }
-        }
-      }
+          select: { name: true, email: true },
+        },
+      },
     });
 
     return NextResponse.json(updatedTeam);
@@ -116,12 +125,15 @@ export async function PUT(
 // DELETE team
 export async function DELETE(
   request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     const adminId = getAdminIdFromHeaders(request);
     if (!adminId) {
-      return NextResponse.json({ error: "Admin authentication required" }, { status: 401 });
+      return NextResponse.json(
+        { error: "Admin authentication required" },
+        { status: 401 },
+      );
     }
 
     const { id } = await params;
@@ -129,22 +141,22 @@ export async function DELETE(
     // Delete in the correct order to handle foreign key constraints
     // 1. Delete submissions first
     await prisma.submission.deleteMany({
-      where: { teamId: id }
+      where: { teamId: id },
     });
 
     // 2. Delete team assignments
     await prisma.teamAssignment.deleteMany({
-      where: { teamId: id }
+      where: { teamId: id },
     });
 
     // 3. Delete team players
     await prisma.teamPlayer.deleteMany({
-      where: { teamId: id }
+      where: { teamId: id },
     });
 
     // 4. Finally delete the team
     await prisma.team.delete({
-      where: { id }
+      where: { id },
     });
 
     return NextResponse.json({ message: "Team deleted successfully" });

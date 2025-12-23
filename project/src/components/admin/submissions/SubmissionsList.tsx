@@ -37,19 +37,38 @@ export default function SubmissionsList({
   submissions,
   loading,
   onApprove,
-  onReject
+  onReject,
 }: SubmissionsListProps) {
-  const [selectedImage, setSelectedImage] = useState<{ url: string; title: string } | null>(null);
+  const [selectedImage, setSelectedImage] = useState<{
+    url: string;
+    title: string;
+  } | null>(null);
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "PENDING":
-        return <span className="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs font-medium">Wachtend</span>;
+        return (
+          <span className="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs font-medium">
+            Wachtend
+          </span>
+        );
       case "APPROVED":
-        return <span className="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium">Goedgekeurd</span>;
+        return (
+          <span className="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium">
+            Goedgekeurd
+          </span>
+        );
       case "FEEDBACK":
-        return <span className="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs font-medium">Feedback</span>;
+        return (
+          <span className="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs font-medium">
+            Feedback
+          </span>
+        );
       default:
-        return <span className="bg-gray-100 text-gray-800 px-2 py-1 rounded-full text-xs font-medium">{status}</span>;
+        return (
+          <span className="bg-gray-100 text-gray-800 px-2 py-1 rounded-full text-xs font-medium">
+            {status}
+          </span>
+        );
     }
   };
 
@@ -95,28 +114,34 @@ export default function SubmissionsList({
           <div className="mb-4">
             {submission.answerText && (
               <div className="mb-3">
-                <p className="text-sm font-medium text-[#2C2C2C] mb-1">Antwoord:</p>
+                <p className="text-sm font-medium text-[#2C2C2C] mb-1">
+                  Antwoord:
+                </p>
                 <p className="text-sm text-[#6B7280] bg-gray-50 p-2 rounded">
                   {submission.answerText}
                 </p>
               </div>
             )}
-            
+
             {submission.answerImage && (
               <div className="mb-3">
                 <p className="text-sm font-medium text-[#2C2C2C] mb-1">Foto:</p>
                 <div className="w-full h-32 bg-gray-100 rounded-lg overflow-hidden">
-                  <img 
-                    src={submission.answerImage} 
-                    alt="Submission" 
+                  <img
+                    src={submission.answerImage}
+                    alt="Submission"
                     className="w-full h-full object-cover cursor-pointer hover:opacity-90 transition-opacity"
-                    onClick={() => setSelectedImage({
-                      url: submission.answerImage!,
-                      title: `${submission.assignment.title} - Team ${submission.team.name}`
-                    })}
+                    onClick={() =>
+                      setSelectedImage({
+                        url: submission.answerImage!,
+                        title: `${submission.assignment.title} - Team ${submission.team.name}`,
+                      })
+                    }
                   />
                 </div>
-                <p className="text-xs text-[#6B7280] mt-1">Klik om te vergroten</p>
+                <p className="text-xs text-[#6B7280] mt-1">
+                  Klik om te vergroten
+                </p>
               </div>
             )}
           </div>
@@ -153,11 +178,12 @@ export default function SubmissionsList({
           )}
 
           <div className="mt-3 pt-3 border-t text-xs text-[#9CA3AF]">
-            Ingediend: {new Date(submission.createdAt).toLocaleDateString('nl-NL')}
+            Ingediend:{" "}
+            {new Date(submission.createdAt).toLocaleDateString("nl-NL")}
           </div>
         </div>
       ))}
-      
+
       {/* Image Modal */}
       {selectedImage && (
         <ImageModal

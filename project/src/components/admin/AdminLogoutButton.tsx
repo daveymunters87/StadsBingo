@@ -10,9 +10,9 @@ export default function AdminLogoutButton() {
     try {
       await fetch("/api/auth/admin-logout", {
         method: "POST",
-        credentials: 'include'
+        credentials: "include",
       });
-      
+
       router.push("/admin/login");
     } catch (error) {
       console.error("Admin logout failed:", error);

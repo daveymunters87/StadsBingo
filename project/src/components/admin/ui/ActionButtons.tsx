@@ -8,7 +8,12 @@ interface ActionButtonsProps {
   addLabel: string;
 }
 
-export default function ActionButtons({ onAdd, onCancel, showCancel, addLabel }: ActionButtonsProps) {
+export default function ActionButtons({
+  onAdd,
+  onCancel,
+  showCancel,
+  addLabel,
+}: ActionButtonsProps) {
   return (
     <div className="mb-6 flex gap-4">
       <Button
@@ -27,4 +32,3 @@ export default function ActionButtons({ onAdd, onCancel, showCancel, addLabel }:
     </div>
   );
 }
-
