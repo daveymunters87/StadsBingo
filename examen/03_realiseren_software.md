@@ -1,6 +1,4 @@
-# 📘 StadsBingo – 03_realiseren_software.md
-
----
+# StadsBingo – 03_realiseren_software.md
 
 ## Repository & Uitvoerbaarheid
 

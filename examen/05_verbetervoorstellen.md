@@ -1,4 +1,4 @@
-# 📘 StadsBingo – 05_verbetervoorstellen.md
+# StadsBingo – 05_verbetervoorstellen.md
 
 ## 🎯 Doel
 Gerichte verbetervoorstellen formuleren op basis van testen, oplevering en reflectie (conform eisen 5.1, 5.2 en 5.3).
