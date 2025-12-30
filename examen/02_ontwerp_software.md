@@ -1,174 +1,160 @@
-# 📘 StadsBingo – 02_ontwerp_software.md
+# StadsBingo – 02_ontwerp_software.md
 
-## 📊 UML-diagrammen
+## Projectcontext
 
-### 1️⃣ ERD / Class Diagram
-**Beschrijving:**  
-Dit diagram toont de entiteiten en relaties van de StadsBingo-applicatie met **teams**, **teamcodes** en een opdrachten-flow met statussen.
+Dit document bevat het technisch ontwerp van de StadsBingo.
+Het ontwerp is gebaseerd op de eisen, wensen en user stories zoals vastgelegd in *01_plan_werkzaamheden.md*.
 
-**Entiteiten en attributen:**
 
-- **User** (Docent/Admin)
-  - `id (PK)`
-  - `email (UNIQUE)`
-  - `name`
-  - `password`
-  - `role` (USER/ADMIN)
-  - `createdAt`
+## Overzicht gekozen diagrammen
 
-- **Team**
-  - `id (PK)`
-  - `name`
-  - `code (UNIQUE)` - teamcode voor login
-  - `createdAt`
-  - `createdById (FK → User.id)` [1-op-n]
-  - `captainId (FK → TeamPlayer.id, UNIQUE)` [1-op-1]
+Voor dit project zijn de volgende UML-diagrammen uitgewerkt
 
-- **TeamPlayer** (Leerlingen)
-  - `id (PK)`
-  - `name`
-  - `studentNumber`
-  - `teamId (FK → Team.id)` [1-op-n]
+1. **Entity Relationship Diagram (ERD)**
+2. **Sequence Diagram**
 
-- **Assignment** (Opdrachten)
-  - `id (PK)`
-  - `title`
-  - `description`
-  - `location`
-  - `order` - volgorde van opdrachten
-  - `exampleImage`
-  - `createdAt`
+Deze combinatie is gekozen omdat:
 
-- **TeamAssignment** (tussentabel voor n-op-n)
-  - `id (PK)`
-  - `teamId (FK → Team.id)`
-  - `assignmentId (FK → Assignment.id)`
-  - `createdAt`
+* het ERD inzicht geeft in data, relaties en opslag
+* het sequence diagram inzicht geeft in gedrag en interactie tussen systeemonderdelen
 
-- **Submission** (Inzendingen)
-  - `id (PK)`
-  - `teamId (FK → Team.id)` [1-op-n]
-  - `assignmentId (FK → Assignment.id)` [1-op-n]
-  - `playerId (FK → TeamPlayer.id, NULLABLE)` [1-op-n]
-  - `answerText`
-  - `answerImage`
-  - `status` (LOCKED/AVAILABLE/PENDING/FEEDBACK/APPROVED)
-  - `feedback`
-  - `createdAt`
-  - `updatedAt`
 
-**Relaties en cardinaliteiten:**
-- User → Team: 1-op-n (één docent kan meerdere teams aanmaken)
-- Team → TeamPlayer: 1-op-n (één team heeft meerdere spelers)
-- Team → TeamPlayer (captain): 1-op-1 (één team heeft één captain)
-- Team → TeamAssignment: 1-op-n (één team heeft meerdere opdrachten)
-- Assignment → TeamAssignment: 1-op-n (één opdracht kan aan meerdere teams)
-- Team → Submission: 1-op-n (één team heeft meerdere inzendingen)
-- Assignment → Submission: 1-op-n (één opdracht heeft meerdere inzendingen)
-- TeamPlayer → Submission: 1-op-n (één speler kan meerdere inzendingen doen)
 
-**Notities bij afbakening:**
-- **6+ entiteiten:** User, Team, TeamPlayer, Assignment, TeamAssignment, Submission
-- **1-op-1 relatie:** Team ↔ TeamPlayer (captain)
-- **2+ 1-op-n relaties:** User → Team, Team → TeamPlayer, Team → Submission
-- **1+ n-op-n relatie:** Team ↔ Assignment (via TeamAssignment tussentabel)
-- Leerlingen loggen in via teamcode (geen individuele accounts)
-- Status-flow: LOCKED → AVAILABLE → PENDING → FEEDBACK/APPROVED
+## 1. ERD
 
-**ERD afbeelding:**  
-`examen/bewijsmateriaal/02/erd.png`
+![ERD StadsBingo](bewijsmateriaal/02/Erd.png)
 
----
 
-### 2️⃣ Sequence Diagram – Team login, opdracht indienen en beoordelen
-**Beschrijving:**  
-Flow van teamspeler die met een **teamcode** inlogt, een opdracht indient en admin die beoordeelt, inclusief status-overgangen.
+### Doel van het ERD
 
-**Objecten (6+):**
-- TeamPlayer (leerling)
-- TeamLoginPage
-- StudentDashboard
-- ExerciseDetailPage
-- AdminDashboard
-- API (Next.js API routes)
-- Database (PostgreSQL + Prisma)
+Het ERD beschrijft hoe data binnen de StadsBingo wordt opgeslagen en hoe objecten met elkaar verbonden zijn.
 
-**Proces met loop en alternative:**  
-1. **Login Flow:**
-   - TeamPlayer opent app → TeamLoginPage
-   - TeamLoginPage → API: `POST /api/auth/team-login` met teamCode
-   - API → Database: zoek Team met code
-   - **Alternative:** Code ongeldig → foutmelding
-   - **Alternative:** Code geldig → sessie aanmaken, redirect naar dashboard
+### Entiteiten
 
-2. **Dashboard Flow:**
-   - StudentDashboard → API: `GET /api/exercises` voor team
-   - API → Database: haal assignments + submissions op
-   - **Loop:** Voor elke assignment, bepaal status (LOCKED/AVAILABLE/PENDING/FEEDBACK/APPROVED)
-   - Return opdrachtenlijst met statussen
+Het ERD bevat 6 entiteiten waaronder:
 
-3. **Submission Flow:**
-   - TeamPlayer opent AVAILABLE opdracht → ExerciseDetailPage
-   - ExerciseDetailPage → API: `POST /api/submissions` met answerText/answerImage
-   - API → Database: maak Submission met status PENDING
-   - **Alternative:** Validatiefout → toon foutmelding
-   - **Alternative:** Success → status update, redirect naar dashboard
+* **User** – gebruiker die teams aanmaakt (docent)
+* **Team** – een groep leerlingen
+* **TeamPlayer** – individuele speler binnen een team
+* **Assignment** – opdracht die uitgevoerd kan worden
+* **TeamAssignment** – koppelt opdrachten aan teams (n-op-n)
+* **Submission** – inzending van een team voor een opdracht
 
-4. **Review Flow:**
-   - AdminDashboard → API: `GET /api/admin/submissions?status=PENDING`
-   - API → Database: haal submissions op met filters
-   - Admin beoordeelt → API: `PATCH /api/admin/submissions/[id]`
-   - **Alternative:** Status = APPROVED → volgende opdracht wordt AVAILABLE
-   - **Alternative:** Status = FEEDBACK → feedback opslaan, leerling kan opnieuw indienen
 
-**Sequence diagram afbeelding:**  
-`examen/bewijsmateriaal/02/sequence.png`
+### Relaties
 
----
+* **User → Team (1-op-n, creates)**
+  Een gebruiker kan meerdere teams aanmaken.
+  Dit ondersteunt eis E1 (Teams beheren).
 
-## 📝 Onderbouwing van ontwerpkeuzes
+* **Team → TeamPlayer (1-op-n, has)**
+  Een team bestaat uit meerdere spelers.
+  Dit ondersteunt teamstructuur en leerlingindeling.
 
-### Ethiek
-- **Rolgebaseerde toegang:** Alleen admins kunnen teams en opdrachten beheren
-- **Transparante beoordeling:** Feedback is altijd zichtbaar voor teams bij FEEDBACK status
-- **Gelijke behandeling:** Alle teams krijgen dezelfde opdrachten in dezelfde volgorde
-- **Constructieve feedback:** Systeem vereist feedback bij afwijzing om leerproces te ondersteunen
+* **Team → TeamPlayer (1-op-1, captain)**
+  Elk team heeft een captain, die ook een teamspeler is.
+  Dit is de 1-op-1 relatie.
+
+* **Team ↔ Assignment (n-op-n, assigned)**
+  Teams kunnen meerdere opdrachten krijgen en opdrachten kunnen aan meerdere teams worden gekoppeld.
+  Deze relatie wordt opgelost met TeamAssignment.
+
+* **Submission (Team + Assignment)**
+  Een submission legt vast welk team welke opdracht heeft ingeleverd en maakt meerdere inzendingen per opdracht mogelijk.
+
+
+### Koppeling ERD aan user stories en eisen
+
+**Ondersteunde user stories:**
+
+* Leerling: *Inloggen met teamcode*
+* Leerling: *Opdrachtenlijst en statussen bekijken*
+* Leerling: *Opdracht indienen & feedback verwerken*
+* Docent: *Inzendingen beoordelen*
+* Docent: *Filteren en voortgang bekijken*
+
+**Ondersteunde eisen en wensen:**
+
+* E1 Teams beheren
+* E2 Inloggen met teamcode
+* E3 Opdrachten per team
+* E4 Opdrachten indienen
+* E5 Status & feedback
+* E6 Inzendingen beoordelen
+* E7 Overzichten en filters
+* W1 Visuele voortgang
+
+
+## 2. Sequence Diagram
+
+![Sequence Dia StadsBingo](bewijsmateriaal/02/Sequence%20diagram.png)
+
+
+### Doel van een sequence diagram
+
+Het sequence diagram beschrijft de loginflow van een leerling via een teamcode.
+Deze flow is gekozen omdat dit een kernfunctionaliteit is waarbij meerdere onderdelen van het systeem samenwerken.
+
+### Scenario
+
+Het diagram laat de volgende stappen zien:
+
+1. De leerling voert een teamcode in op de loginpagina
+2. De frontend stuurt een loginverzoek naar de API
+3. De API controleert de teamcode in de database
+4. Er vindt een keuze plaats (alternative):
+
+   * het team bestaat
+   * het team bestaat niet
+
+### Alternative (alt)
+
+* **Team bestaat**
+  De sessie wordt aangemaakt en de leerling wordt doorgestuurd naar het dashboard.
+
+* **Team bestaat niet**
+  De API stuurt een foutmelding terug en de leerling blijft op de loginpagina.
+
+
+
+
+### Koppeling sequence diagram aan user stories en eisen
+
+**Ondersteunde user story:**
+
+* Leerling: *Inloggen met teamcode*
+
+**Ondersteunde eisen:**
+
+* E2 Inloggen met teamcode
+
+Het sequence diagram maakt inzichtelijk hoe deze user story technisch wordt uitgevoerd en waar validatie en foutafhandeling plaatsvinden.
+
+
+## Onderbouwing ontwerpkeuzes
 
 ### Privacy
-- **Minimale dataverzameling:** Alleen naam, studentnummer en teamcode opgeslagen
-- **Geen persoonlijke accounts:** Leerlingen loggen in via teamcode, geen individuele profielen
-- **Beperkte data-opslag:** Submissions bevatten alleen tekst/foto voor opdrachten
-- **Team-gebaseerde privacy:** Leerlingen zien alleen eigen team-inzendingen
-- **Dataretentie:** Data wordt alleen bewaard voor onderwijsdoeleinden
+
+* Alleen gegevens die nodig zijn voor teams, opdrachten en inzendingen zijn opgenomen in het ERD.
+* Leerlingen loggen in met een teamcode, waardoor persoonlijke accounts en extra persoonsgegevens niet nodig zijn.
+* Unieke ID’s worden gebruikt, zodat gegevens niet eenvoudig te raden of te manipuleren zijn.
+
 
 ### Security
-- **Server-side validatie:** Alle input wordt gevalideerd (teamcodes, submissions, feedback)
-- **Rolgebaseerde autorisatie:** Admin-endpoints beveiligd met middleware
-- **Session management:** Veilige cookie-based sessies voor team-login
-- **SQL injection preventie:** Prisma ORM voorkomt directe SQL queries
-- **Input sanitization:** Tekst en afbeeldingen worden gevalideerd voor veiligheid
-- **Audit trail:** Alle status-wijzigingen worden gelogd met timestamp
-- **Cascade deletes:** Referentiële integriteit gewaarborgd bij verwijdering
 
----
+* Teamcodes worden altijd server-side gevalideerd en nooit vertrouwd op frontend-logica.
+* Sessies worden beheerd via een server-side cookie in plaats van via URL-parameters.
+* Foutmeldingen geven geen extra informatie vrij over bestaande teams of systeemstructuur.
 
-**Conclusie:**  
-Het ontwerp voldoet volledig aan de examen-eisen en bevat:
 
-**Criterium 2.1 - Volledig ontwerp:**
-- Alle user stories uit planning zijn vertaald naar entiteiten en relaties
-- ERD met 6 entiteiten, 1-op-1, 1-op-n en n-op-n relaties
-- Sequence diagram met 7 objecten, loops en alternatives
-- Status-flow systeem (LOCKED → AVAILABLE → PENDING → FEEDBACK/APPROVED)
+### Dataconsistentie
 
-**Criterium 2.2 - Schematechnieken:**
-- ERD toont complete datastructuur voor teams, opdrachten en submissions
-- Sequence diagram toont interactie tussen frontend, API en database
-- Beide diagrammen sluiten aan op user stories en eisen
+* Relaties in het ERD voorkomen ongeldige situaties, zoals meerdere captains binnen één team.
+* Elke inzending is altijd gekoppeld aan zowel een team als een opdracht.
+* Database-relaties en keys zorgen ervoor dat data logisch en betrouwbaar blijft.
 
-**Criterium 2.3 - Onderbouwing:**
-- Ethiek, privacy en security aspecten zijn uitgebreid toegelicht
-- Ontwerpkeuzes zijn onderbouwd met concrete argumenten
-- Relatie met eisen en wensen is duidelijk aangetoond
 
-Het model dekt volledig: team-management, teamcode-login, opdrachten-workflow, status-tracking en admin-functionaliteit.
+## Conclusie
+
+Met het ERD en het sequence diagram is een technisch ontwerp gemaakt dat aansluit op de eisen, wensen en user stories van StadsBingo.
+De diagrammen geven inzicht in de datastructuur als de interactie tussen objecten.
