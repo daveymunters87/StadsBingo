@@ -198,16 +198,16 @@ Een user story is **done** wanneer:
 | 15-12 t/m 22-12 | Sprint 2 retrospectief | [Sprint 2 Retro](bewijsmateriaal/01/sprint2/sprint2_retro.md) | Reflectie Sprint 2 |
 
 ---
-## Individuele bijdragen
+## Taakverdeling
 
-**Davey:**
-- Hoofdverantwoordelijk voor frontend development (React/Next.js componenten)
+**Jada:**
+- Hoofdverantwoordelijk voor frontend development
 - Team-login interface en dashboard UI
 - Foto upload functionaliteit voor opdrachten
 - Repository beheer en Git workflow
 
-**Jada:**
-- Hoofdverantwoordelijk voor backend development (API routes, database)
+**Davey:**
+- Hoofdverantwoordelijk voor backend development
 - Admin panel voor docenten (beoordelen, filters)
 - Database schema ontwerp en Prisma implementatie
 - Testing en validatie logica
