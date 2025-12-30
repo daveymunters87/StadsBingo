@@ -33,16 +33,20 @@ export default function AssignmentsPage() {
   const [teams, setTeams] = useState<Team[]>([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
-  const [editingAssignment, setEditingAssignment] = useState<Assignment | null>(null);
+  const [editingAssignment, setEditingAssignment] = useState<Assignment | null>(
+    null,
+  );
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [assignmentToDelete, setAssignmentToDelete] = useState<string | null>(null);
+  const [assignmentToDelete, setAssignmentToDelete] = useState<string | null>(
+    null,
+  );
   const [formData, setFormData] = useState({
     title: "",
     description: "",
     location: "",
     order: "",
     exampleImage: "",
-    selectedTeams: [] as string[]
+    selectedTeams: [] as string[],
   });
 
   useEffect(() => {
@@ -53,7 +57,7 @@ export default function AssignmentsPage() {
   const fetchAssignments = async () => {
     try {
       const response = await fetch("/api/admin/assignments", {
-        credentials: 'include'
+        credentials: "include",
       });
       if (response.ok) {
         const data = await response.json();
@@ -69,7 +73,7 @@ export default function AssignmentsPage() {
   const fetchTeams = async () => {
     try {
       const response = await fetch("/api/admin/teams", {
-        credentials: 'include'
+        credentials: "include",
       });
       if (response.ok) {
         const data = await response.json();
@@ -82,33 +86,40 @@ export default function AssignmentsPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!formData.title.trim() || !formData.description.trim() || !formData.location.trim() || !formData.order.trim()) {
+
+    if (
+      !formData.title.trim() ||
+      !formData.description.trim() ||
+      !formData.location.trim() ||
+      !formData.order.trim()
+    ) {
       alert("Alle velden zijn verplicht");
       return;
     }
 
     try {
-      const url = editingAssignment ? `/api/admin/assignments/${editingAssignment.id}` : "/api/admin/assignments";
+      const url = editingAssignment
+        ? `/api/admin/assignments/${editingAssignment.id}`
+        : "/api/admin/assignments";
       const method = editingAssignment ? "PUT" : "POST";
-      
+
       const requestBody: any = {
         title: formData.title,
         description: formData.description,
         location: formData.location,
         order: parseInt(formData.order),
-        exampleImage: formData.exampleImage || null
+        exampleImage: formData.exampleImage || null,
       };
 
       if (!editingAssignment && formData.selectedTeams.length > 0) {
         requestBody.teamIds = formData.selectedTeams;
       }
-      
+
       const response = await fetch(url, {
         method,
         headers: { "Content-Type": "application/json" },
-        credentials: 'include',
-        body: JSON.stringify(requestBody)
+        credentials: "include",
+        body: JSON.stringify(requestBody),
       });
 
       if (response.ok) {
@@ -133,10 +144,13 @@ export default function AssignmentsPage() {
     if (!assignmentToDelete) return;
 
     try {
-      const response = await fetch(`/api/admin/assignments/${assignmentToDelete}`, {
-        method: "DELETE",
-        credentials: 'include'
-      });
+      const response = await fetch(
+        `/api/admin/assignments/${assignmentToDelete}`,
+        {
+          method: "DELETE",
+          credentials: "include",
+        },
+      );
 
       if (response.ok) {
         await fetchAssignments();
@@ -159,7 +173,7 @@ export default function AssignmentsPage() {
       location: assignment.location,
       order: assignment.order.toString(),
       exampleImage: assignment.exampleImage || "",
-      selectedTeams: []
+      selectedTeams: [],
     });
     setShowForm(true);
   };
@@ -167,28 +181,45 @@ export default function AssignmentsPage() {
   const resetForm = () => {
     setShowForm(false);
     setEditingAssignment(null);
-    setFormData({ title: "", description: "", location: "", order: "", exampleImage: "", selectedTeams: [] });
+    setFormData({
+      title: "",
+      description: "",
+      location: "",
+      order: "",
+      exampleImage: "",
+      selectedTeams: [],
+    });
   };
 
   const handleTeamToggle = (teamId: string) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       selectedTeams: prev.selectedTeams.includes(teamId)
-        ? prev.selectedTeams.filter(id => id !== teamId)
-        : [...prev.selectedTeams, teamId]
+        ? prev.selectedTeams.filter((id) => id !== teamId)
+        : [...prev.selectedTeams, teamId],
     }));
   };
 
   return (
     <AdminLayout>
       <div className="max-w-6xl mx-auto">
-        <PageHeader title="Opdrachten Beheren" subtitle="Maak en beheer opdrachten voor StadsBingo" />
+        <PageHeader
+          title="Opdrachten Beheren"
+          subtitle="Maak en beheer opdrachten voor StadsBingo"
+        />
 
         <ActionButtons
           onAdd={() => {
             setShowForm(true);
             setEditingAssignment(null);
-            setFormData({ title: "", description: "", location: "", order: "", exampleImage: "", selectedTeams: [] });
+            setFormData({
+              title: "",
+              description: "",
+              location: "",
+              order: "",
+              exampleImage: "",
+              selectedTeams: [],
+            });
           }}
           onCancel={resetForm}
           showCancel={false}

@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { useParams } from 'next/navigation';
-import ReviewSidebar from '@/components/admin/submissions/ReviewSidebar';
-import ReviewContent from '@/components/admin/submissions/ReviewContent';
+import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
+import ReviewSidebar from "@/components/admin/submissions/ReviewSidebar";
+import ReviewContent from "@/components/admin/submissions/ReviewContent";
 
 interface Team {
   id: string;
@@ -27,17 +27,17 @@ export default function ReviewAssignmentPage() {
   const [assignment, setAssignment] = useState<AssignmentDetail | null>(null);
   const [loadingTeams, setLoadingTeams] = useState(true);
   const [loadingAssignment, setLoadingAssignment] = useState(true);
-  const [feedback, setFeedback] = useState('');
+  const [feedback, setFeedback] = useState("");
 
   useEffect(() => {
     const fetchTeams = async () => {
       try {
-        const res = await fetch('/api/teams');
+        const res = await fetch("/api/teams");
         if (!res.ok) return;
         const data: Team[] = await res.json();
         setTeams(data);
       } catch (error) {
-        console.error('Error fetching teams:', error);
+        console.error("Error fetching teams:", error);
       } finally {
         setLoadingTeams(false);
       }
@@ -61,7 +61,7 @@ export default function ReviewAssignmentPage() {
           status: data.status,
         });
       } catch (error) {
-        console.error('Error fetching assignment detail:', error);
+        console.error("Error fetching assignment detail:", error);
       } finally {
         setLoadingAssignment(false);
       }
@@ -74,16 +74,16 @@ export default function ReviewAssignmentPage() {
 
   const handleApprove = async () => {
     // TODO: Implement approval logic
-    console.log('Approved with feedback:', feedback);
+    console.log("Approved with feedback:", feedback);
   };
 
   const handleReject = async () => {
     if (!feedback.trim()) {
-      alert('Feedback is verplicht bij afkeuring');
+      alert("Feedback is verplicht bij afkeuring");
       return;
     }
     // TODO: Implement rejection logic
-    console.log('Rejected with feedback:', feedback);
+    console.log("Rejected with feedback:", feedback);
   };
 
   return (
@@ -93,7 +93,7 @@ export default function ReviewAssignmentPage() {
         loadingTeams={loadingTeams}
         currentTeamId={teamId}
       />
-      
+
       <ReviewContent
         assignment={assignment}
         currentTeam={currentTeam}
@@ -106,5 +106,3 @@ export default function ReviewAssignmentPage() {
     </main>
   );
 }
-
-

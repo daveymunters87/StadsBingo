@@ -9,7 +9,10 @@ export async function GET(request: Request) {
   try {
     const adminId = getAdminIdFromHeaders(request);
     if (!adminId) {
-      return NextResponse.json({ error: "Admin authentication required" }, { status: 401 });
+      return NextResponse.json(
+        { error: "Admin authentication required" },
+        { status: 401 },
+      );
     }
 
     const teams = await prisma.team.findMany({
@@ -17,16 +20,16 @@ export async function GET(request: Request) {
         captain: true,
         players: true,
         createdBy: {
-          select: { name: true, email: true }
+          select: { name: true, email: true },
         },
         _count: {
           select: {
             players: true,
-            submissions: true
-          }
-        }
+            submissions: true,
+          },
+        },
       },
-      orderBy: { createdAt: 'desc' }
+      orderBy: { createdAt: "desc" },
     });
 
     return NextResponse.json(teams);
@@ -41,13 +44,24 @@ export async function POST(request: Request) {
   try {
     const adminId = getAdminIdFromHeaders(request);
     if (!adminId) {
-      return NextResponse.json({ error: "Admin authentication required" }, { status: 401 });
+      return NextResponse.json(
+        { error: "Admin authentication required" },
+        { status: 401 },
+      );
     }
 
     const { name, playerNames } = await request.json();
 
-    if (!name || !playerNames || !Array.isArray(playerNames) || playerNames.length === 0) {
-      return NextResponse.json({ error: "Team name and players are required" }, { status: 400 });
+    if (
+      !name ||
+      !playerNames ||
+      !Array.isArray(playerNames) ||
+      playerNames.length === 0
+    ) {
+      return NextResponse.json(
+        { error: "Team name and players are required" },
+        { status: 400 },
+      );
     }
 
     // Generate unique team code
@@ -59,7 +73,7 @@ export async function POST(request: Request) {
         name,
         code,
         createdById: adminId,
-      }
+      },
     });
 
     // Create players
@@ -70,30 +84,30 @@ export async function POST(request: Request) {
             name: playerName,
             studentNumber: `S${Date.now()}${index}`, // Generate unique student number
             teamId: team.id,
-          }
-        })
-      )
+          },
+        }),
+      ),
     );
 
     // Set first player as captain
     if (players.length > 0) {
       await prisma.team.update({
         where: { id: team.id },
-        data: { captainId: players[0].id }
+        data: { captainId: players[0].id },
       });
     }
 
     // Assign all existing assignments to this team
     const assignments = await prisma.assignment.findMany();
     await Promise.all(
-      assignments.map(assignment =>
+      assignments.map((assignment) =>
         prisma.teamAssignment.create({
           data: {
             teamId: team.id,
-            assignmentId: assignment.id
-          }
-        })
-      )
+            assignmentId: assignment.id,
+          },
+        }),
+      ),
     );
 
     const createdTeam = await prisma.team.findUnique({
@@ -102,9 +116,9 @@ export async function POST(request: Request) {
         captain: true,
         players: true,
         createdBy: {
-          select: { name: true, email: true }
-        }
-      }
+          select: { name: true, email: true },
+        },
+      },
     });
 
     return NextResponse.json(createdTeam);

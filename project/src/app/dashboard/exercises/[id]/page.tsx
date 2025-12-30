@@ -9,4 +9,3 @@ export default function ExerciseDetailPage() {
 
   return <ExerciseDetailContent exerciseId={exerciseId} />;
 }
-

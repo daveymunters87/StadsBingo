@@ -35,7 +35,7 @@ export default function TeamListColumn({
   teams,
   loading,
   onEdit,
-  onDelete
+  onDelete,
 }: TeamListColumnProps) {
   if (loading) {
     return (
@@ -50,7 +50,9 @@ export default function TeamListColumn({
       <div className="bg-[#F5F0E8] rounded-2xl p-6 text-center">
         <Users className="h-12 w-12 text-[#2C2C2C] mx-auto mb-4" />
         <p className="text-[#2C2C2C]">Geen teams gevonden</p>
-        <p className="text-[#6B7280] text-sm mt-2">Klik op "Nieuw Team" om je eerste team aan te maken</p>
+        <p className="text-[#6B7280] text-sm mt-2">
+          Klik op "Nieuw Team" om je eerste team aan te maken
+        </p>
       </div>
     );
   }
@@ -79,23 +81,23 @@ export default function TeamListColumn({
               </button>
             </div>
           </div>
-          
+
           <div className="space-y-2">
             <div className="flex items-center gap-2 text-sm text-[#6B7280]">
               <Users className="h-4 w-4" />
               <span>{team._count.players} spelers</span>
             </div>
-            
+
             {team.captain && (
               <p className="text-sm text-[#6B7280]">
                 Kapitein: {team.captain.name}
               </p>
             )}
-            
+
             <p className="text-sm text-[#6B7280]">
               {team._count.submissions} inzendingen
             </p>
-            
+
             <div className="pt-2 border-t">
               <p className="text-xs text-[#9CA3AF]">
                 Aangemaakt door: {team.createdBy.name}

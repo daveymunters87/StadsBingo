@@ -7,37 +7,43 @@ const prisma = new PrismaClient();
 // GET a single assignment
 export async function GET(
   request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     const adminId = getAdminIdFromHeaders(request);
     if (!adminId) {
-      return NextResponse.json({ error: "Admin authentication required" }, { status: 401 });
+      return NextResponse.json(
+        { error: "Admin authentication required" },
+        { status: 401 },
+      );
     }
 
     const { id } = await params;
-    
+
     const assignment = await prisma.assignment.findUnique({
       where: { id },
       include: {
         submissions: {
           include: {
             team: true,
-            player: true
+            player: true,
           },
-          orderBy: { createdAt: 'desc' }
+          orderBy: { createdAt: "desc" },
         },
         _count: {
           select: {
             submissions: true,
-            teams: true
-          }
-        }
-      }
+            teams: true,
+          },
+        },
+      },
     });
 
     if (!assignment) {
-      return NextResponse.json({ error: "Assignment not found" }, { status: 404 });
+      return NextResponse.json(
+        { error: "Assignment not found" },
+        { status: 404 },
+      );
     }
 
     return NextResponse.json(assignment);
@@ -50,21 +56,28 @@ export async function GET(
 // Update the assignment
 export async function PUT(
   request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     const adminId = getAdminIdFromHeaders(request);
     if (!adminId) {
-      return NextResponse.json({ error: "Admin authentication required" }, { status: 401 });
+      return NextResponse.json(
+        { error: "Admin authentication required" },
+        { status: 401 },
+      );
     }
 
     const { id } = await params;
-    const { title, description, location, order, exampleImage } = await request.json();
+    const { title, description, location, order, exampleImage } =
+      await request.json();
 
     if (!title || !description || !location || order === undefined) {
-      return NextResponse.json({ 
-        error: "Title, description, location, and order are required" 
-      }, { status: 400 });
+      return NextResponse.json(
+        {
+          error: "Title, description, location, and order are required",
+        },
+        { status: 400 },
+      );
     }
 
     const assignment = await prisma.assignment.update({
@@ -74,8 +87,8 @@ export async function PUT(
         description,
         location,
         order: parseInt(order),
-        exampleImage: exampleImage || null
-      }
+        exampleImage: exampleImage || null,
+      },
     });
 
     return NextResponse.json(assignment);
@@ -88,24 +101,27 @@ export async function PUT(
 // DELETE the assignment
 export async function DELETE(
   request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     const adminId = getAdminIdFromHeaders(request);
     if (!adminId) {
-      return NextResponse.json({ error: "Admin authentication required" }, { status: 401 });
+      return NextResponse.json(
+        { error: "Admin authentication required" },
+        { status: 401 },
+      );
     }
 
     const { id } = await params;
 
     // Delete related records first to avoid foreign key constraint violations
     await prisma.teamAssignment.deleteMany({
-      where: { assignmentId: id }
+      where: { assignmentId: id },
     });
 
     // Then delete the assignment
     await prisma.assignment.delete({
-      where: { id }
+      where: { id },
     });
 
     return NextResponse.json({ message: "Assignment deleted successfully" });

@@ -28,7 +28,7 @@ export default function AssignmentListColumn({
   assignments,
   loading,
   onEdit,
-  onDelete
+  onDelete,
 }: AssignmentListColumnProps) {
   if (loading) {
     return (
@@ -43,7 +43,9 @@ export default function AssignmentListColumn({
       <div className="bg-[#F5F0E8] rounded-2xl p-6 text-center">
         <BookOpen className="h-12 w-12 text-[#2C2C2C] mx-auto mb-4" />
         <p className="text-[#2C2C2C]">Geen opdrachten gevonden</p>
-        <p className="text-[#6B7280] text-sm mt-2">Klik op "Nieuwe Opdracht" om je eerste opdracht aan te maken</p>
+        <p className="text-[#6B7280] text-sm mt-2">
+          Klik op "Nieuwe Opdracht" om je eerste opdracht aan te maken
+        </p>
       </div>
     );
   }
@@ -68,10 +70,12 @@ export default function AssignmentListColumn({
                   </div>
                 </div>
               )}
-              
+
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-2">
-                  <h3 className="text-lg font-bold text-[#2C2C2C]">{assignment.title}</h3>
+                  <h3 className="text-lg font-bold text-[#2C2C2C]">
+                    {assignment.title}
+                  </h3>
                   <span className="px-2 py-1 bg-[#FFE600] text-[#2C2C2C] text-xs font-medium rounded-full">
                     #{assignment.order}
                   </span>
@@ -82,7 +86,9 @@ export default function AssignmentListColumn({
                     </span>
                   )}
                 </div>
-                <p className="text-sm text-[#6B7280] mb-2">{assignment.description}</p>
+                <p className="text-sm text-[#6B7280] mb-2">
+                  {assignment.description}
+                </p>
                 <p className="text-sm text-[#6B7280]">
                   <strong>Locatie:</strong> {assignment.location}
                 </p>
@@ -103,12 +109,13 @@ export default function AssignmentListColumn({
               </button>
             </div>
           </div>
-          
+
           <div className="flex items-center gap-4 text-sm text-[#6B7280] pt-2 border-t">
             <span>{assignment._count.teams} teams toegewezen</span>
             <span>{assignment._count.submissions} inzendingen</span>
             <span className="text-xs">
-              Aangemaakt: {new Date(assignment.createdAt).toLocaleDateString('nl-NL')}
+              Aangemaakt:{" "}
+              {new Date(assignment.createdAt).toLocaleDateString("nl-NL")}
             </span>
           </div>
         </div>

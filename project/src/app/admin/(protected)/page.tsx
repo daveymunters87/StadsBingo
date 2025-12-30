@@ -13,9 +13,12 @@ export default function TeacherDashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const submissionsResponse = await fetch('/api/admin/submissions?status=PENDING', {
-          credentials: 'include'
-        });
+        const submissionsResponse = await fetch(
+          "/api/admin/submissions?status=PENDING",
+          {
+            credentials: "include",
+          },
+        );
         if (submissionsResponse.ok) {
           const submissionsData = await submissionsResponse.json();
           setRecentSubmissions(submissionsData);
@@ -33,10 +36,16 @@ export default function TeacherDashboard() {
   return (
     <AdminLayout>
       <div className="max-w-6xl mx-auto">
-        <PageHeader title="Dashboard" subtitle="Beheersysteem voor de BitBingo" />
+        <PageHeader
+          title="Dashboard"
+          subtitle="Beheersysteem voor de BitBingo"
+        />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-          <RecentSubmissions submissions={recentSubmissions} loading={loading} />
+          <RecentSubmissions
+            submissions={recentSubmissions}
+            loading={loading}
+          />
           <ManageSection />
         </div>
       </div>

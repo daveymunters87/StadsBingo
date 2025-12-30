@@ -5,9 +5,13 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Upload, ArrowRight, X, AlertCircle, CheckCircle } from "lucide-react";
 import Link from "next/link";
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
 import ImageModal from "@/components/shared/ImageModal";
-import { HamburgerMenu, HamburgerTrigger, useHamburgerMenu } from "@/components/ui/hamburger-menu";
+import {
+  HamburgerMenu,
+  HamburgerTrigger,
+  useHamburgerMenu,
+} from "@/components/ui/hamburger-menu";
 
 interface ExerciseDetail {
   id: string;
@@ -31,7 +35,9 @@ interface ExerciseDetailContentProps {
   exerciseId: string;
 }
 
-export default function ExerciseDetailContent({ exerciseId }: ExerciseDetailContentProps) {
+export default function ExerciseDetailContent({
+  exerciseId,
+}: ExerciseDetailContentProps) {
   const { isOpen, openMenu, closeMenu } = useHamburgerMenu();
   const [exercise, setExercise] = useState<ExerciseDetail | null>(null);
   const [loading, setLoading] = useState(true);
@@ -46,7 +52,7 @@ export default function ExerciseDetailContent({ exerciseId }: ExerciseDetailCont
   useEffect(() => {
     // Fetch exercise details - middleware handles authentication
     fetch(`/api/exercises/${exerciseId}`, {
-      credentials: 'include'
+      credentials: "include",
     })
       .then((res) => {
         if (!res.ok) {
@@ -103,57 +109,64 @@ export default function ExerciseDetailContent({ exerciseId }: ExerciseDetailCont
 
     setSubmitting(true);
     try {
-      const response = await fetch('/api/submissions', {
-        method: 'POST',
+      const response = await fetch("/api/submissions", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        credentials: 'include',
+        credentials: "include",
         body: JSON.stringify({
           assignmentId: exercise.id,
           answerImage: uploadedImage,
           answerText: null,
-          playerId: null
+          playerId: null,
         }),
       });
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to submit');
+        throw new Error(errorData.error || "Failed to submit");
       }
 
       const submission = await response.json();
-      console.log('Submission created:', submission);
-      
+      console.log("Submission created:", submission);
+
       // Update exercise state to reflect the new submission
-      setExercise(prev => prev ? {
-        ...prev,
-        status: "PENDING",
-        submission: {
-          id: submission.id,
-          answerText: submission.answerText,
-          answerImage: submission.answerImage,
-          status: submission.status,
-          feedback: submission.feedback,
-          createdAt: submission.createdAt
-        }
-      } : null);
-      
+      setExercise((prev) =>
+        prev
+          ? {
+              ...prev,
+              status: "PENDING",
+              submission: {
+                id: submission.id,
+                answerText: submission.answerText,
+                answerImage: submission.answerImage,
+                status: submission.status,
+                feedback: submission.feedback,
+                createdAt: submission.createdAt,
+              },
+            }
+          : null,
+      );
+
       toast.success("Opdracht succesvol ingeleverd!", {
         duration: 4000,
-        position: 'top-center',
+        position: "top-center",
       });
-      
+
       // Redirect to exercises dashboard after showing success message
       setTimeout(() => {
-        router.push('/dashboard/exercises');
+        router.push("/dashboard/exercises");
       }, 2000); // 2 second delay to let user see the success message
     } catch (error) {
       console.error("Error submitting:", error);
-      toast.error(`Er ging iets mis: ${error instanceof Error ? error.message : 'Onbekende fout'}`, {
-        duration: 4000,
-        position: 'top-center',
-      });
+      toast.error(
+        `Er ging iets mis: ${error instanceof Error ? error.message : "Onbekende fout"}`,
+        {
+          duration: 4000,
+          position: "top-center",
+        },
+      );
     } finally {
       setSubmitting(false);
     }
@@ -180,7 +193,7 @@ export default function ExerciseDetailContent({ exerciseId }: ExerciseDetailCont
   const canResubmit = exercise.submission?.status === "FEEDBACK";
   const isApproved = exercise.submission?.status === "APPROVED";
   const isPending = exercise.submission?.status === "PENDING";
-  
+
   const getStatusDisplay = () => {
     switch (submissionStatus) {
       case "PENDING":
@@ -211,7 +224,7 @@ export default function ExerciseDetailContent({ exerciseId }: ExerciseDetailCont
     <main className="min-h-screen bg-[#EDE6DC] pb-24">
       {/* Hamburger Menu */}
       <HamburgerMenu isOpen={isOpen} onClose={closeMenu} />
-      
+
       {/* Header */}
       <header className="flex items-center justify-between px-4 py-4 md:px-6">
         <div className="w-full max-w-xs mb-6 mt-8 md:absolute">
@@ -219,17 +232,14 @@ export default function ExerciseDetailContent({ exerciseId }: ExerciseDetailCont
             <Image src="/logo.png" alt="NexEd" width={128} height={128} />
           </Link>
         </div>
-        <HamburgerTrigger 
-          onClick={openMenu}
-          className="md:hidden"
-        />
+        <HamburgerTrigger onClick={openMenu} className="md:hidden" />
       </header>
 
       {/* Hero Image with Tag - Full Width */}
       <div className="relative w-full h-64 md:h-80 mb-6">
-        <Image 
-          src="/grotemarkt.jpg" 
-          alt="Exercise location" 
+        <Image
+          src="/grotemarkt.jpg"
+          alt="Exercise location"
           fill
           className="object-cover brightness-80"
         />
@@ -243,7 +253,9 @@ export default function ExerciseDetailContent({ exerciseId }: ExerciseDetailCont
       <div className="px-4 md:px-6 md:max-w-2xl md:mx-auto">
         {/* Beschrijving Section */}
         <section className="mb-6">
-          <h2 className="text-xl font-bold text-[#2C2C2C] mb-3">Beschrijving</h2>
+          <h2 className="text-xl font-bold text-[#2C2C2C] mb-3">
+            Beschrijving
+          </h2>
           <p className="text-base text-[#2C2C2C] font-light leading-relaxed">
             {exercise.description}
           </p>
@@ -257,13 +269,17 @@ export default function ExerciseDetailContent({ exerciseId }: ExerciseDetailCont
             </h2>
             <div className="mt-3 flex gap-2">
               <a
-                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(exercise.location + ', Groningen, Netherlands')}`}
+                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(exercise.location + ", Groningen, Netherlands")}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-1 bg-[#2C2C2C] text-white text-center py-3 px-4 rounded-lg text-sm font-medium hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
               >
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                <svg
+                  className="w-4 h-4"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
                 </svg>
                 Open in Google Maps
               </a>
@@ -275,10 +291,17 @@ export default function ExerciseDetailContent({ exerciseId }: ExerciseDetailCont
         {exercise.exampleImage && (
           <section className="mb-6">
             <div className="bg-white rounded-2xl p-4 shadow-sm">
-              <h2 className="text-xl font-bold text-[#2C2C2C] mb-3">Inspiratie</h2>
-              <div 
+              <h2 className="text-xl font-bold text-[#2C2C2C] mb-3">
+                Inspiratie
+              </h2>
+              <div
                 className="w-full h-48 bg-gray-100 rounded-xl mb-3 overflow-hidden cursor-pointer hover:opacity-90 transition-opacity"
-                onClick={() => handleImageClick(exercise.exampleImage!, "Voorbeeld afbeelding")}
+                onClick={() =>
+                  handleImageClick(
+                    exercise.exampleImage!,
+                    "Voorbeeld afbeelding",
+                  )
+                }
               >
                 <Image
                   src={exercise.exampleImage}
@@ -289,7 +312,8 @@ export default function ExerciseDetailContent({ exerciseId }: ExerciseDetailCont
                 />
               </div>
               <p className="text-sm text-[#2C2C2C]">
-                Probeer verschillende poses uit en wees creatief met je compositie! Klik op de afbeelding om deze groter te bekijken.
+                Probeer verschillende poses uit en wees creatief met je
+                compositie! Klik op de afbeelding om deze groter te bekijken.
               </p>
             </div>
           </section>
@@ -333,7 +357,9 @@ export default function ExerciseDetailContent({ exerciseId }: ExerciseDetailCont
                   <div className="bg-[#2C2C2C] rounded-lg p-3 mb-3">
                     <Upload className="h-6 w-6 text-white" />
                   </div>
-                  <p className="text-[#2C2C2C] font-medium">Klik om te uploaden</p>
+                  <p className="text-[#2C2C2C] font-medium">
+                    Klik om te uploaden
+                  </p>
                 </div>
               )}
             </div>
@@ -342,8 +368,12 @@ export default function ExerciseDetailContent({ exerciseId }: ExerciseDetailCont
               <div className={`flex items-center gap-1 ${getStatusColor()}`}>
                 {isPending && <AlertCircle className="h-4 w-4" />}
                 {isApproved && <CheckCircle className="h-4 w-4" />}
-                {submissionStatus === "FEEDBACK" && <AlertCircle className="h-4 w-4" />}
-                <span className="text-sm font-medium">{getStatusDisplay()}</span>
+                {submissionStatus === "FEEDBACK" && (
+                  <AlertCircle className="h-4 w-4" />
+                )}
+                <span className="text-sm font-medium">
+                  {getStatusDisplay()}
+                </span>
               </div>
             </div>
           </div>
@@ -355,19 +385,23 @@ export default function ExerciseDetailContent({ exerciseId }: ExerciseDetailCont
             <h2 className="text-xl font-bold text-[#2C2C2C] mb-3">
               Feedback van docent
             </h2>
-            <div className={`rounded-2xl p-4 min-h-[100px] ${
-              exercise.submission?.feedback 
-                ? exercise.submission.status === "FEEDBACK" 
-                  ? "bg-red-50 border-2 border-red-200" 
-                  : "bg-blue-50 border-2 border-blue-200"
-                : "bg-gray-100"
-            }`}>
+            <div
+              className={`rounded-2xl p-4 min-h-[100px] ${
+                exercise.submission?.feedback
+                  ? exercise.submission.status === "FEEDBACK"
+                    ? "bg-red-50 border-2 border-red-200"
+                    : "bg-blue-50 border-2 border-blue-200"
+                  : "bg-gray-100"
+              }`}
+            >
               {exercise.submission?.feedback ? (
                 <div>
                   {exercise.submission.status === "FEEDBACK" && (
                     <div className="flex items-center gap-2 mb-3">
                       <AlertCircle className="h-5 w-5 text-red-600" />
-                      <span className="font-semibold text-red-800">Actie vereist</span>
+                      <span className="font-semibold text-red-800">
+                        Actie vereist
+                      </span>
                     </div>
                   )}
                   <p className="text-base text-[#2C2C2C] leading-relaxed">
@@ -383,8 +417,8 @@ export default function ExerciseDetailContent({ exerciseId }: ExerciseDetailCont
                 </div>
               ) : (
                 <p className="text-sm text-[#2C2C2C]/60">
-                  Hier verschijnt feedback van je docent nadat je de opdracht hebt
-                  ingeleverd.
+                  Hier verschijnt feedback van je docent nadat je de opdracht
+                  hebt ingeleverd.
                 </p>
               )}
             </div>
@@ -401,7 +435,9 @@ export default function ExerciseDetailContent({ exerciseId }: ExerciseDetailCont
           ) : (
             <button
               onClick={handleSubmit}
-              disabled={!uploadedImage || submitting || (hasSubmission && !canResubmit)}
+              disabled={
+                !uploadedImage || submitting || (hasSubmission && !canResubmit)
+              }
               className="w-full bg-[#2C2C2C] text-white rounded-2xl py-4 px-6 font-semibold text-lg flex items-center justify-center gap-2 hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed md:w-auto md:min-w-[300px]"
             >
               {submitting ? (
@@ -432,7 +468,7 @@ export default function ExerciseDetailContent({ exerciseId }: ExerciseDetailCont
           </p>
         </div>
       </div>
-      
+
       {/* Image Modal */}
       {showImageModal && (
         <ImageModal
@@ -441,7 +477,7 @@ export default function ExerciseDetailContent({ exerciseId }: ExerciseDetailCont
           onClose={handleCloseModal}
         />
       )}
-      
+
       <Toaster />
     </main>
   );

@@ -3,7 +3,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import { FileText, Phone } from "lucide-react";
-import { HamburgerMenu, HamburgerTrigger, useHamburgerMenu } from "@/components/ui/hamburger-menu";
+import {
+  HamburgerMenu,
+  HamburgerTrigger,
+  useHamburgerMenu,
+} from "@/components/ui/hamburger-menu";
 
 interface Team {
   id: string;
@@ -22,7 +26,7 @@ export default function DashboardContent({ team }: DashboardContentProps) {
     <main className="min-h-screen bg-[#EDE6DC] pb-8">
       {/* Hamburger Menu */}
       <HamburgerMenu isOpen={isOpen} onClose={closeMenu} />
-      
+
       {/* Header */}
       <header className="flex items-center justify-between px-4 py-4 md:px-6 md:py-6">
         <div className="w-full max-w-xs mb-6 mt-8 md:absolute">
@@ -31,10 +35,7 @@ export default function DashboardContent({ team }: DashboardContentProps) {
           </Link>
         </div>
         <div className="flex items-center gap-4">
-          <HamburgerTrigger 
-            onClick={openMenu}
-            className="md:hidden"
-          />
+          <HamburgerTrigger onClick={openMenu} className="md:hidden" />
         </div>
       </header>
 

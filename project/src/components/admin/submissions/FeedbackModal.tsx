@@ -37,13 +37,12 @@ export default function FeedbackModal({
   feedback,
   setFeedback,
   onSubmitFeedback,
-  onClose
+  onClose,
 }: FeedbackModalProps) {
   if (!selectedSubmission) return null;
 
   return (
     <div className="fixed inset-0 bg-black/20 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-
       <div className="bg-white rounded-2xl p-6 max-w-md w-full">
         <h3 className="text-lg font-bold text-[#2C2C2C] mb-4">
           Feedback geven
@@ -51,7 +50,7 @@ export default function FeedbackModal({
         <p className="text-sm text-[#6B7280] mb-4">
           {selectedSubmission.assignment.title} - {selectedSubmission.team.name}
         </p>
-        
+
         <div className="mb-4">
           <Label htmlFor="feedback">Feedback bericht:</Label>
           <textarea
@@ -72,11 +71,7 @@ export default function FeedbackModal({
           >
             Feedback Versturen
           </Button>
-          <Button
-            onClick={onClose}
-            variant="outline"
-            className="flex-1"
-          >
+          <Button onClick={onClose} variant="outline" className="flex-1">
             Annuleren
           </Button>
         </div>

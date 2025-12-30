@@ -2,8 +2,18 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { CheckCircle2, ArrowRight, Lock, AlertCircle, Clock } from "lucide-react";
-import { HamburgerMenu, HamburgerTrigger, useHamburgerMenu } from "@/components/ui/hamburger-menu";
+import {
+  CheckCircle2,
+  ArrowRight,
+  Lock,
+  AlertCircle,
+  Clock,
+} from "lucide-react";
+import {
+  HamburgerMenu,
+  HamburgerTrigger,
+  useHamburgerMenu,
+} from "@/components/ui/hamburger-menu";
 
 interface Exercise {
   id: string;
@@ -18,28 +28,60 @@ interface ExercisesListContentProps {
   exercises: Exercise[];
 }
 
-export default function ExercisesListContent({ exercises }: ExercisesListContentProps) {
+export default function ExercisesListContent({
+  exercises,
+}: ExercisesListContentProps) {
   const { isOpen, openMenu, closeMenu } = useHamburgerMenu();
-  
+
   const completedCount = exercises.filter(
-    (ex) => ex.status === "APPROVED"
+    (ex) => ex.status === "APPROVED",
   ).length;
   const totalCount = exercises.length;
 
   const getStatusInfo = (status: Exercise["status"]) => {
     switch (status) {
       case "APPROVED":
-        return { text: "Voltooid", color: "text-green-600", bgColor: "bg-green-50", icon: CheckCircle2 };
+        return {
+          text: "Voltooid",
+          color: "text-green-600",
+          bgColor: "bg-green-50",
+          icon: CheckCircle2,
+        };
       case "AVAILABLE":
-        return { text: "Beschikbaar", color: "text-blue-600", bgColor: "bg-blue-50", icon: ArrowRight };
+        return {
+          text: "Beschikbaar",
+          color: "text-blue-600",
+          bgColor: "bg-blue-50",
+          icon: ArrowRight,
+        };
       case "PENDING":
-        return { text: "In behandeling", color: "text-yellow-600", bgColor: "bg-yellow-50", icon: Clock };
+        return {
+          text: "In behandeling",
+          color: "text-yellow-600",
+          bgColor: "bg-yellow-50",
+          icon: Clock,
+        };
       case "FEEDBACK":
-        return { text: "Feedback ontvangen", color: "text-red-600", bgColor: "bg-red-50", icon: AlertCircle };
+        return {
+          text: "Feedback ontvangen",
+          color: "text-red-600",
+          bgColor: "bg-red-50",
+          icon: AlertCircle,
+        };
       case "LOCKED":
-        return { text: "Vergrendeld", color: "text-gray-500", bgColor: "bg-gray-50", icon: Lock };
+        return {
+          text: "Vergrendeld",
+          color: "text-gray-500",
+          bgColor: "bg-gray-50",
+          icon: Lock,
+        };
       default:
-        return { text: "Beschikbaar", color: "text-blue-600", bgColor: "bg-blue-50", icon: ArrowRight };
+        return {
+          text: "Beschikbaar",
+          color: "text-blue-600",
+          bgColor: "bg-blue-50",
+          icon: ArrowRight,
+        };
     }
   };
 
@@ -47,24 +89,19 @@ export default function ExercisesListContent({ exercises }: ExercisesListContent
     <main className="min-h-screen bg-[#EDE6DC] pb-8">
       {/* Hamburger Menu */}
       <HamburgerMenu isOpen={isOpen} onClose={closeMenu} />
-      
+
       {/* Header */}
       <header className="flex items-center justify-between px-4 py-4 md:px-6">
         <div className="w-full max-w-xs mb-6 mt-8 md:absolute">
           <Image src="/logo.png" alt="NexEd" width={128} height={128} />
         </div>
-        <HamburgerTrigger 
-          onClick={openMenu}
-          className="md:hidden"
-        />
+        <HamburgerTrigger onClick={openMenu} className="md:hidden" />
       </header>
 
       <div className="px-4 md:px-6 md:max-w-2xl md:mx-auto">
         {/* Yellow Information Box */}
         <div className="bg-[#FFE600] rounded-2xl p-6 mb-6 mt-4">
-          <h1 className="text-2xl font-bold text-[#2C2C2C] mb-2">
-            Opdrachten
-          </h1>
+          <h1 className="text-2xl font-bold text-[#2C2C2C] mb-2">Opdrachten</h1>
           <p className="text-base text-[#2C2C2C]">
             Werk samen met je team en voltooi alle opdrachten in de stad.
           </p>
@@ -103,8 +140,8 @@ export default function ExercisesListContent({ exercises }: ExercisesListContent
                 <div
                   key={exercise.id}
                   className={`rounded-2xl p-5 flex items-center justify-between shadow-sm transition-all ${
-                    needsAction 
-                      ? "bg-red-50 border-2 border-red-200 animate-pulse" 
+                    needsAction
+                      ? "bg-red-50 border-2 border-red-200 animate-pulse"
                       : "bg-[#F5F0E8]"
                   }`}
                 >
@@ -117,7 +154,9 @@ export default function ExercisesListContent({ exercises }: ExercisesListContent
                         Opdracht {exercise.order || index + 1}
                       </h3>
                       <div className="flex items-center gap-2">
-                        <span className={`text-sm font-medium ${statusInfo.color}`}>
+                        <span
+                          className={`text-sm font-medium ${statusInfo.color}`}
+                        >
                           {statusInfo.text}
                         </span>
                         {needsAction && (
@@ -137,8 +176,8 @@ export default function ExercisesListContent({ exercises }: ExercisesListContent
                       <Link
                         href={`/dashboard/exercises/${exercise.id}`}
                         className={`rounded-full p-2 inline-block hover:opacity-80 transition-opacity ${
-                          needsAction 
-                            ? "bg-red-600 animate-pulse" 
+                          needsAction
+                            ? "bg-red-600 animate-pulse"
                             : "bg-[#2C2C2C]"
                         }`}
                       >

@@ -12,7 +12,7 @@ export async function POST(request: Request) {
     if (!code || code.trim() === "") {
       return NextResponse.json(
         { error: "Team code is required" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -24,17 +24,14 @@ export async function POST(request: Request) {
 
     // If not team is found, return error
     if (!team) {
-      return NextResponse.json(
-        { error: "Invalid team code" },
-        { status: 401 }
-      );
+      return NextResponse.json({ error: "Invalid team code" }, { status: 401 });
     }
 
     // Create response
     const response = NextResponse.json({
       teamId: team.id,
       captainId: team.captain?.id ?? null,
-      players: team.players.map(p => ({ id: p.id, name: p.name })),
+      players: team.players.map((p) => ({ id: p.id, name: p.name })),
     });
 
     // Set cookie
@@ -48,9 +45,6 @@ export async function POST(request: Request) {
     return response;
   } catch (error) {
     console.error(error);
-    return NextResponse.json(
-      { error: "Server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }

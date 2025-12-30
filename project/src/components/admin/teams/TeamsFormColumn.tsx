@@ -42,7 +42,7 @@ export default function TeamsFormColumn({
   editingTeam,
   formData,
   setFormData,
-  onSubmit
+  onSubmit,
 }: TeamsFormColumnProps) {
   if (!showForm) return null;
 
@@ -62,7 +62,7 @@ export default function TeamsFormColumn({
             className="mt-1"
           />
         </div>
-        
+
         <div>
           <Label>Spelers</Label>
           <div className="space-y-2 mt-1">
@@ -81,7 +81,10 @@ export default function TeamsFormColumn({
           </div>
         </div>
 
-        <Button type="submit" className="w-full bg-[#FFE600] text-[#2C2C2C] hover:bg-[#2C2C2C] hover:text-[#FFE600]">
+        <Button
+          type="submit"
+          className="w-full bg-[#FFE600] text-[#2C2C2C] hover:bg-[#2C2C2C] hover:text-[#FFE600]"
+        >
           {editingTeam ? "Bijwerken" : "Aanmaken"}
         </Button>
       </form>

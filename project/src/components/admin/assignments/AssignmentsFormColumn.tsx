@@ -53,7 +53,7 @@ export default function AssignmentsFormColumn({
   setFormData,
   onSubmit,
   teams,
-  onTeamToggle
+  onTeamToggle,
 }: AssignmentsFormColumnProps) {
   if (!showForm) return null;
 
@@ -68,18 +68,22 @@ export default function AssignmentsFormColumn({
           <Input
             id="title"
             value={formData.title}
-            onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, title: e.target.value })
+            }
             placeholder="Voer opdracht titel in"
             className="mt-1"
           />
         </div>
-        
+
         <div>
           <Label htmlFor="description">Beschrijving</Label>
           <Textarea
             id="description"
             value={formData.description}
-            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setFormData({ ...formData, description: e.target.value })}
+            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+              setFormData({ ...formData, description: e.target.value })
+            }
             placeholder="Voer opdracht beschrijving in"
             className="mt-1"
             rows={4}
@@ -91,7 +95,9 @@ export default function AssignmentsFormColumn({
           <Input
             id="location"
             value={formData.location}
-            onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, location: e.target.value })
+            }
             placeholder="Voer locatie in"
             className="mt-1"
           />
@@ -103,7 +109,9 @@ export default function AssignmentsFormColumn({
             id="order"
             type="number"
             value={formData.order}
-            onChange={(e) => setFormData({ ...formData, order: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, order: e.target.value })
+            }
             placeholder="Voer volgorde nummer in"
             className="mt-1"
             min="1"
@@ -119,7 +127,9 @@ export default function AssignmentsFormColumn({
                   type="checkbox"
                   id="all-teams"
                   checked={formData.selectedTeams.length === 0}
-                  onChange={() => setFormData(prev => ({ ...prev, selectedTeams: [] }))}
+                  onChange={() =>
+                    setFormData((prev) => ({ ...prev, selectedTeams: [] }))
+                  }
                   className="rounded"
                 />
                 <label htmlFor="all-teams" className="text-sm font-medium">
@@ -147,7 +157,10 @@ export default function AssignmentsFormColumn({
           </div>
         )}
 
-        <Button type="submit" className="w-full bg-[#FFE600] text-[#2C2C2C] hover:bg-[#2C2C2C] hover:text-[#FFE600]">
+        <Button
+          type="submit"
+          className="w-full bg-[#FFE600] text-[#2C2C2C] hover:bg-[#2C2C2C] hover:text-[#FFE600]"
+        >
           {editingAssignment ? "Bijwerken" : "Aanmaken"}
         </Button>
       </form>

@@ -22,7 +22,7 @@ export default function ConfirmModal({
   message,
   confirmText = "Bevestigen",
   cancelText = "Annuleren",
-  variant = "danger"
+  variant = "danger",
 }: ConfirmModalProps) {
   if (!isOpen) return null;
 
@@ -32,25 +32,25 @@ export default function ConfirmModal({
         return {
           icon: "text-red-600",
           iconBg: "bg-red-100",
-          confirmButton: "bg-red-600 hover:bg-red-700 text-white"
+          confirmButton: "bg-red-600 hover:bg-red-700 text-white",
         };
       case "warning":
         return {
           icon: "text-yellow-600",
           iconBg: "bg-yellow-100",
-          confirmButton: "bg-yellow-600 hover:bg-yellow-700 text-white"
+          confirmButton: "bg-yellow-600 hover:bg-yellow-700 text-white",
         };
       case "info":
         return {
           icon: "text-blue-600",
           iconBg: "bg-blue-100",
-          confirmButton: "bg-blue-600 hover:bg-blue-700 text-white"
+          confirmButton: "bg-blue-600 hover:bg-blue-700 text-white",
         };
       default:
         return {
           icon: "text-red-600",
           iconBg: "bg-red-100",
-          confirmButton: "bg-red-600 hover:bg-red-700 text-white"
+          confirmButton: "bg-red-600 hover:bg-red-700 text-white",
         };
     }
   };
@@ -84,11 +84,7 @@ export default function ConfirmModal({
 
           {/* Action Buttons */}
           <div className="flex gap-3">
-            <Button
-              onClick={onClose}
-              variant="outline"
-              className="flex-1 h-11"
-            >
+            <Button onClick={onClose} variant="outline" className="flex-1 h-11">
               {cancelText}
             </Button>
             <Button

@@ -7,32 +7,38 @@ const prisma = new PrismaClient();
 // GET single submission
 export async function GET(
   request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     const adminId = getAdminIdFromHeaders(request);
     if (!adminId) {
-      return NextResponse.json({ error: "Admin authentication required" }, { status: 401 });
+      return NextResponse.json(
+        { error: "Admin authentication required" },
+        { status: 401 },
+      );
     }
 
     const { id } = await params;
-    
+
     const submission = await prisma.submission.findUnique({
       where: { id },
       include: {
         team: {
           include: {
             players: true,
-            captain: true
-          }
+            captain: true,
+          },
         },
         assignment: true,
-        player: true
-      }
+        player: true,
+      },
     });
 
     if (!submission) {
-      return NextResponse.json({ error: "Submission not found" }, { status: 404 });
+      return NextResponse.json(
+        { error: "Submission not found" },
+        { status: 404 },
+      );
     }
 
     return NextResponse.json(submission);
@@ -45,21 +51,27 @@ export async function GET(
 // PUT update submission status (approve/reject with feedback)
 export async function PUT(
   request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     const adminId = getAdminIdFromHeaders(request);
     if (!adminId) {
-      return NextResponse.json({ error: "Admin authentication required" }, { status: 401 });
+      return NextResponse.json(
+        { error: "Admin authentication required" },
+        { status: 401 },
+      );
     }
 
     const { id } = await params;
     const { status, feedback } = await request.json();
 
-    if (!status || !['APPROVED', 'FEEDBACK', 'PENDING'].includes(status)) {
-      return NextResponse.json({ 
-        error: "Valid status is required (APPROVED, FEEDBACK, or PENDING)" 
-      }, { status: 400 });
+    if (!status || !["APPROVED", "FEEDBACK", "PENDING"].includes(status)) {
+      return NextResponse.json(
+        {
+          error: "Valid status is required (APPROVED, FEEDBACK, or PENDING)",
+        },
+        { status: 400 },
+      );
     }
 
     // Update the submission
@@ -68,19 +80,19 @@ export async function PUT(
       data: {
         status,
         feedback: feedback || null,
-        updatedAt: new Date()
+        updatedAt: new Date(),
       },
       include: {
         team: true,
-        assignment: true
-      }
+        assignment: true,
+      },
     });
 
     // If approved, check if we need to unlock the next assignment for this team
-    if (status === 'APPROVED') {
+    if (status === "APPROVED") {
       const currentOrder = submission.assignment.order;
       const nextAssignment = await prisma.assignment.findFirst({
-        where: { order: currentOrder + 1 }
+        where: { order: currentOrder + 1 },
       });
 
       if (nextAssignment) {
@@ -89,9 +101,9 @@ export async function PUT(
           where: {
             teamId_assignmentId: {
               teamId: submission.teamId,
-              assignmentId: nextAssignment.id
-            }
-          }
+              assignmentId: nextAssignment.id,
+            },
+          },
         });
 
         // Create team assignment if it doesn't exist
@@ -99,8 +111,8 @@ export async function PUT(
           await prisma.teamAssignment.create({
             data: {
               teamId: submission.teamId,
-              assignmentId: nextAssignment.id
-            }
+              assignmentId: nextAssignment.id,
+            },
           });
         }
       }

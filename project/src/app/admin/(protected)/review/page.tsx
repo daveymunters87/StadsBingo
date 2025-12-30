@@ -6,7 +6,7 @@ import AdminLayout from "@/components/admin/AdminLayout";
 import PageHeader from "@/components/admin/ui/PageHeader";
 import SubmissionsList from "@/components/admin/submissions/SubmissionsList";
 import FeedbackModal from "@/components/admin/submissions/FeedbackModal";
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
 
 interface Submission {
   id: string;
@@ -32,7 +32,8 @@ interface Submission {
 export default function SubmissionsReview() {
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedSubmission, setSelectedSubmission] = useState<Submission | null>(null);
+  const [selectedSubmission, setSelectedSubmission] =
+    useState<Submission | null>(null);
   const [feedback, setFeedback] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("PENDING");
 
@@ -43,10 +44,10 @@ export default function SubmissionsReview() {
   const fetchSubmissions = async () => {
     try {
       const params = new URLSearchParams();
-      if (statusFilter) params.append('status', statusFilter);
-      
+      if (statusFilter) params.append("status", statusFilter);
+
       const response = await fetch(`/api/admin/submissions?${params}`, {
-        credentials: 'include'
+        credentials: "include",
       });
       if (response.ok) {
         const data = await response.json();
@@ -67,7 +68,10 @@ export default function SubmissionsReview() {
     setSelectedSubmission(submission);
   };
 
-  const handleSubmitFeedback = async (submissionId: string, feedbackText: string) => {
+  const handleSubmitFeedback = async (
+    submissionId: string,
+    feedbackText: string,
+  ) => {
     await handleReview(submissionId, "FEEDBACK", feedbackText);
   };
 
@@ -76,46 +80,50 @@ export default function SubmissionsReview() {
     setFeedback("");
   };
 
-  const handleReview = async (submissionId: string, status: "APPROVED" | "FEEDBACK", feedbackText?: string) => {
+  const handleReview = async (
+    submissionId: string,
+    status: "APPROVED" | "FEEDBACK",
+    feedbackText?: string,
+  ) => {
     try {
       const response = await fetch(`/api/admin/submissions/${submissionId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        credentials: 'include',
+        credentials: "include",
         body: JSON.stringify({
           status,
-          feedback: feedbackText || null
-        })
+          feedback: feedbackText || null,
+        }),
       });
 
       if (response.ok) {
         await fetchSubmissions();
         setSelectedSubmission(null);
         setFeedback("");
-        
+
         if (status === "APPROVED") {
           toast.success("Inzending goedgekeurd!", {
             duration: 3000,
-            position: 'top-center',
+            position: "top-center",
           });
         } else {
           toast.success("Feedback verzonden!", {
             duration: 3000,
-            position: 'top-center',
+            position: "top-center",
           });
         }
       } else {
         const error = await response.json();
         toast.error(error.error || "Er ging iets mis", {
           duration: 3000,
-          position: 'top-center',
+          position: "top-center",
         });
       }
     } catch (error) {
       console.error("Error updating submission:", error);
       toast.error("Er ging iets mis bij het bijwerken", {
         duration: 3000,
-        position: 'top-center',
+        position: "top-center",
       });
     }
   };
@@ -123,7 +131,10 @@ export default function SubmissionsReview() {
   return (
     <AdminLayout>
       <div className="max-w-6xl mx-auto">
-        <PageHeader title="Inzendingen Beoordelen" subtitle="Bekijk en beoordeel team inzendingen" />
+        <PageHeader
+          title="Inzendingen Beoordelen"
+          subtitle="Bekijk en beoordeel team inzendingen"
+        />
 
         <StatusFilter
           value={statusFilter}
@@ -151,7 +162,7 @@ export default function SubmissionsReview() {
           onClose={handleCloseFeedbackModal}
         />
       </div>
-      
+
       <Toaster />
     </AdminLayout>
   );

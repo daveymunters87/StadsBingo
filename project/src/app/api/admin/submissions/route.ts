@@ -9,16 +9,19 @@ export async function GET(request: Request) {
   try {
     const adminId = getAdminIdFromHeaders(request);
     if (!adminId) {
-      return NextResponse.json({ error: "Admin authentication required" }, { status: 401 });
+      return NextResponse.json(
+        { error: "Admin authentication required" },
+        { status: 401 },
+      );
     }
 
     const url = new URL(request.url);
-    const status = url.searchParams.get('status');
-    const teamId = url.searchParams.get('teamId');
-    const assignmentId = url.searchParams.get('assignmentId');
+    const status = url.searchParams.get("status");
+    const teamId = url.searchParams.get("teamId");
+    const assignmentId = url.searchParams.get("assignmentId");
 
     const where: any = {};
-    
+
     if (status) {
       where.status = status;
     }
@@ -33,16 +36,16 @@ export async function GET(request: Request) {
       where,
       include: {
         team: {
-          select: { name: true, code: true }
+          select: { name: true, code: true },
         },
         assignment: {
-          select: { title: true, order: true }
+          select: { title: true, order: true },
         },
         player: {
-          select: { name: true }
-        }
+          select: { name: true },
+        },
       },
-      orderBy: { createdAt: 'desc' }
+      orderBy: { createdAt: "desc" },
     });
 
     return NextResponse.json(submissions);

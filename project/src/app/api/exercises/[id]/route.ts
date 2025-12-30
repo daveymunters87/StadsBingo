@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 
 export async function GET(
   request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     const teamId = getTeamIdFromHeaders(request);
@@ -15,19 +15,24 @@ export async function GET(
 
     if (!teamId) {
       console.log("No team ID found in headers");
-      return new Response(JSON.stringify({ error: "Team ID is required" }), { status: 400 });
+      return new Response(JSON.stringify({ error: "Team ID is required" }), {
+        status: 400,
+      });
     }
 
     if (!exerciseId) {
       console.log("No exercise ID found in params");
-      return new Response(JSON.stringify({ error: "Exercise ID is required" }), { status: 400 });
+      return new Response(
+        JSON.stringify({ error: "Exercise ID is required" }),
+        { status: 400 },
+      );
     }
 
     // Find the assignment and check if it's assigned to this team
     const teamAssignment = await prisma.teamAssignment.findFirst({
-      where: { 
+      where: {
         teamId,
-        assignmentId: exerciseId
+        assignmentId: exerciseId,
       },
       include: {
         assignment: {
@@ -42,7 +47,12 @@ export async function GET(
     });
 
     if (!teamAssignment) {
-      return new Response(JSON.stringify({ error: "Exercise not found or not assigned to your team" }), { status: 404 });
+      return new Response(
+        JSON.stringify({
+          error: "Exercise not found or not assigned to your team",
+        }),
+        { status: 404 },
+      );
     }
 
     const assignment = teamAssignment.assignment;
@@ -56,19 +66,23 @@ export async function GET(
       order: assignment.order,
       exampleImage: assignment.exampleImage,
       status: submission?.status || "AVAILABLE",
-      submission: submission ? {
-        id: submission.id,
-        answerText: submission.answerText,
-        answerImage: submission.answerImage,
-        status: submission.status,
-        feedback: submission.feedback,
-        createdAt: submission.createdAt.toISOString(),
-      } : null,
+      submission: submission
+        ? {
+            id: submission.id,
+            answerText: submission.answerText,
+            answerImage: submission.answerImage,
+            status: submission.status,
+            feedback: submission.feedback,
+            createdAt: submission.createdAt.toISOString(),
+          }
+        : null,
     };
 
     return Response.json(exerciseDetail);
   } catch (error) {
     console.error(error);
-    return new Response(JSON.stringify({ message: (error as Error).message }), { status: 500 });
+    return new Response(JSON.stringify({ message: (error as Error).message }), {
+      status: 500,
+    });
   }
 }

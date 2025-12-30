@@ -7,16 +7,19 @@ const prisma = new PrismaClient();
 // GET teams assigned to an assignment
 export async function GET(
   request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     const adminId = getAdminIdFromHeaders(request);
     if (!adminId) {
-      return NextResponse.json({ error: "Admin authentication required" }, { status: 401 });
+      return NextResponse.json(
+        { error: "Admin authentication required" },
+        { status: 401 },
+      );
     }
 
     const { id } = await params;
-    
+
     const teamAssignments = await prisma.teamAssignment.findMany({
       where: { assignmentId: id },
       include: {
@@ -24,13 +27,13 @@ export async function GET(
           select: {
             id: true,
             name: true,
-            code: true
-          }
-        }
-      }
+            code: true,
+          },
+        },
+      },
     });
 
-    return NextResponse.json(teamAssignments.map(ta => ta.team));
+    return NextResponse.json(teamAssignments.map((ta) => ta.team));
   } catch (error) {
     console.error("Error fetching assignment teams:", error);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
@@ -40,24 +43,30 @@ export async function GET(
 // PUT update teams assigned to an assignment
 export async function PUT(
   request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     const adminId = getAdminIdFromHeaders(request);
     if (!adminId) {
-      return NextResponse.json({ error: "Admin authentication required" }, { status: 401 });
+      return NextResponse.json(
+        { error: "Admin authentication required" },
+        { status: 401 },
+      );
     }
 
     const { id } = await params;
     const { teamIds } = await request.json();
 
     if (!Array.isArray(teamIds)) {
-      return NextResponse.json({ error: "teamIds must be an array" }, { status: 400 });
+      return NextResponse.json(
+        { error: "teamIds must be an array" },
+        { status: 400 },
+      );
     }
 
     // Remove existing team assignments
     await prisma.teamAssignment.deleteMany({
-      where: { assignmentId: id }
+      where: { assignmentId: id },
     });
 
     // Add new team assignments
@@ -67,27 +76,29 @@ export async function PUT(
           prisma.teamAssignment.create({
             data: {
               teamId,
-              assignmentId: id
-            }
-          })
-        )
+              assignmentId: id,
+            },
+          }),
+        ),
       );
     } else {
       // If no teams specified, assign to all teams
       const allTeams = await prisma.team.findMany();
       await Promise.all(
-        allTeams.map(team =>
+        allTeams.map((team) =>
           prisma.teamAssignment.create({
             data: {
               teamId: team.id,
-              assignmentId: id
-            }
-          })
-        )
+              assignmentId: id,
+            },
+          }),
+        ),
       );
     }
 
-    return NextResponse.json({ message: "Team assignments updated successfully" });
+    return NextResponse.json({
+      message: "Team assignments updated successfully",
+    });
   } catch (error) {
     console.error("Error updating assignment teams:", error);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
