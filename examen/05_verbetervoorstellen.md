@@ -1,70 +1,43 @@
 # StadsBingo – 05_verbetervoorstellen.md
 
-## 🎯 Doel
-Gerichte verbetervoorstellen formuleren op basis van testen, oplevering en reflectie (conform eisen 5.1, 5.2 en 5.3).
+## 5.1 Verbeteringen op basis van testen
 
----
+1. **Meer edge cases testen**
+   - Alle 10 tests slagen, maar er zijn geen tests voor extreme situaties zoals zeer lange teksten of grote foto's
+   - Voorstel: Tests toevoegen voor file upload limits en tekst validatie
 
-## 🧪 5.1 Verbeteringen op basis van testen
+2. **Database transacties testen**
+   - Huidige tests controleren niet wat er gebeurt als de database niet beschikbaar is
+   - Voorstel: Error handling tests toevoegen voor database connectie problemen
 
-1. Teamcode throttling toevoegen  
-   - Reden: test `auth.team-login.post.test.ts` toont brute-force mogelijk.  
-   - Actie: rate-limit per IP/teamcode + lockout na 5 foute pogingen.  
-   - Effect: betere security en minder supportverzoeken.
+3. **Performance tests toevoegen**
+   - Tests controleren functionaliteit maar niet snelheid bij veel teams/opdrachten
+   - Voorstel: Load tests voor scenario's met veel teams tegelijk
 
-2. Statusflow valideren bij backend  
-   - Reden: integratietest `submissions.patch-status` toonde dat docent `Approved` kan zetten als vorige opdracht nog `Pending`.  
-   - Actie: backend check toevoegen: volgorde respecteren voordat status naar `Approved` kan.  
-   - Effect: statusflow blijft consistent per team.
+## 5.2 Verbeteringen op basis van oplevering
 
-3. Notificatieservice retry logic  
-   - Reden: notificatie test faalde bij timeouts → melding nooit verstuurd.  
-   - Actie: retry mechanisme + fallback queue implementeren, tests uitbreiden.  
-   - Effect: leerlingen missen minder feedbackmeldingen.
+1. **Betere feedback interface**
+   - Docenten moeten nu feedback in een tekstveld typen, dit kan gebruiksvriendelijker
+   - Voorstel: Dropdown met standaard feedback opties + vrij tekstveld
 
----
+2. **Mobile responsive verbeteren**
+   - App werkt op mobile maar foto uploaden kan lastig zijn op kleine schermen
+   - Voorstel: Betere mobile interface voor foto's maken en uploaden
 
-## 📦 5.2 Verbeteringen op basis van oplevering
+3. **Team overzicht uitbreiden**
+   - Docenten zien nu alleen individuele inzendingen, geen team-overzicht
+   - Voorstel: Dashboard pagina met voortgang per team in één overzicht
 
-1. Teambeheer wizard  
-   - Reden: docenten vonden het lastig om leerlingen aan meerdere teams te koppelen.  
-   - Actie: wizard met stappen (teamnaam → leden → code genereren).  
-   - Impact: minder fouten en snellere onboarding.
+## 5.3 Verbeteringen op basis van reflectie
 
-2. Visuele voortgang per team uitbreiden  
-   - Reden: huidige grafiek toont alleen percentage, geen detail per opdracht.  
-   - Actie: drill-down mogelijkheid per leerling en per opdrachtstatus.  
-   - Impact: docenten zien sneller waar teams vastlopen.
+1. **Eerder testen met echte gebruikers**
+   - We hebben de app gebouwd zonder input van docenten, waardoor sommige features niet praktisch zijn
+   - Voorstel: Na elke sprint kort testen met een docent voor feedback
 
-3. Leerling dashboard notificatie-paneel  
-   - Reden: notificaties verdwijnen na refresh, waardoor feedback gemist wordt.  
-   - Actie: persistent paneel met alle recente meldingen + “markeer als gelezen”.  
-   - Impact: betere communicatie en minder herhaalde vragen.
+2. **Betere planning van database schema**
+   - We hebben het ERD een paar keer moeten aanpassen tijdens development
+   - Voorstel: Meer tijd besteden aan database ontwerp voordat we beginnen met coderen
 
----
-
-## 🔁 5.3 Verbeteringen op basis van reflectie
-
-1. Teamwork synchroniseren met echte gebruikers  
-   - Observatie: teamcodes en voortgang zijn bedacht zonder echte docent input.  
-   - Actie: voor elke sprint een korte check-in met docent over teamstructuur.  
-   - Effect: minder rework doordat workflow beter aansluit.
-
-2. Statusdiagram vooraf tekenen  
-   - Observatie: statusovergangen werden gaandeweg aangepast, leidde tot bugs.  
-   - Actie: eerst activity/state diagram finaliseren voordat code verandert.  
-   - Effect: duidelijk alignment tussen ontwerp, tests en implementatie.
-
-3. Notificaties mocken in dev  
-   - Observatie: notificaties werden handmatig getest, kostte tijd.  
-   - Actie: local mockservice + scripts zodat meerdere ontwikkelaars parallel kunnen werken.  
-   - Effect: sneller itereren en minder afhankelijkheid van externe services.
-
----
-
-## 📋 Checklist (eis 5)
-✅ Minimaal 3 verbeterpunten per onderdeel  
-✅ Koppeling aan testresultaten/oplevering/reflectie  
-✅ Concreet en realistisch geformuleerd  
-✅ Markdown-uitwerking gereed
-
+3. **Code review proces verbeteren**
+   - We hebben pull requests gebruikt maar niet altijd grondig gereviewed
+   - Voorstel: Vaste checklist voor code reviews en altijd samen door de code lopen

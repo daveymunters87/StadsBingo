@@ -1,3 +1,5 @@
+# StadsBingo – 04_test_software.md
+
 ## Doel
 
 Dit document beschrijft het **testplan**, de **testscenario's** en het **testrapport** voor de applicatie met teams, teamcodes en statusgestuurde opdrachten-flow.
@@ -99,16 +101,16 @@ npm test
 
 | Test # | Beschrijving | Resultaat | Status |
 |--------|--------------|-----------|--------|
-| 1 | Team login validatie | Geldige/ongeldige codes correct gevalideerd | ✅ Geslaagd |
-| 2 | Assignment status logic | Eerste opdracht beschikbaar, rest vergrendeld | ✅ Geslaagd |
-| 3 | Submission validatie | Tekst of foto verplicht werkt correct | ✅ Geslaagd |
-| 4 | Status progressie | PENDING → APPROVED/FEEDBACK correct | ✅ Geslaagd |
-| 5 | Feedback loop | Herindienen na feedback mogelijk | ✅ Geslaagd |
-| 6 | Assignment unlock | Volgende opdracht vrijgeven werkt | ✅ Geslaagd |
-| 7 | Teacher permissions | Alleen docenten kunnen beoordelen | ✅ Geslaagd |
-| 8 | Feedback requirement | Feedback tekst verplicht bij feedback | ✅ Geslaagd |
-| 9 | Assignment order | Opdrachten in juiste volgorde | ✅ Geslaagd |
-| 10 | Complete flow | Hele proces werkt correct | ✅ Geslaagd |
+| 1 | Team login validatie | Geldige/ongeldige codes correct gevalideerd | Geslaagd |
+| 2 | Assignment status logic | Eerste opdracht beschikbaar, rest vergrendeld | Geslaagd |
+| 3 | Submission validatie | Tekst of foto verplicht werkt correct | Geslaagd |
+| 4 | Status progressie | PENDING → APPROVED/FEEDBACK correct | Geslaagd |
+| 5 | Feedback loop | Herindienen na feedback mogelijk | Geslaagd |
+| 6 | Assignment unlock | Volgende opdracht vrijgeven werkt | Geslaagd |
+| 7 | Teacher permissions | Alleen docenten kunnen beoordelen | Geslaagd |
+| 8 | Feedback requirement | Feedback tekst verplicht bij feedback | Geslaagd |
+| 9 | Assignment order | Opdrachten in juiste volgorde | Geslaagd |
+| 10 | Complete flow | Hele proces werkt correct | Geslaagd |
 
 **Totaal: 10/10 tests geslaagd**
 
@@ -123,5 +125,5 @@ npm test
 5. **Feedback systeem** - Werkende feedback loop
 6. **Docent functionaliteit** - Juiste permissies en validaties
 
-**Screenshot bewijs (plaats in `examen/bewijsmateriaal/04/`):**  
-- [test_results.png](bewijsmateriaal/04/test_results.png) - Jest test output met alle 10 tests geslaagd
+**Screenshot bewijs:**  
+- test_results.png - Jest test output met alle 10 tests geslaagd

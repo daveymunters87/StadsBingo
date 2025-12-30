@@ -126,15 +126,15 @@ f0a7b34 Merge pull request #43 Feature/Admin-add-example-image
 
 ## Bewijs Screenshots
 
-Plaats in `examen/bewijsmateriaal/03/`:
+De volgende screenshots zijn beschikbaar in bewijsmateriaal/03/:
 
 | Screenshot | Functionaliteit |
 |------------|------------------|
-| `team_login.png` | Leerling login met teamcode |
-| `leerling_dashboard.png` | Dashboard met opdrachten en statussen |
-| `leerling_indienen.png` | Opdracht indienen interface |
-| `admin_teams.png` | Teams beheer in admin panel |
-| `admin_review.png` | Inzendingen beoordelen met feedback |
-| `commit_history.png` | Git commit geschiedenis |
+| team_login.png | Leerling login met teamcode |
+| leerling_opdrachten.png | Dashboard met opdrachten en statussen |
+| leerling_indienen.png | Opdracht indienen interface |
+| docent_beoordelen.png | Inzendingen beoordelen met feedback |
+| docent_filters.png | Filter functionaliteit voor docenten |
+| commit_history.png | Git commit geschiedenis |
 
 ---

@@ -13,7 +13,7 @@ Het project volgt de **scrum-aanpak** met sprints van 1 week.
 - Op basis van de beoordeling verandert de status en wordt de volgende opdracht vrijgegeven.
 - Zowel docent als leerling zien een visuele voortgang over opdrachten en teams.
 
----s
+---
 
 ## Eisen en Wensen van de Opdrachtgever
 
