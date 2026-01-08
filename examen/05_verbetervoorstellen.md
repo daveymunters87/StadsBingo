@@ -1,30 +1,10 @@
 # StadsBingo – 05_verbetervoorstellen.md
 
-## Individuele bijdragen
-
-**Davey:**
-- Hoofdverantwoordelijk voor frontend development (React/Next.js componenten)
-- Team-login interface en dashboard UI
-- Foto upload functionaliteit voor opdrachten
-- Repository beheer en Git workflow
-
-**Jada:**
-- Hoofdverantwoordelijk voor backend development (API routes, database)
-- Admin panel voor docenten (beoordelen, filters)
-- Database schema ontwerp en Prisma implementatie
-- Testing en validatie logica
-
-**Gezamenlijk:**
-- Planning en user story uitwerking
-- UML diagrammen (ERD en Sequence)
-- Code reviews en pull requests
-- Sprint retrospectives en voortgangsbewaking
-
 ## 5.1 Verbeteringen op basis van testen
 
 1. **Meer edge cases testen**
-   - Alle 10 tests slagen, maar er zijn geen tests voor extreme situaties zoals zeer lange teksten of grote foto's
-   - Voorstel: Tests toevoegen voor file upload limits en tekst validatie
+   - Alle 10 tests slagen, maar er zijn geen tests voor extreme situaties zoals grote foto's
+   - Voorstel: Tests toevoegen voor file upload limits
 
 2. **Database transacties testen**
    - Huidige tests controleren niet wat er gebeurt als de database niet beschikbaar is

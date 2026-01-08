@@ -1,6 +1,6 @@
 # StadsBingo – 02_ontwerp_software.md
 
-## Projectcontext
+## Omschrijving
 
 Dit document bevat het technisch ontwerp van de StadsBingo.
 Het ontwerp is gebaseerd op de eisen, wensen en user stories zoals vastgelegd in *01_plan_werkzaamheden.md*.
