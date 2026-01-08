@@ -57,7 +57,6 @@ export async function POST(request: Request) {
       );
     }
 
-    // Create the assignment
     const assignment = await prisma.assignment.create({
       data: {
         title,
@@ -68,7 +67,6 @@ export async function POST(request: Request) {
       },
     });
 
-    // Assign to selected teams or all teams if none specified
     let teamsToAssign;
     if (teamIds && Array.isArray(teamIds) && teamIds.length > 0) {
       teamsToAssign = await prisma.team.findMany({

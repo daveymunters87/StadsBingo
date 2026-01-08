@@ -73,8 +73,7 @@ export default function ReviewAssignmentPage() {
   const currentTeam = teams.find((t) => t.id === teamId);
 
   const handleApprove = async () => {
-    // TODO: Implement approval logic
-    console.log("Approved with feedback:", feedback);
+    console.log("Goedgekeurd:", feedback);
   };
 
   const handleReject = async () => {
@@ -82,8 +81,7 @@ export default function ReviewAssignmentPage() {
       alert("Feedback is verplicht bij afkeuring");
       return;
     }
-    // TODO: Implement rejection logic
-    console.log("Rejected with feedback:", feedback);
+    console.log("Afgekeurd met feedback:", feedback);
   };
 
   return (

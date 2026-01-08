@@ -138,23 +138,18 @@ export async function DELETE(
 
     const { id } = await params;
 
-    // Delete in the correct order to handle foreign key constraints
-    // 1. Delete submissions first
     await prisma.submission.deleteMany({
       where: { teamId: id },
     });
 
-    // 2. Delete team assignments
     await prisma.teamAssignment.deleteMany({
       where: { teamId: id },
     });
 
-    // 3. Delete team players
     await prisma.teamPlayer.deleteMany({
       where: { teamId: id },
     });
 
-    // 4. Finally delete the team
     await prisma.team.delete({
       where: { id },
     });

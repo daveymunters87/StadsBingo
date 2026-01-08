@@ -2,7 +2,7 @@ import { PrismaClient, Role } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
-  // --- CLEAN DB (optional, for local dev)
+  // --- clean database
   await prisma.submission.deleteMany();
   await prisma.teamAssignment.deleteMany();
   await prisma.teamPlayer.deleteMany();
@@ -10,7 +10,7 @@ async function main() {
   await prisma.assignment.deleteMany();
   await prisma.user.deleteMany();
 
-  // --- CREATE ADMIN
+  // --- create the admin
   const admin = await prisma.user.create({
     data: {
       email: "admin@example.com",
@@ -20,7 +20,7 @@ async function main() {
     },
   });
 
-  // --- CREATE USER (for team management)
+  // --- create the user
   const user = await prisma.user.create({
     data: {
       email: "user@example.com",
@@ -30,7 +30,7 @@ async function main() {
     },
   });
 
-  // --- CREATE TEAM
+  // --- Create the teams
   const team = await prisma.team.create({
     data: {
       name: "Test Team",
@@ -39,7 +39,7 @@ async function main() {
     },
   });
 
-  // --- CREATE CAPTAIN
+  // --- Set teamcaptain
   const captain = await prisma.teamPlayer.create({
     data: {
       name: "Captain One",
@@ -48,13 +48,13 @@ async function main() {
     },
   });
 
-  // Set captainId on team
+  // Assign teamcaptain to team
   await prisma.team.update({
     where: { id: team.id },
     data: { captainId: captain.id },
   });
 
-  // --- CREATE OTHER PLAYERS
+  // --- Create other teamplayers
   const playersData = [
     { name: "Speler Twee", studentNumber: "S002" },
     { name: "Speler Drie", studentNumber: "S003" },
@@ -68,7 +68,7 @@ async function main() {
     });
   }
 
-  // --- CREATE ASSIGNMENTS
+  // --- Creat the assignments
   const assignments = await prisma.assignment.createMany({
     data: [
       {
@@ -114,7 +114,7 @@ async function main() {
     ],
   });
 
-  // --- LINK ASSIGNMENTS TO TEAM
+  // --- Link the assignments to dummy team
   const allAssignments = await prisma.assignment.findMany();
   for (const a of allAssignments) {
     await prisma.teamAssignment.create({
@@ -126,7 +126,7 @@ async function main() {
   }
 
   console.log(
-    "✅ Seed complete: Admin, User, Team, Players, Assignments & TeamAssignments created",
+    "Seed complete: Admin, User, Team, Players, Assignments & TeamAssignments created",
   );
 }
 

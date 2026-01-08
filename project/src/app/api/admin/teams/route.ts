@@ -64,10 +64,8 @@ export async function POST(request: Request) {
       );
     }
 
-    // Generate unique team code
     const code = Math.random().toString(36).substring(2, 8).toUpperCase();
 
-    // Create team
     const team = await prisma.team.create({
       data: {
         name,
@@ -76,7 +74,6 @@ export async function POST(request: Request) {
       },
     });
 
-    // Create players
     const players = await Promise.all(
       playerNames.map((playerName: string, index: number) =>
         prisma.teamPlayer.create({
@@ -89,7 +86,6 @@ export async function POST(request: Request) {
       ),
     );
 
-    // Set first player as captain
     if (players.length > 0) {
       await prisma.team.update({
         where: { id: team.id },
@@ -97,7 +93,6 @@ export async function POST(request: Request) {
       });
     }
 
-    // Assign all existing assignments to this team
     const assignments = await prisma.assignment.findMany();
     await Promise.all(
       assignments.map((assignment) =>

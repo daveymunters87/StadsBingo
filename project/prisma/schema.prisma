@@ -7,9 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-/////////////////////////
-// Models for StadsBingo
-/////////////////////////
+// Models
 
 model User {
   id        String   @id @default(cuid())
@@ -19,7 +17,6 @@ model User {
   role      Role     @default(USER)
   createdAt DateTime @default(now())
 
-  // Teams created by this teacher
   teams Team[] @relation("TeacherTeams")
 }
 
@@ -30,10 +27,8 @@ model TeamPlayer {
   teamId        String
   team          Team   @relation(fields: [teamId], references: [id], onDelete: Cascade)
 
-  // Optional: if this player is captain of a team
   captainOf Team? @relation("Captain")
 
-  // Submissions made by this player
   submissions Submission[]
 }
 
@@ -45,15 +40,12 @@ model Team {
   createdById String
   createdBy   User     @relation("TeacherTeams", fields: [createdById], references: [id])
 
-  // One-to-one relation for captain
   captainId String?     @unique
   captain   TeamPlayer? @relation("Captain", fields: [captainId], references: [id])
 
-  // Players in this team
   players     TeamPlayer[]
   submissions Submission[]
 
-  // Assignments assigned to this team
   assignments TeamAssignment[]
 }
 
@@ -61,14 +53,13 @@ model Assignment {
   id          String   @id @default(cuid())
   title       String
   description String
-  location    String // e.g., "Bij de bibliotheek"
-  order       Int // fixed release order
+  location    String 
+  order       Int
   createdAt   DateTime @default(now())
-  exampleImage String? // Base64 encoded example image
+  exampleImage String? 
 
   submissions Submission[]
 
-  // Teams assigned to this assignment
   teams TeamAssignment[]
 }
 
@@ -90,7 +81,7 @@ model Submission {
   id           String   @id @default(cuid())
   teamId       String
   assignmentId String
-  playerId     String? // optional, for traceability; not for login
+  playerId     String?
   answerText   String?
   answerImage  String?
   status       Status   @default(PENDING)
@@ -106,19 +97,18 @@ model Submission {
   @@index([status])
 }
 
-/////////////////////////
 // Enums
-/////////////////////////
 
 enum Role {
   USER
   ADMIN
 }
 
+// Status
 enum Status {
-  LOCKED // Not yet available
-  AVAILABLE // Can be completed
-  PENDING // Waiting for review
-  FEEDBACK // Rejected / feedback provided
-  APPROVED // Approved by teacher
+  LOCKED
+  AVAILABLE 
+  PENDING
+  FEEDBACK 
+  APPROVED
 }

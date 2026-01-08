@@ -36,7 +36,7 @@ export default function TeamsPage() {
   const [editingTeam, setEditingTeam] = useState<Team | null>(null);
   const [formData, setFormData] = useState({
     name: "",
-    playerNames: ["", "", "", "", ""], // Default 5 players
+    playerNames: ["", "", "", "", ""],
   });
 
   useEffect(() => {
@@ -156,7 +156,6 @@ export default function TeamsPage() {
           addLabel="Nieuw Team"
         />
 
-        {/* Teams List - Full Width */}
         <TeamListColumn
           teams={teams}
           loading={loading}
@@ -164,7 +163,6 @@ export default function TeamsPage() {
           onDelete={handleDelete}
         />
 
-        {/* Team Form Modal */}
         <TeamFormModal
           showForm={showForm}
           editingTeam={editingTeam}
