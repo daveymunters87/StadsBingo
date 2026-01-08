@@ -178,7 +178,6 @@ Fetches detailed information about a specific assignment, including submission s
   "status": "FEEDBACK",
   "submission": {
     "id": "sub123",
-    "answerText": null,
     "answerImage": "data:image/jpeg;base64,...",
     "status": "FEEDBACK",
     "feedback": "Probeer een andere hoek voor de foto",
@@ -203,7 +202,7 @@ Fetches detailed information about a specific assignment, including submission s
 ### POST /api/submissions
 
 **Description:**  
-Submit an assignment answer (text and/or image). Allows resubmission if status is FEEDBACK.
+Submit an assignment answer (image only). Allows resubmission if status is FEEDBACK.
 
 **Authentication:** Requires team session cookie
 
@@ -211,7 +210,6 @@ Submit an assignment answer (text and/or image). Allows resubmission if status i
 ```json
 {
   "assignmentId": "c123abc",
-  "answerText": "Dit is mijn antwoord",
   "answerImage": "data:image/jpeg;base64,...",
   "playerId": "player123"
 }
@@ -224,7 +222,6 @@ Submit an assignment answer (text and/or image). Allows resubmission if status i
   "teamId": "team123",
   "assignmentId": "c123abc",
   "playerId": "player123",
-  "answerText": "Dit is mijn antwoord",
   "answerImage": "data:image/jpeg;base64,...",
   "status": "PENDING",
   "feedback": null,
@@ -238,7 +235,7 @@ Submit an assignment answer (text and/or image). Allows resubmission if status i
 | Status | Description |
 |--------|-------------|
 | 200    | Submission successful or updated. |
-| 400    | Missing required fields or submission already exists. |
+| 400    | Missing required fields or image not provided. |
 | 401    | Team authentication required. |
 | 500    | Server error. |
 
@@ -512,7 +509,6 @@ Fetches submissions for admin review with optional filtering.
 [
   {
     "id": "sub123",
-    "answerText": "Dit is mijn antwoord",
     "answerImage": "data:image/jpeg;base64,...",
     "status": "PENDING",
     "feedback": null,
@@ -560,7 +556,6 @@ Fetches detailed information about a specific submission.
 ```json
 {
   "id": "sub123",
-  "answerText": "Dit is mijn antwoord",
   "answerImage": "data:image/jpeg;base64,...",
   "status": "PENDING",
   "feedback": null,

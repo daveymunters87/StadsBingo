@@ -69,7 +69,6 @@ export async function GET(
       submission: submission
         ? {
             id: submission.id,
-            answerText: submission.answerText,
             answerImage: submission.answerImage,
             status: submission.status,
             feedback: submission.feedback,

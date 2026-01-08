@@ -97,7 +97,6 @@ export default function ExerciseDetailContent({
         body: JSON.stringify({
           assignmentId: exercise.id,
           answerImage: uploadedImage,
-          answerText: null,
           playerId: null,
         }),
       });
@@ -118,7 +117,6 @@ export default function ExerciseDetailContent({
               status: "PENDING",
               submission: {
                 id: submission.id,
-                answerText: submission.answerText,
                 answerImage: submission.answerImage,
                 status: submission.status,
                 feedback: submission.feedback,

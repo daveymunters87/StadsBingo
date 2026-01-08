@@ -50,7 +50,6 @@ export interface TeamFormData {
 
 export interface Submission {
   id: string;
-  answerText: string | null;
   answerImage: string | null;
   status: "PENDING" | "APPROVED" | "FEEDBACK";
   feedback: string | null;

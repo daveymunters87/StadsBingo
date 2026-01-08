@@ -10,7 +10,6 @@ import toast, { Toaster } from "react-hot-toast";
 
 interface Submission {
   id: string;
-  answerText: string | null;
   answerImage: string | null;
   status: "PENDING" | "APPROVED" | "FEEDBACK";
   feedback: string | null;

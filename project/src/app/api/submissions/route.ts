@@ -14,7 +14,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const { assignmentId, answerText, answerImage, playerId } =
+    const { assignmentId, answerImage, playerId } =
       await request.json();
 
     if (!assignmentId) {
@@ -24,9 +24,9 @@ export async function POST(request: Request) {
       );
     }
 
-    if (!answerText && !answerImage) {
+    if (!answerImage) {
       return NextResponse.json(
-        { error: "Either text answer or image is required" },
+        { error: "Image is required" },
         { status: 400 },
       );
     }
@@ -51,7 +51,6 @@ export async function POST(request: Request) {
             id: existingSubmission.id,
           },
           data: {
-            answerText: answerText || null,
             answerImage: answerImage || null,
             status: "PENDING",
             feedback: null, // Clear previous feedback
@@ -76,7 +75,6 @@ export async function POST(request: Request) {
           teamId,
           assignmentId,
           playerId: playerId || null,
-          answerText: answerText || null,
           answerImage: answerImage || null,
           status: "PENDING",
         },

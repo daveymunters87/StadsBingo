@@ -85,17 +85,6 @@ export default function SubmissionsList({
 
           {/* Submission Content */}
           <div className="mb-4">
-            {submission.answerText && (
-              <div className="mb-3">
-                <p className="text-sm font-medium text-[#2C2C2C] mb-1">
-                  Antwoord:
-                </p>
-                <p className="text-sm text-[#6B7280] bg-gray-50 p-2 rounded">
-                  {submission.answerText}
-                </p>
-              </div>
-            )}
-
             {submission.answerImage && (
               <div className="mb-3">
                 <p className="text-sm font-medium text-[#2C2C2C] mb-1">Foto:</p>

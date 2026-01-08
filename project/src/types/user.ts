@@ -8,7 +8,6 @@ export interface Exercise {
   status: "LOCKED" | "AVAILABLE" | "PENDING" | "FEEDBACK" | "APPROVED";
   submission: {
     id: string;
-    answerText: string | null;
     answerImage: string | null;
     status: string;
     feedback: string | null;
