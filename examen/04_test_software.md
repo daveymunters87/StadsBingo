@@ -113,7 +113,7 @@ npm test
 
 ### Conclusie
 
-**Alle 10 geautomatiseerde tests zijn geslaagd**. De belangrijkste functionaliteiten van de StadsBingo applicatie werken:
+**Alle 10 geautomatiseerde tests zijn geslaagd**. De belangrijkste functionaliteiten van de applicatie werken:
 
 1. **Team authenticatie** - Veilige toegang via teamcodes
 2. **Opdracht progressie** - Logische volgorde en status
@@ -124,4 +124,3 @@ npm test
 
 **Screenshot bewijs:**  
 ![Test Results](bewijsmateriaal/04/test_results.png)
-*Jest test output met alle 10 tests geslaagd*

@@ -46,7 +46,7 @@ Een **bingo-applicatie** voor school waarbij leerlingen opdrachten uitvoeren in 
 1. Docent maakt een team aan, koppelt leerlingen en genereert een teamcode.
 2. Leerlingen loggen in met de teamcode en zien de opdrachten die voor hun team beschikbaar zijn.
 3. Elke opdracht kent één van de statussen: `Locked`, `Available`, `Pending`, `Feedback`, `Approved`.
-4. Leerlingen leveren tekstantwoorden in; docenten beoordelen en geven feedback.
+4. Leerlingen leveren fotobestanden in; docenten beoordelen en geven feedback.
 5. Bij `Approved` wordt de volgende opdracht vrijgegeven; bij `Feedback` krijgt de leerling een notificatie om opnieuw in te leveren.
 6. Docenten hebben filters op team, leerling en status én zien een visuele voortgang per team.
 

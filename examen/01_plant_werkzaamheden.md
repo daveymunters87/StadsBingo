@@ -20,13 +20,13 @@ Het project heeft 2 sprints van 1 week.
 ### Eisen (Must have)
 | Nr | Omschrijving | Toelichting |
 |----|---------------|-------------|
-| E1 | Teams beheren en teamcodes genereren | Docent kan teams aanmaken, bekijken en per team een code genereren |
+| E1 | Teams beheren en teamcodes genereren | Docent kan teams aanmaken, bekijken en per opdrachten toewijzen |
 | E2 | Leerlingen inloggen met teamcode | Leerlingen krijgen toegang tot opdrachten via een teamcode; API verifieert code |
 | E3 | Opdrachtenlijst per team bekijken | Leerlingen zien opdrachten die voor hun team beschikbaar zijn |
-| E4 | Opdrachten indienen | Leerlingen leveren per opdracht een tekst of foto in |
+| E4 | Opdrachten indienen | Leerlingen leveren per opdracht een foto in |
 | E5 | Opdrachtstatus en feedback bekijken | Leerlingen zien status (`Locked`, `Available`, `Pending`, `Feedback`, `Approved`) en feedback |
 | E6 | Inzendingen beoordelen | Docenten keuren opdrachten goed of geven feedback |
-| E7 | Overzichten en filters voor docent | Docent kan op team, leerling en status filteren in het overzicht |
+| E7 | Overzichten en filters voor docent | Docent kan op team, en status filteren in het overzicht |
 
 ### Wensen (Should/Could have)
 | Nr | Omschrijving |
@@ -133,9 +133,10 @@ Een user story is **done** wanneer:
 ### Sprint 1 (Week 1)
 **Doel:** Basis leerlingflow realiseren: inloggen met teamcode en opdrachten bekijken.
 
-| To Do | In Progress | Done |
-|-------|------------|------|
-| Team login API & dashboard backend (Davey & Jada, 4u) | Opdrachtenlijst bekijken (Davey & Jada, 4u) | |
+| To Do |
+|-------|
+| Team login API & dashboard backend (Davey & Jada, 4u) | 
+Opdrachtenlijst bekijken (Davey & Jada, 4u) | |
 | Opdrachtdetails bekijken (Davey & Jada, 2u) | | |
 
 **Sprint 1 DoD:**  
@@ -150,9 +151,9 @@ Een user story is **done** wanneer:
 ### Sprint 2 (Week 2)
 **Doel:** Inleveren en beoordelen van opdrachten inclusief feedback en statusflow.
 
-| To Do | In Progress | Done |
-|-------|------------|------|
-| Opdracht indienen (tekst/foto) (Davey, 2–4u) | Status & feedback bekijken (Davey, 2u) | |
+| To Do |
+|-------|
+| Opdracht indienen (foto) (Davey, 2–4u) | Status & feedback bekijken (Davey, 2u) | |
 | Inzendingen beoordelen (approve/reject + feedback) (Jada, 4u) | Dashboard frontend (Davey, 4–6u) | |
 | Filteren docentoverzicht (Jada, 2u) | Visuele voortgang per team (Jada, 4u) | |
 
@@ -174,8 +175,8 @@ Een user story is **done** wanneer:
 - Team van 2 studenten, ±10 uur/week per persoon  
 - Sprintduur: 1 week → totale capaciteit per sprint ≈ 40 uur
 
-| Sprint | Stories (uren) | Totaal uren | Past binnen 40u? |
-|--------|----------------|-------------|-----------------|
+| Sprint | Stories (uren) | Totaal uren |
+|--------|----------------|-------------|
 | Sprint 1 | Team login (4u), Opdrachtenlijst (4u), Opdrachtdetails bekijken (2u) | 10u |
 | Sprint 2 | Dashboard (5u), Feedback verwerking (3u), Filters docent (2u), Voortgangsbalken (4u) | 14u |
 
