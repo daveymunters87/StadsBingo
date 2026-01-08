@@ -4,34 +4,7 @@ import { Check, X, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import ImageModal from "@/components/shared/ImageModal";
-
-interface Submission {
-  id: string;
-  answerText: string | null;
-  answerImage: string | null;
-  status: "PENDING" | "APPROVED" | "FEEDBACK";
-  feedback: string | null;
-  createdAt: string;
-  updatedAt: string;
-  team: {
-    name: string;
-    code: string;
-  };
-  assignment: {
-    title: string;
-    order: number;
-  };
-  player: {
-    name: string;
-  } | null;
-}
-
-interface SubmissionsListProps {
-  submissions: Submission[];
-  loading: boolean;
-  onApprove: (submissionId: string) => void;
-  onReject: (submission: Submission) => void;
-}
+import { Submission, SubmissionsListProps } from "@/types/admin";
 
 export default function SubmissionsList({
   submissions,

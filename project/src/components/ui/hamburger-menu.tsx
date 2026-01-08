@@ -5,20 +5,7 @@ import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { X, Home, FileText, Phone } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-interface MenuItem {
-  id: string;
-  label: string;
-  icon: React.ComponentType<{ className?: string }>;
-  href: string;
-  action?: "navigate" | "close";
-}
-
-interface HamburgerMenuProps {
-  isOpen: boolean;
-  onClose: () => void;
-  currentPath?: string;
-}
+import { MenuItem, HamburgerMenuProps, HamburgerTriggerProps } from "@/types/ui";
 
 const menuItems: MenuItem[] = [
   {
@@ -141,11 +128,6 @@ export function HamburgerMenu({
       </div>
     </>
   );
-}
-
-interface HamburgerTriggerProps {
-  onClick: () => void;
-  className?: string;
 }
 
 export function HamburgerTrigger({

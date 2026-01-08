@@ -7,26 +7,7 @@ import PageHeader from "@/components/admin/ui/PageHeader";
 import AssignmentListColumn from "@/components/admin/assignments/AssignmentListColumn";
 import AssignmentFormModal from "@/components/admin/assignments/AssignmentFormModal";
 import ConfirmModal from "@/components/shared/ConfirmModal";
-
-interface Assignment {
-  id: string;
-  title: string;
-  description: string;
-  location: string;
-  order: number;
-  exampleImage?: string | null;
-  createdAt: string;
-  _count: {
-    submissions: number;
-    teams: number;
-  };
-}
-
-interface Team {
-  id: string;
-  name: string;
-  code: string;
-}
+import { Assignment, Team, AssignmentFormData } from "@/types/admin";
 
 export default function AssignmentsPage() {
   const [assignments, setAssignments] = useState<Assignment[]>([]);
@@ -40,13 +21,13 @@ export default function AssignmentsPage() {
   const [assignmentToDelete, setAssignmentToDelete] = useState<string | null>(
     null,
   );
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<AssignmentFormData>({
     title: "",
     description: "",
     location: "",
     order: "",
     exampleImage: "",
-    selectedTeams: [] as string[],
+    selectedTeams: [],
   });
 
   useEffect(() => {

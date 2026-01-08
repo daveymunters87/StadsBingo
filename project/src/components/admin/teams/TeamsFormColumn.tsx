@@ -3,39 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-
-interface Team {
-  id: string;
-  name: string;
-  code: string;
-  createdAt: string;
-  captain?: {
-    name: string;
-  };
-  players: Array<{
-    id: string;
-    name: string;
-  }>;
-  createdBy: {
-    name: string;
-    email: string;
-  };
-  _count: {
-    players: number;
-    submissions: number;
-  };
-}
-
-interface TeamsFormColumnProps {
-  showForm: boolean;
-  editingTeam: Team | null;
-  formData: {
-    name: string;
-    playerNames: string[];
-  };
-  setFormData: (data: { name: string; playerNames: string[] }) => void;
-  onSubmit: (e: React.FormEvent) => void;
-}
+import { TeamsFormColumnProps } from "@/types/admin";
 
 export default function TeamsFormColumn({
   showForm,

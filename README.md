@@ -3,38 +3,38 @@
 Een **bingo-applicatie** voor school waarbij leerlingen opdrachten uitvoeren in de stad en docenten deze beoordelen.
 
 > **Examen Project** - Bit Academy  
-> Ontwikkeld door: Davey & Jada  
+> leerlingen: Davey & Jada  
 > Periode: December 2025
 
 ---
 
-## Table of Contents
+## Inhoudsopgave
 
 - [StadsBingo](#stadsbingo)
-  - [Table of Contents](#table-of-contents)
+  - [Inhoudsopgave](#inhoudsopgave)
   - [Project Omschrijving](#project-omschrijving)
-  - [Features](#features)
-    - [Voor Leerlingen (Students)](#voor-leerlingen-students)
-    - [Voor Docenten (Teachers)](#voor-docenten-teachers)
-  - [Tech Stack](#tech-stack)
-  - [Requirements](#requirements)
-  - [Quick Start](#quick-start)
-  - [Setup Details](#setup-details)
-    - [Clone & Navigate](#clone--navigate)
-    - [Environment Variables](#environment-variables)
-    - [Start PostgreSQL](#start-postgresql)
-    - [Install Dependencies](#install-dependencies)
-    - [Database Setup](#database-setup)
-    - [Start Development](#start-development)
+  - [Functionaliteiten](#functionaliteiten)
+    - [Voor Leerlingen](#voor-leerlingen)
+    - [Voor Docenten](#voor-docenten)
+  - [Technische Stack](#technische-stack)
+  - [Vereisten](#vereisten)
+  - [Snel Starten](#snel-starten)
+  - [Installatie Details](#installatie-details)
+    - [Klonen & Navigeren](#klonen--navigeren)
+    - [Omgevingsvariabelen](#omgevingsvariabelen)
+    - [PostgreSQL Starten](#postgresql-starten)
+    - [Dependencies Installeren](#dependencies-installeren)
+    - [Database Opzetten](#database-opzetten)
+    - [Development Starten](#development-starten)
   - [Database](#database)
-  - [Prisma Commands](#prisma-commands)
+  - [Prisma Commando's](#prisma-commandos)
   - [Development Workflow](#development-workflow)
     - [Voor nieuwe features:](#voor-nieuwe-features)
-    - [Code Quality:](#code-quality)
+    - [Code Kwaliteit:](#code-kwaliteit)
   - [Examen Informatie](#examen-informatie)
-  - [Optional Tips](#optional-tips)
+  - [Handige Tips](#handige-tips)
   - [Team](#team)
-  - [License](#license)
+  - [Licentie](#licentie)
 
 ---
 
@@ -48,20 +48,20 @@ Een **bingo-applicatie** voor school waarbij leerlingen opdrachten uitvoeren in 
 3. Elke opdracht kent één van de statussen: `Locked`, `Available`, `Pending`, `Feedback`, `Approved`.
 4. Leerlingen leveren fotobestanden in; docenten beoordelen en geven feedback.
 5. Bij `Approved` wordt de volgende opdracht vrijgegeven; bij `Feedback` krijgt de leerling een notificatie om opnieuw in te leveren.
-6. Docenten hebben filters op team, leerling en status én zien een visuele voortgang per team.
+6. Docenten hebben filters op team, leerling en kunnen hierom visuele voortgang per team zien.
 
 ---
 
-## Features
+## Functionaliteiten
 
-### Voor Leerlingen (Students)
-- Login met teamcode en beveiligde toegang per team
+### Voor Leerlingen
+- Inloggen met teamcode en beveiligde toegang per team
 - Opdrachtenlijst met statussen (`Locked`, `Available`, `Pending`, `Feedback`, `Approved`)
-- Dien opdrachten in en verwerk feedback
+- Opdrachten indienen en feedback verwerken
 - Visuele voortgang per opdracht en team
-- Notificatie bij nieuwe feedback/aanpassingen
+- Meldingen bij nieuwe feedback/aanpassingen
 
-### Voor Docenten (Teachers/Admin)
+### Voor Docenten
 - Teams beheren (aanmaken, verwijderen, leden koppelen) + teamcodes genereren
 - Opdrachten beheren (aanmaken, bijlagen)
 - Overzicht per team/leerling met filter op status, leerling, opdracht
@@ -70,33 +70,33 @@ Een **bingo-applicatie** voor school waarbij leerlingen opdrachten uitvoeren in 
 
 ---
 
-## Tech Stack
+## Technische Stack
 
 **Frontend & Backend:**
 - [Next.js 15](https://nextjs.org/) - React framework met API routes
-- [TypeScript](https://www.typescriptlang.org/) - Type safety
+- [TypeScript](https://www.typescriptlang.org/) - Type veiligheid
 - [TailwindCSS](https://tailwindcss.com/) - Styling
 - [shadcn/ui](https://ui.shadcn.com/) - UI componenten
 
 **Database & ORM:**
-- [PostgreSQL](https://www.postgresql.org/) - Relational database (Docker)
+- [PostgreSQL](https://www.postgresql.org/) - Database (Docker)
 - [Prisma](https://www.prisma.io/) - Type-safe ORM
 
 **Development:**
-- [Docker](https://www.docker.com/) - Database containerization
+- [Docker](https://www.docker.com/) - Database container
 - [Biome](https://biomejs.dev/) - Linting & formatting
 
 ---
 
-## Requirements
+## Vereisten
 
-- [Node.js](https://nodejs.org/) (v18 of hoger)
+- [Node.js](https://nodejs.org/)
 - [Docker](https://www.docker.com/get-started)  
 - [Docker Compose](https://docs.docker.com/compose/install/)  
 
 ---
 
-## Quick Start
+## Snel Starten
 
 ```bash
 # 1. Clone de repository
@@ -106,15 +106,15 @@ cd StadsBingo/project
 # 2. Start de database (Docker)
 docker-compose up -d
 
-# 3. Install dependencies
+# 3. Dependencies installeren
 npm install
 
-# 4. Setup database
+# 4. Database opzetten
 npm run db:generate
 npm run db:migrate
 npm run db:seed
 
-# 5. Start development server
+# 5. Development server starten
 npm run dev
 ```
 
@@ -122,36 +122,36 @@ Open [http://localhost:3000](http://localhost:3000) in je browser!
 
 ---
 
-## Setup Details
+## Installatie Details
 
-### Clone & Navigate
+### Klonen & Navigeren
 ```bash
 git clone git@github.com:daveymunters87/StadsBingo.git
 cd StadsBingo/project
 ```
 
-### Environment Variables
+### Omgevingsvariabelen
 Maak een `.env` bestand in de `project/` folder:
 
 ```env
 DATABASE_URL="postgresql://myuser:mypassword@localhost:5432/mydb?schema=public"
 ```
 
-> **Note:** Voor lokale development gebruik je `localhost`. `db` is de Docker service naam in `docker-compose.yml`.
+> **Opmerking:** Voor lokale development gebruik je `localhost`. `db` is de Docker service naam in `docker-compose.yml`.
 
-### Start PostgreSQL
+### PostgreSQL Starten
 ```bash
 docker-compose up -d
 ```
 
-Database draait nu op de achtergrond. Data wordt opgeslagen in Docker volume `pgdata`.
+Database draait nu op de achtergrond. Data wordt opgeslagen in Docker volume.
 
-### Install Dependencies
+### Dependencies Installeren
 ```bash
 npm install
 ```
 
-### Database Setup
+### Database Opzetten
 ```bash
 # Genereer Prisma client
 npm run db:generate
@@ -163,30 +163,23 @@ npm run db:migrate
 npm run db:seed
 ```
 
-**Test credentials na seeding:**
+**Test inloggegevens na seeding:**
 - **Admin login:** admin@example.com / admin123
 - **Team code:** TEST123
 - **Test team:** "Test Team" met 5 spelers en 5 opdrachten
 
-**Seeded data includes:**
-- Admin user voor het beheren van teams en opdrachten
+**Seeded data bevat:**
+- Admin gebruiker voor het beheren van teams en opdrachten
 - Test team met teamcode "TEST123"
 - 5 teamspelers (inclusief captain)
-- 5 opdrachten in Groningen (Grote Markt, Vismarkt, Akerk, RUG, Forum)
+- 5 opdrachten in Groningen
 - Team-opdracht koppelingen
-
-### Start Development
-```bash
-npm run dev
-```
-
-App draait nu op: http://localhost:3000
 
 ---
 
 ## Database
 
-**PostgreSQL draait in Docker** voor consistente setup tussen developers.
+**PostgreSQL draait in Docker** voor consistente setup.
 
 **Belangrijke commando's:**
 ```bash
@@ -196,37 +189,37 @@ docker-compose up -d
 # Stop database
 docker-compose down
 
-# Stop database en verwijder data (fresh start)
+# Stop database en verwijder data
 docker-compose down -v
 
 # Bekijk database logs
 docker-compose logs -f db
 ```
 
-**Default credentials** (zie `.env`):
-- User: `myuser`
-- Password: `mypassword`
+**Standaard inloggegevens** (zie `.env`):
+- Gebruiker: `myuser`
+- Wachtwoord: `mypassword`
 - Database: `mydb`
-- Port: `5432`
+- Poort: `5432`
 
 ---
 
-## Prisma Commands
+## Prisma Commando's
 
 ```bash
-# Genereer Prisma Client (na schema wijzigingen)
+# Genereer Prisma Client
 npm run db:generate
 
-# Maak nieuwe migration
+# Maak nieuwe migratie
 npm run db:migrate
 
-# Push schema changes zonder migration (development only)
+# Push schema wijzigingen zonder migratie
 npm run db:push
 
 # Seed database met test data
 npm run db:seed
 
-# Reset database (WAARSCHUWING: verwijdert alle data!)
+# Reset database
 npm run db:reset
 
 # Open Prisma Studio (database GUI)
@@ -261,66 +254,34 @@ npm run db:studio
    git push origin feature/naam-van-feature
    ```
 
-### Code Quality:
+### Code Kwaliteit:
 ```bash
-# Check code quality
+# Controleer code kwaliteit
 npm run lint
 
-# Format code
+# Formatteer code
 npm run format
 
-# Run tests
+# Voer tests uit
 npm test
 
-# Run tests in watch mode
+# Voer tests uit in watch modus
 npm run test:watch
 
-# Run tests with coverage
+# Voer tests uit met coverage
 npm run test:coverage
 ```
 
 ---
 
-## Examen Informatie
-
-Dit project is onderdeel van het **portfolio examen**.
-
-**Examen Eisen die dit project voldoet:**
-
-- **Opdracht 1:** User stories, planning, voortgangsbewaking  
-- **Opdracht 2:** UML diagrammen (ERD + Sequence)  
-- **Opdracht 3:** Werkende applicatie met:
-   - Frontend + Backend + Database
-   - 10+ bestanden met code
-   - Git (10+ commits, 2+ branches, pull requests)
-   - Non-CRUD functionaliteit (approve/reject workflow)
-
-- **Opdracht 4:** Geautomatiseerde tests  
-- **Opdracht 5:** Verbetervoorstellen  
-
-**Documentatie:** Zie `/examen` folder voor alle bewijsmateriaal.
-
----
-
-## Optional Tips
+## Handige commands
 
 ```bash
-# Stop alle containers
-docker-compose down
-
-# Format hele repository
+# Formatteer hele repository
 npm run format
 
 # Bekijk Docker logs
 docker-compose logs -f
-
-# Rebuild Docker containers (bij problemen)
-docker-compose down
-docker-compose up -d --build
-
-# Reset database en seed opnieuw
-npm run db:reset
-npm run db:seed
 
 # Open database GUI
 npm run db:studio
@@ -330,11 +291,11 @@ npm run db:studio
 
 ## Team
 
-- **Davey Munters** - Developer
-- **Jada** - Developer
+- **Davey Munters** - Ontwikkelaar
+- **Jada** - Ontwikkelaar
 
 ---
 
-## License
+## Licentie
 
 Dit is een educatief project voor Bit Academy.

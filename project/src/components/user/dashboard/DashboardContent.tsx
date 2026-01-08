@@ -8,16 +8,7 @@ import {
   HamburgerTrigger,
   useHamburgerMenu,
 } from "@/components/ui/hamburger-menu";
-
-interface Team {
-  id: string;
-  name: string;
-  code: string;
-}
-
-interface DashboardContentProps {
-  team: Team;
-}
+import { Team, DashboardContentProps } from "@/types/user";
 
 export default function DashboardContent({ team }: DashboardContentProps) {
   const { isOpen, openMenu, closeMenu } = useHamburgerMenu();

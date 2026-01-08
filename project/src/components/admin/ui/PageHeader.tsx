@@ -1,7 +1,4 @@
-interface PageHeaderProps {
-  title: string;
-  subtitle: string;
-}
+import { PageHeaderProps } from "@/types/ui";
 
 export default function PageHeader({ title, subtitle }: PageHeaderProps) {
   return (

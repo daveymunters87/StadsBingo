@@ -8,13 +8,7 @@ import {
   HamburgerTrigger,
   useHamburgerMenu,
 } from "@/components/ui/hamburger-menu";
-
-interface Mentor {
-  name: string;
-  role: string;
-  email: string;
-  phone: string;
-}
+import { Mentor } from "@/types/user";
 
 const mentors: Mentor[] = [
   {

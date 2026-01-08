@@ -7,51 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { X, Upload, Image as ImageIcon } from "lucide-react";
 import { useRef } from "react";
 import Image from "next/image";
-
-interface Assignment {
-  id: string;
-  title: string;
-  description: string;
-  location: string;
-  order: number;
-  exampleImage?: string | null;
-  createdAt: string;
-  _count: {
-    submissions: number;
-    teams: number;
-  };
-}
-
-interface Team {
-  id: string;
-  name: string;
-  code: string;
-}
-
-interface AssignmentFormModalProps {
-  showForm: boolean;
-  editingAssignment: Assignment | null;
-  formData: {
-    title: string;
-    description: string;
-    location: string;
-    order: string;
-    exampleImage: string;
-    selectedTeams: string[];
-  };
-  setFormData: (data: {
-    title: string;
-    description: string;
-    location: string;
-    order: string;
-    exampleImage: string;
-    selectedTeams: string[];
-  }) => void;
-  onSubmit: (e: React.FormEvent) => void;
-  onClose: () => void;
-  teams: Team[];
-  onTeamToggle: (teamId: string) => void;
-}
+import { AssignmentFormModalProps } from "@/types/admin";
 
 export default function AssignmentFormModal({
   showForm,

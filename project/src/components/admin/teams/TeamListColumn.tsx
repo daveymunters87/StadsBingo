@@ -1,35 +1,7 @@
 "use client";
 
 import { Trash2, Edit, Users } from "lucide-react";
-
-interface Team {
-  id: string;
-  name: string;
-  code: string;
-  createdAt: string;
-  captain?: {
-    name: string;
-  };
-  players: Array<{
-    id: string;
-    name: string;
-  }>;
-  createdBy: {
-    name: string;
-    email: string;
-  };
-  _count: {
-    players: number;
-    submissions: number;
-  };
-}
-
-interface TeamListColumnProps {
-  teams: Team[];
-  loading: boolean;
-  onEdit: (team: Team) => void;
-  onDelete: (teamId: string) => void;
-}
+import { Team, TeamListColumnProps } from "@/types/admin";
 
 export default function TeamListColumn({
   teams,

@@ -12,28 +12,7 @@ import {
   HamburgerTrigger,
   useHamburgerMenu,
 } from "@/components/ui/hamburger-menu";
-
-interface ExerciseDetail {
-  id: string;
-  title: string;
-  description: string;
-  location: string;
-  order: number;
-  exampleImage?: string | null;
-  status: "LOCKED" | "AVAILABLE" | "PENDING" | "FEEDBACK" | "APPROVED";
-  submission: {
-    id: string;
-    answerText: string | null;
-    answerImage: string | null;
-    status: string;
-    feedback: string | null;
-    createdAt: string;
-  } | null;
-}
-
-interface ExerciseDetailContentProps {
-  exerciseId: string;
-}
+import { ExerciseDetail, ExerciseDetailContentProps } from "@/types/user";
 
 export default function ExerciseDetailContent({
   exerciseId,

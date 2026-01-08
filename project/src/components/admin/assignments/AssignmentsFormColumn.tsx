@@ -4,47 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-
-interface Assignment {
-  id: string;
-  title: string;
-  description: string;
-  location: string;
-  order: number;
-  createdAt: string;
-  _count: {
-    submissions: number;
-    teams: number;
-  };
-}
-
-interface Team {
-  id: string;
-  name: string;
-  code: string;
-}
-
-interface AssignmentsFormColumnProps {
-  showForm: boolean;
-  editingAssignment: Assignment | null;
-  formData: {
-    title: string;
-    description: string;
-    location: string;
-    order: string;
-    selectedTeams: string[];
-  };
-  setFormData: (data: {
-    title: string;
-    description: string;
-    location: string;
-    order: string;
-    selectedTeams: string[];
-  }) => void;
-  onSubmit: (e: React.FormEvent) => void;
-  teams: Team[];
-  onTeamToggle: (teamId: string) => void;
-}
+import { AssignmentsFormColumnProps } from "@/types/admin";
 
 export default function AssignmentsFormColumn({
   showForm,
@@ -128,7 +88,7 @@ export default function AssignmentsFormColumn({
                   id="all-teams"
                   checked={formData.selectedTeams.length === 0}
                   onChange={() =>
-                    setFormData((prev) => ({ ...prev, selectedTeams: [] }))
+                    setFormData({ ...formData, selectedTeams: [] })
                   }
                   className="rounded"
                 />

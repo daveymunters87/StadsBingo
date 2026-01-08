@@ -14,19 +14,7 @@ import {
   HamburgerTrigger,
   useHamburgerMenu,
 } from "@/components/ui/hamburger-menu";
-
-interface Exercise {
-  id: string;
-  title: string;
-  description: string;
-  location: string;
-  order: number;
-  status: "LOCKED" | "AVAILABLE" | "PENDING" | "FEEDBACK" | "APPROVED";
-}
-
-interface ExercisesListContentProps {
-  exercises: Exercise[];
-}
+import { Exercise, ExercisesListContentProps } from "@/types/user";
 
 export default function ExercisesListContent({
   exercises,

@@ -1,17 +1,6 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
-
-interface Submission {
-  id: string;
-  assignment: { title: string };
-  team: { name: string };
-  createdAt: string;
-}
-
-interface RecentSubmissionsProps {
-  submissions: Submission[];
-  loading: boolean;
-}
+import { RecentSubmissionsProps } from "@/types/admin";
 
 export default function RecentSubmissions({
   submissions,

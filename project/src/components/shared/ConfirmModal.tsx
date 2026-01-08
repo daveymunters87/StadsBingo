@@ -2,17 +2,7 @@
 
 import { AlertTriangle, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-interface ConfirmModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onConfirm: () => void;
-  title: string;
-  message: string;
-  confirmText?: string;
-  cancelText?: string;
-  variant?: "danger" | "warning" | "info";
-}
+import { ConfirmModalProps } from "@/types/ui";
 
 export default function ConfirmModal({
   isOpen,

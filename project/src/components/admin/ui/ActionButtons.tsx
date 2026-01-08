@@ -1,12 +1,6 @@
 import { Plus, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-interface ActionButtonsProps {
-  onAdd: () => void;
-  onCancel: () => void;
-  showCancel: boolean;
-  addLabel: string;
-}
+import { ActionButtonsProps } from "@/types/ui";
 
 export default function ActionButtons({
   onAdd,

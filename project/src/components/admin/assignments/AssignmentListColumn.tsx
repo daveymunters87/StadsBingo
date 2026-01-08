@@ -2,27 +2,7 @@
 
 import { Trash2, Edit, BookOpen, Image as ImageIcon } from "lucide-react";
 import Image from "next/image";
-
-interface Assignment {
-  id: string;
-  title: string;
-  description: string;
-  location: string;
-  order: number;
-  exampleImage?: string | null;
-  createdAt: string;
-  _count: {
-    submissions: number;
-    teams: number;
-  };
-}
-
-interface AssignmentListColumnProps {
-  assignments: Assignment[];
-  loading: boolean;
-  onEdit: (assignment: Assignment) => void;
-  onDelete: (assignmentId: string) => void;
-}
+import { AssignmentListColumnProps } from "@/types/admin";
 
 export default function AssignmentListColumn({
   assignments,

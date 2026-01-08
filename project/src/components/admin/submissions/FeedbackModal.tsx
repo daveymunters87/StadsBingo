@@ -2,35 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-
-interface Submission {
-  id: string;
-  answerText: string | null;
-  answerImage: string | null;
-  status: "PENDING" | "APPROVED" | "FEEDBACK";
-  feedback: string | null;
-  createdAt: string;
-  updatedAt: string;
-  team: {
-    name: string;
-    code: string;
-  };
-  assignment: {
-    title: string;
-    order: number;
-  };
-  player: {
-    name: string;
-  } | null;
-}
-
-interface FeedbackModalProps {
-  selectedSubmission: Submission | null;
-  feedback: string;
-  setFeedback: (feedback: string) => void;
-  onSubmitFeedback: (submissionId: string, feedback: string) => void;
-  onClose: () => void;
-}
+import { FeedbackModalProps } from "@/types/admin";
 
 export default function FeedbackModal({
   selectedSubmission,

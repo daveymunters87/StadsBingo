@@ -2,12 +2,7 @@
 
 import { X } from "lucide-react";
 import { useEffect } from "react";
-
-interface ImageModalProps {
-  imageUrl: string;
-  onClose: () => void;
-  title?: string;
-}
+import { ImageModalProps } from "@/types/ui";
 
 export default function ImageModal({
   imageUrl,

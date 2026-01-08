@@ -1,11 +1,6 @@
 import { Filter } from "lucide-react";
 import { Label } from "@/components/ui/label";
-
-interface StatusFilterProps {
-  value: string;
-  onChange: (value: string) => void;
-  options: { value: string; label: string }[];
-}
+import { StatusFilterProps } from "@/types/ui";
 
 export default function StatusFilter({
   value,

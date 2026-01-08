@@ -1,29 +1,7 @@
 "use client";
 
 import Link from "next/link";
-
-interface AssignmentDetail {
-  id: string;
-  title: string;
-  description: string;
-  location: string | null;
-  status: string;
-}
-
-interface Team {
-  id: string;
-  name: string;
-}
-
-interface ReviewContentProps {
-  assignment: AssignmentDetail | null;
-  currentTeam: Team | undefined;
-  loadingAssignment: boolean;
-  onApprove: () => void;
-  onReject: () => void;
-  feedback: string;
-  setFeedback: (feedback: string) => void;
-}
+import { ReviewContentProps } from "@/types/admin";
 
 export default function ReviewContent({
   assignment,

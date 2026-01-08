@@ -2,10 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import AdminLogoutButton from "@/components/admin/AdminLogoutButton";
 import AdminSidebar from "@/components/admin/AdminSidebar";
-
-interface AdminLayoutProps {
-  children: React.ReactNode;
-}
+import { AdminLayoutProps } from "@/types/ui";
 
 export default function AdminLayout({ children }: AdminLayoutProps) {
   return (

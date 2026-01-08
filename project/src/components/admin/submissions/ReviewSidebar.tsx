@@ -2,17 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-
-interface Team {
-  id: string;
-  name: string;
-}
-
-interface ReviewSidebarProps {
-  teams: Team[];
-  loadingTeams: boolean;
-  currentTeamId?: string;
-}
+import { ReviewSidebarProps } from "@/types/admin";
 
 export default function ReviewSidebar({
   teams,
