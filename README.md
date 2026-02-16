@@ -109,12 +109,15 @@ docker-compose up -d
 # 3. Install dependencies
 npm install
 
-# 4. Setup database
+# 4. Maak .env en voeg de volgende DB_url lijn toe.
+DATABASE_URL="postgresql://myuser:mypassword@localhost:5432/mydb?schema=public"
+
+# 5. Setup database
 npm run db:generate
 npm run db:migrate
 npm run db:seed
 
-# 5. Start development server
+# 6. Start development server
 npm run dev
 ```
 

@@ -1,13 +1,15 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { FileText, Phone } from "lucide-react";
+import { FileText, Phone, HelpCircle, Lightbulb, Landmark } from "lucide-react";
 import {
   HamburgerMenu,
   HamburgerTrigger,
   useHamburgerMenu,
 } from "@/components/ui/hamburger-menu";
+import TutorialModal from "./TutorialModal";
 
 interface Team {
   id: string;
@@ -21,9 +23,21 @@ interface DashboardContentProps {
 
 export default function DashboardContent({ team }: DashboardContentProps) {
   const { isOpen, openMenu, closeMenu } = useHamburgerMenu();
+  const [showTutorial, setShowTutorial] = useState(false);
+
+  useEffect(() => {
+    const tutorialCompleted = localStorage.getItem("tutorialCompleted");
+    if (!tutorialCompleted) {
+      setShowTutorial(true);
+    }
+  }, []);
+
 
   return (
     <main className="min-h-screen bg-[#EDE6DC] pb-8">
+      {/* Tutorial Modal */}
+      <TutorialModal isOpen={showTutorial} onClose={() => setShowTutorial(false)} />
+
       {/* Hamburger Menu */}
       <HamburgerMenu isOpen={isOpen} onClose={closeMenu} />
 
@@ -41,27 +55,31 @@ export default function DashboardContent({ team }: DashboardContentProps) {
 
       <div className="px-4 md:px-6 md:max-w-4xl md:mx-auto">
         {/* Welcome Box */}
-        <div className="bg-[#FFE600] rounded-2xl p-6 mb-8 mt-4 md:mt-8 md:p-8">
+        <div className="bg-[#FFE600] rounded-2xl p-6 mb-6 md:p-8">
           <h2 className="text-2xl font-bold text-[#2C2C2C] mb-2 md:text-3xl">
-            Welkom,
+            Welkom, Team {team.name}!
           </h2>
-          <p className="text-xl font-semibold text-[#2C2C2C] mb-3 md:text-2xl">
-            Team {team.name}
-          </p>
           <p className="text-base text-[#2C2C2C] leading-relaxed md:text-lg">
-            De Groningse stads bingo voor de
-            <br />
-            studenten van de Bit Academy
+            De Groningse stads bingo voor de studenten van de Bit Academy
           </p>
         </div>
 
-        {/* Navigeren Heading */}
-        <h3 className="text-2xl font-bold text-[#2C2C2C] mb-6 ml-4 md:ml-0 md:text-center text-left md:text-4xl md:mb-8">
-          Navigeren
-        </h3>
+        {/* Tutorial Button */}
+        <button
+          onClick={() => setShowTutorial(true)}
+          className="bg-[#CDEFFF] rounded-2xl p-4 mb-4 md:p-6 w-full text-left hover:bg-[#CDEFFF]/80 transition-colors flex items-center gap-3"
+        >
+          <HelpCircle className="h-6 w-6 text-[#2C2C2C] flex-shrink-0" />
+          <div>
+            <h3 className="font-bold text-lg md:text-xl mb-1">Hoe werkt het?</h3>
+            <p className="text-[#2C2C2C]/90 text-sm md:text-base">
+              Bekijk de tutorial om te zien hoe je opdrachten kunt voltooien
+            </p>
+          </div>
+        </button>
 
         {/* Navigation Cards */}
-        <div className="space-y-4 max-w-md mx-auto md:max-w-none md:grid md:grid-cols-3 md:gap-6 md:space-y-0">
+        <div className="space-y-4 max-w-md mx-auto md:max-w-none md:grid md:grid-cols-2 md:gap-6 md:space-y-0 mb-8">
           {/* Opdrachten Card */}
           <Link
             href="/dashboard/exercises"
@@ -81,6 +99,7 @@ export default function DashboardContent({ team }: DashboardContentProps) {
               </div>
             </div>
           </Link>
+
           {/* Contact Card */}
           <Link
             href="/dashboard/contact"
@@ -100,6 +119,52 @@ export default function DashboardContent({ team }: DashboardContentProps) {
               </div>
             </div>
           </Link>
+        </div>
+
+        {/* Tips Section */}
+        <div className="bg-white/50 rounded-2xl p-6 mb-6 max-w-md mx-auto md:max-w-none">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="bg-[#FFE600] rounded-lg p-2">
+              <Lightbulb className="h-5 w-5 text-[#4A5568]" />
+            </div>
+            <h3 className="font-bold text-lg md:text-xl text-[#2C2C2C]">Tips voor succes</h3>
+          </div>
+          <ul className="space-y-3 text-[#2C2C2C]/90">
+            <li className="flex gap-3">
+              <span className="text-[#FFE600] font-bold">→</span>
+              <span className="text-sm md:text-base">Maak duidelijke foto's met goede belichting</span>
+            </li>
+            <li className="flex gap-3">
+              <span className="text-[#FFE600] font-bold">→</span>
+              <span className="text-sm md:text-base">Werk samen met je team en verdeel de taken</span>
+            </li>
+            <li className="flex gap-3">
+              <span className="text-[#FFE600] font-bold">→</span>
+              <span className="text-sm md:text-base">Lees de opdrachten goed door voordat je begint</span>
+            </li>
+            <li className="flex gap-3">
+              <span className="text-[#FFE600] font-bold">→</span>
+              <span className="text-sm md:text-base">Stuur normale foto's, Docenten bekijken elke foto.</span>
+            </li>
+             <li className="flex gap-3">
+              <span className="text-[#FFE600] font-bold">→</span>
+              <span className="text-sm md:text-base">Heb je vragen? Neem contact op met je docent</span>
+            </li>
+          </ul>
+        </div>
+
+        {/* Fun Fact about Groningen */}
+        <div className="bg-[#F5F0E8] rounded-2xl p-6 max-w-md mx-auto md:max-w-none">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="bg-[#FFE600] rounded-lg p-2">
+              <Landmark className="h-5 w-5 text-[#4A5568]" />
+            </div>
+            <h3 className="font-bold text-lg md:text-xl text-[#2C2C2C]">Wist je dat...</h3>
+          </div>
+          <p className="text-sm md:text-base text-[#2C2C2C]/90 leading-relaxed">
+            Groningen meer dan 50.000 studenten heeft? Dat maakt het een van de meest levendige studentensteden van Nederland. 
+            Veel plezier met het ontdekken van deze prachtige stad!
+          </p>
         </div>
       </div>
     </main>

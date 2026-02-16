@@ -16,17 +16,17 @@
 
 ## 5.2 Verbeteringen op basis van oplevering
 
-1. **Betere feedback interface**
-   - Docenten moeten nu feedback in een tekstveld typen, dit kan gebruiksvriendelijker
-   - Voorstel: Dropdown met standaard feedback opties + vrij tekstveld
+1. **Interactieve tutorial voor studenten**
+   - Studenten hadden in het begin moeite om te begrijpen hoe de app werkt
+   - Oplossing: Tutorial slideshow toegevoegd die automatisch verschijnt bij eerste login met screenshots en uitleg van alle stappen
 
-2. **Mobile responsive verbeteren**
-   - App werkt op mobile maar foto uploaden kan lastig zijn op kleine schermen
-   - Voorstel: Betere mobile interface voor foto's maken en uploaden
+2. **Betere onboarding ervaring**
+   - Dashboard was te leeg en bood weinig context voor nieuwe gebruikers
+   - Oplossing: Tips sectie en fun facts over Groningen toegevoegd om de pagina informatiever en aantrekkelijker te maken
 
-3. **Team overzicht uitbreiden**
-   - Docenten zien nu alleen individuele inzendingen, geen team-overzicht
-   - Voorstel: Dashboard pagina met voortgang per team in één overzicht
+3. **Admin foto archivering**
+   - Docenten kunnen ingediende foto's niet opslaan voor later gebruik (bijvoorbeeld voor examendocumentatie of collectie)
+   - Voorstel: Download functie toevoegen waarmee docenten foto's kunnen opslaan per opdracht of per team, inclusief bulk download optie
 
 ## 5.3 Verbeteringen op basis van reflectie
 
