@@ -20,13 +20,13 @@
    - Studenten hadden in het begin moeite om te begrijpen hoe de app werkt
    - Oplossing: Tutorial slideshow toegevoegd die automatisch verschijnt bij eerste login met screenshots en uitleg van alle stappen
 
-2. **Betere onboarding ervaring**
-   - Dashboard was te leeg en bood weinig context voor nieuwe gebruikers
-   - Oplossing: Tips sectie en fun facts over Groningen toegevoegd om de pagina informatiever en aantrekkelijker te maken
+2. **Completion outro bij voltooiing**
+   - Studenten wisten niet goed wat te doen na het voltooien van alle opdrachten
+   - Oplossing: Felicitatie scherm met confetti effect dat verschijnt wanneer alle opdrachten zijn goedgekeurd, inclusief instructies om naar de docent te gaan
 
 3. **Admin foto archivering**
    - Docenten kunnen ingediende foto's niet opslaan voor later gebruik (bijvoorbeeld voor examendocumentatie of collectie)
-   - Voorstel: Download functie toevoegen waarmee docenten foto's kunnen opslaan per opdracht of per team, inclusief bulk download optie
+   - Oplossing: Download functie toegevoegd per foto in submissions lijst en in foto preview modal, met automatische bestandsnamen
 
 ## 5.3 Verbeteringen op basis van reflectie
 

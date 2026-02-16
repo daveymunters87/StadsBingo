@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -8,12 +9,14 @@ import {
   Lock,
   AlertCircle,
   Clock,
+  PartyPopper,
 } from "lucide-react";
 import {
   HamburgerMenu,
   HamburgerTrigger,
   useHamburgerMenu,
 } from "@/components/ui/hamburger-menu";
+import CompletionOutro from "./CompletionOutro";
 
 interface Exercise {
   id: string;
@@ -32,11 +35,28 @@ export default function ExercisesListContent({
   exercises,
 }: ExercisesListContentProps) {
   const { isOpen, openMenu, closeMenu } = useHamburgerMenu();
+  const [showOutro, setShowOutro] = useState(false);
 
   const completedCount = exercises.filter(
     (ex) => ex.status === "APPROVED",
   ).length;
   const totalCount = exercises.length;
+  const allCompleted = totalCount > 0 && completedCount === totalCount;
+
+  useEffect(() => {
+    // Check if all exercises are completed and show outro
+    if (allCompleted) {
+      const outroShown = localStorage.getItem("outroShown");
+      if (!outroShown) {
+        setShowOutro(true);
+      }
+    }
+  }, [allCompleted]);
+
+  const handleCloseOutro = () => {
+    setShowOutro(false);
+    localStorage.setItem("outroShown", "true");
+  };
 
   const getStatusInfo = (status: Exercise["status"]) => {
     switch (status) {
@@ -87,6 +107,13 @@ export default function ExercisesListContent({
 
   return (
     <main className="min-h-screen bg-[#EDE6DC] pb-8">
+      {/* Completion Outro Modal */}
+      <CompletionOutro
+        isOpen={showOutro}
+        onClose={handleCloseOutro}
+        totalExercises={totalCount}
+      />
+
       {/* Hamburger Menu */}
       <HamburgerMenu isOpen={isOpen} onClose={closeMenu} />
 
@@ -116,9 +143,24 @@ export default function ExercisesListContent({
                 {completedCount} van de {totalCount} opdrachten voltooid
               </p>
             </div>
-            <p className="text-sm text-[#2C2C2C]/70 ml-8">
-              Haal bingo door alle opdrachten te voltooien!
-            </p>
+            {allCompleted ? (
+              <div className="ml-8 flex items-center gap-2">
+                <PartyPopper className="h-4 w-4 text-green-600" />
+                <p className="text-sm text-green-600 font-semibold">
+                  Alle opdrachten voltooid! Ga naar je docent voor je beloning.
+                </p>
+                <button
+                  onClick={() => setShowOutro(true)}
+                  className="text-sm text-[#2C2C2C] underline hover:no-underline"
+                >
+                  Bekijk bericht
+                </button>
+              </div>
+            ) : (
+              <p className="text-sm text-[#2C2C2C]/70 ml-8">
+                Haal bingo door alle opdrachten te voltooien!
+              </p>
+            )}
           </div>
         )}
 
