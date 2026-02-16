@@ -90,7 +90,7 @@ export default function ContactContent() {
                 {/* Contact Information */}
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
-                    <Phone className="h-4 w-4 text-[#2C2C2C]" />
+                    <Mail className="h-4 w-4 text-[#2C2C2C]" />
                     <a
                       href={`mailto:${mentor.email}`}
                       className="text-sm text-[#2C2C2C] underline"
@@ -99,7 +99,7 @@ export default function ContactContent() {
                     </a>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Mail className="h-4 w-4 text-[#2C2C2C]" />
+                    <Phone className="h-4 w-4 text-[#2C2C2C]" />
                     <a
                       href={`tel:${mentor.phone}`}
                       className="text-sm text-[#2C2C2C] underline"
