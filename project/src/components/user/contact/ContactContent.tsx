@@ -57,7 +57,7 @@ export default function ContactContent() {
 
       <div className="px-4 md:px-6 md:max-w-2xl md:mx-auto">
         {/* Contact Information Box */}
-        <div className="bg-[#FFE600] rounded-2xl p-6 mb-6 mt-4">
+        <div className="bg-[#FFE600] rounded-2xl p-6 mb-6">
           <h1 className="text-2xl font-bold text-[#2C2C2C] mb-3">Contact</h1>
           <p className="text-base text-[#2C2C2C] leading-relaxed">
             Mocht je er niet uit komen en er is geen docent in de buurt, neem
