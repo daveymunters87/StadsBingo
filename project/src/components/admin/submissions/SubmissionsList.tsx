@@ -1,9 +1,13 @@
 "use client";
 
-import { Check, X, MessageSquare } from "lucide-react";
+import { Check, X, MessageSquare, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import ImageModal from "@/components/shared/ImageModal";
+import {
+  downloadSinglePhoto,
+  generatePhotoFilename,
+} from "@/lib/photoDownload";
 
 interface Submission {
   id: string;
@@ -42,7 +46,27 @@ export default function SubmissionsList({
   const [selectedImage, setSelectedImage] = useState<{
     url: string;
     title: string;
+    filename: string;
   } | null>(null);
+  const [downloading, setDownloading] = useState(false);
+
+  const handleDownloadPhoto = async (submission: Submission) => {
+    if (!submission.answerImage) return;
+
+    try {
+      setDownloading(true);
+      const filename = generatePhotoFilename(
+        submission.team.name,
+        submission.assignment.title,
+        submission.createdAt
+      );
+      await downloadSinglePhoto(submission.answerImage, filename);
+    } catch (error) {
+      alert("Kon foto niet downloaden. Probeer het opnieuw.");
+    } finally {
+      setDownloading(false);
+    }
+  };
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "PENDING":
@@ -90,7 +114,8 @@ export default function SubmissionsList({
   }
 
   return (
-    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+    <>
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
       {submissions.map((submission) => (
         <div key={submission.id} className="bg-white rounded-2xl p-5 shadow-sm">
           <div className="flex items-start justify-between mb-3">
@@ -125,7 +150,18 @@ export default function SubmissionsList({
 
             {submission.answerImage && (
               <div className="mb-3">
-                <p className="text-sm font-medium text-[#2C2C2C] mb-1">Foto:</p>
+                <div className="flex items-center justify-between mb-1">
+                  <p className="text-sm font-medium text-[#2C2C2C]">Foto:</p>
+                  <button
+                    onClick={() => handleDownloadPhoto(submission)}
+                    disabled={downloading}
+                    className="text-xs text-[#4B5563] hover:text-[#2C2C2C] flex items-center gap-1 disabled:opacity-50"
+                    title="Download foto"
+                  >
+                    <Download className="h-3 w-3" />
+                    Download
+                  </button>
+                </div>
                 <div className="w-full h-32 bg-gray-100 rounded-lg overflow-hidden">
                   <img
                     src={submission.answerImage}
@@ -135,6 +171,11 @@ export default function SubmissionsList({
                       setSelectedImage({
                         url: submission.answerImage!,
                         title: `${submission.assignment.title} - Team ${submission.team.name}`,
+                        filename: generatePhotoFilename(
+                          submission.team.name,
+                          submission.assignment.title,
+                          submission.createdAt
+                        ),
                       })
                     }
                   />
@@ -189,9 +230,11 @@ export default function SubmissionsList({
         <ImageModal
           imageUrl={selectedImage.url}
           title={selectedImage.title}
+          downloadFilename={selectedImage.filename}
           onClose={() => setSelectedImage(null)}
         />
       )}
-    </div>
+      </div>
+    </>
   );
 }

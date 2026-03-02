@@ -1,19 +1,35 @@
 "use client";
 
-import { X } from "lucide-react";
-import { useEffect } from "react";
+import { X, Download } from "lucide-react";
+import { useEffect, useState } from "react";
+import { downloadSinglePhoto } from "@/lib/photoDownload";
 
 interface ImageModalProps {
   imageUrl: string;
   onClose: () => void;
   title?: string;
+  downloadFilename?: string;
 }
 
 export default function ImageModal({
   imageUrl,
   onClose,
   title,
+  downloadFilename,
 }: ImageModalProps) {
+  const [downloading, setDownloading] = useState(false);
+
+  const handleDownload = async () => {
+    try {
+      setDownloading(true);
+      const filename = downloadFilename || `foto_${Date.now()}.jpg`;
+      await downloadSinglePhoto(imageUrl, filename);
+    } catch (error) {
+      alert("Kon foto niet downloaden. Probeer het opnieuw.");
+    } finally {
+      setDownloading(false);
+    }
+  };
   useEffect(() => {
     // Prevent body scroll when modal is open
     document.body.style.overflow = "hidden";
@@ -42,14 +58,25 @@ export default function ImageModal({
         className="relative max-w-7xl max-h-[90vh] w-full"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Close button */}
-        <button
-          onClick={onClose}
-          className="absolute -top-12 right-0 bg-white rounded-full p-2 hover:bg-gray-100 transition-colors shadow-lg"
-          aria-label="Sluiten"
-        >
-          <X className="h-6 w-6 text-[#2C2C2C]" />
-        </button>
+        {/* Action buttons */}
+        <div className="absolute -top-12 right-0 flex gap-2">
+          <button
+            onClick={handleDownload}
+            disabled={downloading}
+            className="bg-[#FFE600] hover:bg-[#FFE600]/90 rounded-full p-2 transition-colors shadow-lg disabled:opacity-50"
+            aria-label="Download foto"
+            title="Download foto"
+          >
+            <Download className="h-6 w-6 text-[#2C2C2C]" />
+          </button>
+          <button
+            onClick={onClose}
+            className="bg-white rounded-full p-2 hover:bg-gray-100 transition-colors shadow-lg"
+            aria-label="Sluiten"
+          >
+            <X className="h-6 w-6 text-[#2C2C2C]" />
+          </button>
+        </div>
 
         {/* Title */}
         {title && (
