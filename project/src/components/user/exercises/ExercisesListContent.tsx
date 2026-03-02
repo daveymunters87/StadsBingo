@@ -85,7 +85,7 @@ export default function ExercisesListContent({
         return {
           text: "Feedback ontvangen",
           color: "text-red-600",
-          bgColor: "bg-red-50",
+          bgColor: "bg-red-100",
           icon: AlertCircle,
         };
       case "LOCKED":
@@ -120,14 +120,16 @@ export default function ExercisesListContent({
       {/* Header */}
       <header className="flex items-center justify-between px-4 py-4 md:px-6">
         <div className="w-full max-w-xs mb-6 mt-8 md:absolute">
-          <Image src="/logo.png" alt="NexEd" width={128} height={128} />
+          <Link href="/dashboard">
+            <Image src="/logo.png" alt="NexEd" width={128} height={128} />
+          </Link>
         </div>
         <HamburgerTrigger onClick={openMenu} className="md:hidden" />
       </header>
 
       <div className="px-4 md:px-6 md:max-w-2xl md:mx-auto">
         {/* Yellow Information Box */}
-        <div className="bg-[#FFE600] rounded-2xl p-6 mb-6 mt-4">
+        <div className="bg-[#FFE600] rounded-2xl p-6 mb-6">
           <h1 className="text-2xl font-bold text-[#2C2C2C] mb-2">Opdrachten</h1>
           <p className="text-base text-[#2C2C2C]">
             Werk samen met je team en voltooi alle opdrachten in de stad.
@@ -187,22 +189,22 @@ export default function ExercisesListContent({
                       : "bg-[#F5F0E8]"
                   }`}
                 >
-                  <div className="flex items-center gap-3 flex-1">
-                    <div className={`p-2 rounded-full ${statusInfo.bgColor}`}>
-                      <StatusIcon className={`h-4 w-4 ${statusInfo.color}`} />
+                  <div className="flex items-center gap-4 flex-1">
+                    <div className={`p-3 rounded-full ${statusInfo.bgColor}`}>
+                      <StatusIcon className={`h-5 w-5 ${statusInfo.color}`} />
                     </div>
-                    <div>
+                    <div className="flex-1">
                       <h3 className="text-lg font-bold text-[#2C2C2C] mb-1">
                         Opdracht {exercise.order || index + 1}
                       </h3>
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 flex-wrap">
                         <span
-                          className={`text-sm font-medium ${statusInfo.color}`}
+                          className={`text-sm font-semibold ${statusInfo.color}`}
                         >
                           {statusInfo.text}
                         </span>
                         {needsAction && (
-                          <span className="text-xs bg-red-100 text-red-800 px-2 py-1 rounded-full font-medium">
+                          <span className="text-xs bg-red-500 text-white px-3 py-1 rounded-full font-semibold">
                             Actie vereist
                           </span>
                         )}
@@ -211,19 +213,19 @@ export default function ExercisesListContent({
                   </div>
                   <div className="flex-shrink-0">
                     {isLocked ? (
-                      <div className="bg-gray-400 rounded-full p-2">
-                        <Lock className="h-4 w-4 text-white" />
+                      <div className="bg-gray-400 rounded-full p-3">
+                        <Lock className="h-5 w-5 text-white" />
                       </div>
                     ) : (
                       <Link
                         href={`/dashboard/exercises/${exercise.id}`}
-                        className={`rounded-full p-2 inline-block hover:opacity-80 transition-opacity ${
+                        className={`rounded-full p-3 inline-block transition-all ${
                           needsAction
-                            ? "bg-red-600 animate-pulse"
-                            : "bg-[#2C2C2C]"
+                            ? "bg-red-500 hover:bg-red-600 shadow-md"
+                            : "bg-[#2C2C2C] hover:bg-[#1a1a1a]"
                         }`}
                       >
-                        <ArrowRight className="h-4 w-4 text-white" />
+                        <ArrowRight className="h-5 w-5 text-white" />
                       </Link>
                     )}
                   </div>

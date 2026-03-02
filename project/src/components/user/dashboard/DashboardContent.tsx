@@ -55,7 +55,7 @@ export default function DashboardContent({ team }: DashboardContentProps) {
 
       <div className="px-4 md:px-6 md:max-w-4xl md:mx-auto">
         {/* Welcome Box */}
-        <div className="bg-[#FFE600] rounded-2xl p-6 mb-6 md:p-8">
+        <div className="bg-[#FFE600] rounded-2xl p-6 mb-6 pt-4 md:p-8">
           <h2 className="text-2xl font-bold text-[#2C2C2C] mb-2 md:text-3xl">
             Welkom, Team {team.name}!
           </h2>
@@ -144,26 +144,19 @@ export default function DashboardContent({ team }: DashboardContentProps) {
             </li>
             <li className="flex gap-3">
               <span className="text-[#FFE600] font-bold">→</span>
-              <span className="text-sm md:text-base">Stuur normale foto's, Docenten bekijken elke foto.</span>
+              <span className="text-sm md:text-base"><span className="font-bold">Stuur normale foto's</span>, Docenten bekijken elke foto.</span>
             </li>
              <li className="flex gap-3">
               <span className="text-[#FFE600] font-bold">→</span>
-              <span className="text-sm md:text-base">Heb je vragen? Neem contact op met je docent</span>
+              <span className="text-sm md:text-base">Heb je vragen? Neem <Link href="/dashboard/contact" className="font-semibold underline hover:text-[#2C2C2C] transition-colors">contact</Link> op met je docent</span>
             </li>
           </ul>
         </div>
 
         {/* Fun Fact about Groningen */}
-        <div className="bg-[#F5F0E8] rounded-2xl p-6 max-w-md mx-auto md:max-w-none">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="bg-[#FFE600] rounded-lg p-2">
-              <Landmark className="h-5 w-5 text-[#4A5568]" />
-            </div>
-            <h3 className="font-bold text-lg md:text-xl text-[#2C2C2C]">Wist je dat...</h3>
-          </div>
-          <p className="text-sm md:text-base text-[#2C2C2C]/90 leading-relaxed">
-            Groningen meer dan 50.000 studenten heeft? Dat maakt het een van de meest levendige studentensteden van Nederland. 
-            Veel plezier met het ontdekken van deze prachtige stad!
+        <div className="mt-8 text-center max-w-md mx-auto">
+          <p className="text-xs text-[#2C2C2C]/50 leading-relaxed">
+            💡 Wist je dat Groningen meer dan 50.000 studenten heeft? Veel plezier met het ontdekken van de stad!
           </p>
         </div>
       </div>

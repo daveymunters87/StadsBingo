@@ -201,7 +201,7 @@ export default function ExerciseDetailContent({
       case "APPROVED":
         return "Goedgekeurd";
       case "FEEDBACK":
-        return "Feedback ontvangen - Opnieuw indienen mogelijk";
+        return "Feedback ontvangen";
       default:
         return "Niet ingeleverd";
     }
