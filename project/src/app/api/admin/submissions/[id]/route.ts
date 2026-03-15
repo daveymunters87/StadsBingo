@@ -48,7 +48,7 @@ export async function GET(
   }
 }
 
-// PUT update submission status (approve/reject with feedback)
+// PUT update submission status
 export async function PUT(
   request: Request,
   { params }: { params: Promise<{ id: string }> },
@@ -96,7 +96,6 @@ export async function PUT(
       });
 
       if (nextAssignment) {
-        // Check if team assignment exists
         const teamAssignment = await prisma.teamAssignment.findUnique({
           where: {
             teamId_assignmentId: {
@@ -106,7 +105,6 @@ export async function PUT(
           },
         });
 
-        // Create team assignment if it doesn't exist
         if (!teamAssignment) {
           await prisma.teamAssignment.create({
             data: {

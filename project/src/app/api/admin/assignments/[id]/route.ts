@@ -114,12 +114,10 @@ export async function DELETE(
 
     const { id } = await params;
 
-    // Delete related records first to avoid foreign key constraint violations
     await prisma.teamAssignment.deleteMany({
       where: { assignmentId: id },
     });
 
-    // Then delete the assignment
     await prisma.assignment.delete({
       where: { id },
     });

@@ -39,20 +39,19 @@ describe("StadsBingo Tests", () => {
   });
 
   // TEST 3: Submission Validation
-  test("3. Submission should require text or image", () => {
-    const validateSubmission = (answerText, answerImage) => {
-      if (!answerText && !answerImage) {
-        return { valid: false, error: "Text or image required" };
+  test("3. Submission should require an image", () => {
+    const validateSubmission = (answerImage) => {
+      if (!answerImage || answerImage.trim() === "") {
+        return { valid: false, error: "Image required" };
       }
       return { valid: true };
     };
 
-    expect(validateSubmission("", "")).toEqual({
+    expect(validateSubmission("")).toEqual({
       valid: false,
-      error: "Text or image required",
+      error: "Image required",
     });
-    expect(validateSubmission("My answer", "")).toEqual({ valid: true });
-    expect(validateSubmission("", "image-data")).toEqual({ valid: true });
+    expect(validateSubmission("image-data")).toEqual({ valid: true });
   });
 
   // TEST 4: Status Progression

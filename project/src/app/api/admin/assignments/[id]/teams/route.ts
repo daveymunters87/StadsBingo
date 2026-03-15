@@ -82,7 +82,7 @@ export async function PUT(
         ),
       );
     } else {
-      // If no teams specified, assign to all teams
+      // If no teams is specified, assign exercise to all teams
       const allTeams = await prisma.team.findMany();
       await Promise.all(
         allTeams.map((team) =>

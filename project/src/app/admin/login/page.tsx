@@ -42,7 +42,6 @@ export default function AdminLoginPage() {
           return;
         }
 
-        // Cookie is set by the API, just redirect
         router.push("/admin");
       } catch (error) {
         setError("Er ging iets mis");
@@ -114,7 +113,7 @@ export default function AdminLoginPage() {
 
       <div className="mt-8 text-center">
         <p className="text-sm text-[#2C2C2C]/70">
-          Test credentials: admin@example.com / admin123
+          Test inlog: admin@example.com / admin123
         </p>
       </div>
     </main>

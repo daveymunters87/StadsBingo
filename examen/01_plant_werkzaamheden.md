@@ -1,17 +1,17 @@
 # StadsBingo – 01_plant_werkzaamheden.md
 
 ## Projectomschrijving
-Het doel van dit project is het ontwikkelen van een **StadsBingo webapplicatie met teams en opdrachten-flow**.  
-Leerlingen voeren opdrachten uit in teams in de stad en docenten beheren teams, opdrachten en de voortgang per team en per leerling.  
-Het project volgt de **scrum-aanpak** met sprints van 1 week.
+Het doel van dit project is het ontwikkelen van een **StadsBingo webapplicatie met teams en opdrachten flow**.  
+Leerlingen voeren opdrachten uit in teams in de stad en docenten beheren teams, opdrachten en de voortgang per team.  
+Het project heeft 2 sprints van 1 week.
 
-**Functionele workflow (samenvatting):**
-- Docent maakt teams aan, genereert teamcodes en koppelt leerlingen aan een team (maximaal 5 spelers per team).
+**Functionele workflow:**
+- Docent maakt teams aan, genereert teamcodes en koppelt leerlingen aan een team.
 - Leerlingen loggen in met een teamcode en zien de opdrachten die voor hun team beschikbaar zijn.
 - Elke opdracht heeft een status: `Locked`, `Available`, `Pending`, `Feedback`, `Approved`.
-- Leerlingen leveren per opdracht een tekst of foto in; docenten keuren goed of geven feedback.
+- Leerlingen leveren per opdracht een foto in, docenten keuren goed of geven feedback.
 - Op basis van de beoordeling verandert de status en wordt de volgende opdracht vrijgegeven.
-- Zowel docent als leerling zien een visuele voortgang over opdrachten en teams.
+- Zowel docent als leerling zien een visuele voortgang over opdrachten.
 
 ---
 
@@ -20,13 +20,13 @@ Het project volgt de **scrum-aanpak** met sprints van 1 week.
 ### Eisen (Must have)
 | Nr | Omschrijving | Toelichting |
 |----|---------------|-------------|
-| E1 | Teams beheren en teamcodes genereren | Docent kan teams aanmaken, bekijken en per team een code genereren |
+| E1 | Teams beheren en teamcodes genereren | Docent kan teams aanmaken, bekijken en per opdrachten toewijzen |
 | E2 | Leerlingen inloggen met teamcode | Leerlingen krijgen toegang tot opdrachten via een teamcode; API verifieert code |
 | E3 | Opdrachtenlijst per team bekijken | Leerlingen zien opdrachten die voor hun team beschikbaar zijn |
-| E4 | Opdrachten indienen | Leerlingen leveren per opdracht een tekst of foto in |
+| E4 | Opdrachten indienen | Leerlingen leveren per opdracht een foto in |
 | E5 | Opdrachtstatus en feedback bekijken | Leerlingen zien status (`Locked`, `Available`, `Pending`, `Feedback`, `Approved`) en feedback |
 | E6 | Inzendingen beoordelen | Docenten keuren opdrachten goed of geven feedback |
-| E7 | Overzichten en filters voor docent | Docent kan op team, leerling en status filteren in het overzicht |
+| E7 | Overzichten en filters voor docent | Docent kan op team, en status filteren in het overzicht |
 
 ### Wensen (Should/Could have)
 | Nr | Omschrijving |
@@ -39,17 +39,14 @@ Het project volgt de **scrum-aanpak** met sprints van 1 week.
 
 ## Definition of Done (DoD)
 Een user story is **done** wanneer:
-- Functionaliteit werkt zoals beschreven (E1–E5)  
-- Antwoorden zijn opgeslagen en gekoppeld  
-- Status en feedback worden correct weergegeven  
-- Basis tests zijn aanwezig en slagen  
+- Functionaliteit werkt zoals beschreven (E1–E7)  
 - Code is leesbaar en in git gecommit  
 
 ---
 
 ## User Stories
 
-### **Leerling (Student)**
+### **Leerling**
 
 #### 1. Inloggen met teamcode
 | **Als een...** | Leerling |
@@ -80,11 +77,11 @@ Een user story is **done** wanneer:
 #### 3. Opdracht indienen & feedback verwerken
 | **Als een...** | Leerling |
 |----------------|----------|
-| **Wil ik...**  | een opdracht kunnen inleveren als tekst of foto en feedback kunnen verwerken |
+| **Wil ik...**  | een opdracht kunnen inleveren als foto en feedback kunnen verwerken |
 | **Zodat ik...** | bij goedkeuring door kan naar de volgende opdracht |
 | **Prioriteit** | Must have |
-| **Acceptatiecriteria** | 1: Validatie: minimaal één van `tekst` of `foto` aanwezig<br> 2: Na indienen wordt status `Pending`<br> 3: Bij `Feedback` ziet leerling feedback en kan opnieuw indienen<br> 4: Bij `Approved` wordt volgende opdracht `Available` |
-| **Scenario** | 1. Open opdracht → 2. Vul tekst/foto → 3. Verstuur → 4. Status `Pending` → 5. Docent keurt af → 6. Leerling dient opnieuw in |
+| **Acceptatiecriteria** | 1: Validatie: `foto` aanwezig<br> 2: Na indienen wordt status `Pending`<br> 3: Bij `Feedback` ziet leerling feedback en kan opnieuw indienen<br> 4: Bij `Approved` wordt volgende opdracht `Available` |
+| **Scenario** | 1. Open opdracht → 2. upload foto → 3. Verstuur → 4. Status `Pending` → 5. Docent keurt af → 6. Leerling dient opnieuw in |
 | **DoD** | Status-flow (`Available` → `Pending` → `Feedback`/`Approved`) werkt correct |
 | **Verantwoordelijke** | Jada & Davey |
 | **Tijdsindicatie** | M (3 uur) |
@@ -97,7 +94,7 @@ Een user story is **done** wanneer:
 #### 1. Inzendingen beoordelen
 | **Als een...** | Docent |
 |----------------|--------|
-| **Wil ik...**  | inzendingen kunnen goed of afkeuren met feedback |
+| **Wil ik...**  | inzendingen kunnen goedkeuren of afkeuren met feedback |
 | **Zodat ik...** | voortgang van leerlingen kan bewaken |
 | **Prioriteit** | Must have |
 | **Acceptatiecriteria** | 1: Overzicht van inzendingen<br>2: Acties: approve/reject<br>3: Feedback verplicht bij reject |
@@ -113,7 +110,7 @@ Een user story is **done** wanneer:
 | **Wil ik...**  | kunnen filteren op status en leerling |
 | **Zodat ik...** | sneller kan beoordelen |
 | **Prioriteit** | Should have |
-| **Acceptatiecriteria** | 1: Filter op status<br> 2: Zoeken op leerlingnaam |
+| **Acceptatiecriteria** | 1: Filter op status |
 | **DoD** | Filters wijzigen lijst correct |
 | **Verantwoordelijke** | Jada & Davey |
 | **Tijdsindicatie** | S (2 uur) |
@@ -122,11 +119,11 @@ Een user story is **done** wanneer:
 #### 3. Visuele voortgang per team/leerling
 | **Als een...** | Docent |
 |----------------|--------|
-| **Wil ik...**  | visuele voortgang van teams en leerlingen kunnen zien |
+| **Wil ik...**  | visuele voortgang van teams kunnen zien |
 | **Zodat ik...** | snel overzicht heb wie opdrachten voltooid heeft of vastloopt |
 | **Prioriteit** | Should have |
-| **Acceptatiecriteria** | 1: Voor ieder team een voortgangsbalk<br> 2: Voor iedere leerling een individuele voortgangsbalk<br> 3: Kleurcodering status (`Pending`, `Feedback`, `Approved`) |
-| **DoD** | Vooruitgang correct weergegeven voor alle teams/leerlingen |
+| **Acceptatiecriteria** | 1: Voor ieder team een voortgangsbalk 2: Kleurcodering status (`Pending`, `Feedback`, `Approved`) |
+| **DoD** | Vooruitgang correct weergegeven voor alle teams |
 | **Verantwoordelijke** | Jada & Davey |
 | **Tijdsindicatie** | M (4 uur) |
 | **Gerelateerde eisen** | E7, W1 |
@@ -136,9 +133,10 @@ Een user story is **done** wanneer:
 ### Sprint 1 (Week 1)
 **Doel:** Basis leerlingflow realiseren: inloggen met teamcode en opdrachten bekijken.
 
-| To Do | In Progress | Done |
-|-------|------------|------|
-| Team login API & dashboard backend (Davey & Jada, 4u) | Opdrachtenlijst bekijken (Davey & Jada, 4u) | |
+| To Do |
+|-------|
+| Team login API & dashboard backend (Davey & Jada, 4u) | 
+Opdrachtenlijst bekijken (Davey & Jada, 4u) | |
 | Opdrachtdetails bekijken (Davey & Jada, 2u) | | |
 
 **Sprint 1 DoD:**  
@@ -153,32 +151,32 @@ Een user story is **done** wanneer:
 ### Sprint 2 (Week 2)
 **Doel:** Inleveren en beoordelen van opdrachten inclusief feedback en statusflow.
 
-| To Do | In Progress | Done |
-|-------|------------|------|
-| Opdracht indienen (tekst/foto) (Davey, 2–4u) | Status & feedback bekijken (Davey, 2u) | |
+| To Do |
+|-------|
+| Opdracht indienen (foto) (Davey, 2–4u) | Status & feedback bekijken (Davey, 2u) | |
 | Inzendingen beoordelen (approve/reject + feedback) (Jada, 4u) | Dashboard frontend (Davey, 4–6u) | |
-| Filteren docentoverzicht (Jada, 2u) | Visuele voortgang per team/leerling (Jada, 4u) | |
+| Filteren docentoverzicht (Jada, 2u) | Visuele voortgang per team (Jada, 4u) | |
 
 **Sprint 2 DoD:**  
-- Leerling kan een opdracht indienen met tekst en/of foto  
+- Leerling kan een opdracht indienen met foto  
 - Na indienen verandert status naar `Pending`  
-- Docent kan inzendingen goed- of afkeuren met verplichte feedback bij afkeuren  
+- Docent kan inzendingen goed of afkeuren met verplichte feedback bij afkeuren  
 - Leerling ziet feedback en kan opnieuw indienen bij status `Feedback`  
 - Bij goedkeuring (`Approved`) wordt de volgende opdracht beschikbaar  
 - Dashboard toont actuele status en feedback correct  
-- Docent kan filteren op status en leerling  
-- Visuele voortgang per team en leerling wordt correct weergegeven  
+- Docent kan filteren op status en team  
+- Visuele voortgang per team wordt correct weergegeven  
 
 ---
 
 ## Planning-overzicht
 
-**Capaciteit:**  
+**Planning van de sprints:**  
 - Team van 2 studenten, ±10 uur/week per persoon  
 - Sprintduur: 1 week → totale capaciteit per sprint ≈ 40 uur
 
-| Sprint | Stories (uren) | Totaal uren | Past binnen 40u? |
-|--------|----------------|-------------|-----------------|
+| Sprint | Stories (uren) | Totaal uren |
+|--------|----------------|-------------|
 | Sprint 1 | Team login (4u), Opdrachtenlijst (4u), Opdrachtdetails bekijken (2u) | 10u |
 | Sprint 2 | Dashboard (5u), Feedback verwerking (3u), Filters docent (2u), Voortgangsbalken (4u) | 14u |
 
@@ -198,3 +196,18 @@ Een user story is **done** wanneer:
 | 15-12 t/m 22-12 | Sprint 2 retrospectief | [Sprint 2 Retro](bewijsmateriaal/01/sprint2/sprint2_retro.md) | Reflectie Sprint 2 |
 
 ---
+## Taakverdeling
+
+**Jada:**
+- Hoofdverantwoordelijk voor frontend development
+- Repository beheer en Git workflow
+
+**Davey:**
+- Hoofdverantwoordelijk voor backend development
+- Testing en validatie logica
+
+**Gezamenlijk:**
+- Planning/documentatie en user story uitwerking
+- UML diagrammen (ERD en Sequence)
+- Code reviews en pull requests
+- Sprint retrospectives en voortgangsbewaking

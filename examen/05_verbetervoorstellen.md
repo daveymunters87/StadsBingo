@@ -3,8 +3,8 @@
 ## 5.1 Verbeteringen op basis van testen
 
 1. **Meer edge cases testen**
-   - Alle 10 tests slagen, maar er zijn geen tests voor extreme situaties zoals zeer lange teksten of grote foto's
-   - Voorstel: Tests toevoegen voor file upload limits en tekst validatie
+   - Alle 10 tests slagen, maar er zijn geen tests voor extreme situaties zoals grote uploads
+   - Voorstel: Tests toevoegen voor file upload limits
 
 2. **Database transacties testen**
    - Huidige tests controleren niet wat er gebeurt als de database niet beschikbaar is
@@ -41,3 +41,18 @@
 3. **Code review proces verbeteren**
    - We hebben pull requests gebruikt maar niet altijd grondig gereviewed
    - Voorstel: Vaste checklist voor code reviews en altijd samen door de code lopen
+
+
+## 5.4 Planning verbetervoorstellen
+
+### Prioriteit 1 (Sprint 3 - Week 1)
+| Verbetering | Werkzaamheden | Tijdsinschatting | Verantwoordelijke |
+|-------------|---------------|------------------|-------------------|
+| File upload limits | Validatie toevoegen, tests schrijven | 4 uur | Davey |
+| Mobile foto interface | CSS aanpassen, touch events | 2 uur | Jada |
+
+### Prioriteit 2 (Sprint 4 - Week 2)
+| Verbetering | Werkzaamheden | Tijdsinschatting | Verantwoordelijke |
+|-------------|---------------|------------------|-------------------| 
+| Team overzicht dashboard | API routes en Frontend components maken | 8 uur | Beiden |
+| Feedback dropdown | UI component, backend aanpassing | 4 uur | Beiden |

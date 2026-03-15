@@ -226,7 +226,6 @@ export default function AssignmentsPage() {
           addLabel="Nieuwe Opdracht"
         />
 
-        {/* Assignments List - Full Width */}
         <AssignmentListColumn
           assignments={assignments}
           loading={loading}
@@ -234,7 +233,6 @@ export default function AssignmentsPage() {
           onDelete={handleDelete}
         />
 
-        {/* Assignment Form Modal */}
         <AssignmentFormModal
           showForm={showForm}
           editingAssignment={editingAssignment}
@@ -246,7 +244,6 @@ export default function AssignmentsPage() {
           onTeamToggle={handleTeamToggle}
         />
 
-        {/* Delete Confirmation Modal */}
         <ConfirmModal
           isOpen={showDeleteModal}
           onClose={() => {
