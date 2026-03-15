@@ -9,7 +9,6 @@ Het ontwerp is gebaseerd op de eisen, wensen en user stories zoals vastgelegd in
 ## Overzicht gekozen diagrammen
 
 Voor dit project zijn de volgende UML-diagrammen uitgewerkt
-
 1. **Entity Relationship Diagram (ERD)**
 2. **Sequence Diagram**
 
@@ -20,7 +19,7 @@ Deze combinatie is gekozen omdat:
 
 
 
-## 1. ERD
+## 1. ERD (Jada)
 
 ![ERD StadsBingo](bewijsmateriaal/02/Erd.png)
 
@@ -85,7 +84,7 @@ Het ERD bevat 6 entiteiten waaronder:
 * W1 Visuele voortgang
 
 
-## 2. Sequence Diagram
+## 2. Sequence Diagram (Davey)
 
 ![Sequence Dia StadsBingo](bewijsmateriaal/02/Sequence%20diagram.png)
 

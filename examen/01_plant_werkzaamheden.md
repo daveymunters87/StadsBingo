@@ -5,7 +5,7 @@ Het doel van dit project is het ontwikkelen van een **StadsBingo webapplicatie m
 Leerlingen voeren opdrachten uit in teams in de stad en docenten beheren teams, opdrachten en de voortgang per team.  
 Het project heeft 2 sprints van 1 week.
 
-**Functionele workflow (samenvatting):**
+**Functionele workflow:**
 - Docent maakt teams aan, genereert teamcodes en koppelt leerlingen aan een team.
 - Leerlingen loggen in met een teamcode en zien de opdrachten die voor hun team beschikbaar zijn.
 - Elke opdracht heeft een status: `Locked`, `Available`, `Pending`, `Feedback`, `Approved`.
