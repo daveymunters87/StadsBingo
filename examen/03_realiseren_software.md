@@ -6,7 +6,7 @@
 
 **Setup instructies:**
 - `README.md` bevat volledige setup instructies (Docker Postgres, Prisma, Next.js)
-- **Environment:** Maak `.env` bestand met `DATABASE_URL="postgresql://myuser:mypassword@localhost:5432/mydb?schema=public"`
+- **Environment:** Maak `.env` bestand met `DATABASE_URL="postgresql://myuser:mypassword@localhost:5433/mydb?schema=public"`
 - Quick Start: `docker-compose up -d` → `npm install` → `npm run db:generate` → `npm run db:migrate` → `npm run db:seed` → `npm run dev`
 - App draait op: `http://localhost:3000`
 **Tech Stack:** Next.js 15, TypeScript, PostgreSQL, Prisma, Jest

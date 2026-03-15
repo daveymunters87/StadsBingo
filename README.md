@@ -110,7 +110,7 @@ docker-compose up -d
 npm install
 
 # 4. Maak .env en voeg de volgende DB_url lijn toe.
-DATABASE_URL="postgresql://myuser:mypassword@localhost:5432/mydb?schema=public"
+DATABASE_URL="postgresql://myuser:mypassword@localhost:5433/mydb?schema=public"
 
 # 5. Setup database
 npm run db:generate
@@ -137,7 +137,7 @@ cd StadsBingo/project
 Maak een `.env` bestand in de `project/` folder:
 
 ```env
-DATABASE_URL="postgresql://myuser:mypassword@localhost:5432/mydb?schema=public"
+DATABASE_URL="postgresql://myuser:mypassword@localhost:5433/mydb?schema=public"
 ```
 
 > **Note:** Voor lokale development gebruik je `localhost`. `db` is de Docker service naam in `docker-compose.yml`.
