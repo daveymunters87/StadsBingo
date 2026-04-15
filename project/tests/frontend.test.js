@@ -130,7 +130,7 @@ describe("StadsBingo Tests", () => {
   // TEST 9: Assignment Order
   test("9. Assignments should be completed in order", () => {
     const canAccessAssignment = (assignmentOrder, completedAssignments) => {
-      if (assignmentOrder === 1) return true; // First assignment always accessible
+      if (assignmentOrder === 1) return true
       return completedAssignments.includes(assignmentOrder - 1);
     };
 
