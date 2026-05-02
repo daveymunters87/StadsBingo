@@ -16,8 +16,12 @@
 
 ## 5.2 Verbeteringen op basis van oplevering
 
+Voor punt 1 en 3 is door Adi een Figma design gemaakt als voorstel:
+
+![Verbetervoorstel Adi](bewijsmateriaal/02/figma/Verbetervoorstel%20Adi.png)
+
 1. **Interactieve tutorial voor studenten**
-   - Studenten hadden in het begin moeite om te begrijpen hoe de app werkt
+   - Studenten hadden in het begin moeite om te begrijpen hoe de applicatie werkt
    - Oplossing: Tutorial slideshow toegevoegd die automatisch verschijnt bij eerste login met screenshots en uitleg van alle stappen
 
 2. **Completion outro bij voltooiing**

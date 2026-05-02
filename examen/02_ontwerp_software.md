@@ -8,14 +8,16 @@ Het ontwerp is gebaseerd op de eisen, wensen en user stories zoals vastgelegd in
 
 ## Overzicht gekozen diagrammen
 
-Voor dit project zijn de volgende UML-diagrammen uitgewerkt
+Voor dit project zijn de volgende onderdelen uitgewerkt:
 1. **Entity Relationship Diagram (ERD)**
 2. **Sequence Diagram**
+3. **Figma Ontwerp** (deepdive, wireframes & definitief design)
 
 Deze combinatie is gekozen omdat:
 
 * het ERD inzicht geeft in data, relaties en opslag
 * het sequence diagram inzicht geeft in gedrag en interactie tussen systeemonderdelen
+* de Figma ontwerpen aantonen hoe nagedacht is over de UI/UX naast de technische architectuur
 
 
 
@@ -37,7 +39,7 @@ Het ERD bevat 6 entiteiten waaronder:
 * **TeamPlayer** – individuele speler binnen een team
 * **Assignment** – opdracht die uitgevoerd kan worden
 * **TeamAssignment** – koppelt opdrachten aan teams (n-op-n)
-* **Submission** – inzending van een team voor een opdracht
+* **Submission** – inzending van een team voor een opdracht, gekoppeld aan een teamspeler
 
 
 ### Relaties
@@ -54,12 +56,12 @@ Het ERD bevat 6 entiteiten waaronder:
   Elk team heeft een captain, die ook een teamspeler is.
   Dit is de 1-op-1 relatie.
 
-* **Team ↔ Assignment (n-op-n, assigned)**
+* **Team ↔ Assignment (n-op-n, via TeamAssignment)**
   Teams kunnen meerdere opdrachten krijgen en opdrachten kunnen aan meerdere teams worden gekoppeld.
   Deze relatie wordt opgelost met TeamAssignment.
 
-* **Submission (Team + Assignment)**
-  Een submission legt vast welk team welke opdracht heeft ingeleverd en maakt meerdere inzendingen per opdracht mogelijk.
+* **Submission (Team + Assignment + TeamPlayer)**
+  Een submission legt vast welk team, welke opdracht en welke teamspeler een inzending heeft gedaan en maakt meerdere inzendingen per opdracht mogelijk.
 
 
 ### Koppeling ERD aan user stories en eisen
@@ -130,6 +132,76 @@ Het diagram laat de volgende stappen zien:
 Het sequence diagram maakt inzichtelijk hoe deze user story technisch wordt uitgevoerd en waar validatie en foutafhandeling plaatsvinden.
 
 
+## 3. Figma
+
+### Deepdive & Concept
+
+![Deepdive Overzicht](bewijsmateriaal/02/figma/Deepdive%20information.png)
+
+De deepdive is origineel als opdracht aangeleverd en is als basis gebruikt voor de verdere uitwerking van het ontwerp.
+Het beschrijft de paginastructuur, typografie en styleguide van de StadsBingo.
+
+* **Pagina overzicht** – Landingspage, Homepage, Navbar, Map, Contact
+* **Samenvatting Admin** – overzicht van de docentfunctionaliteit
+* **Samenvatting Opdrachten** – overzicht van de opdrachtenstroom
+* **Typografie** – Fonts, heading hierarchie en kleuren
+* **Logo's** – NexEd logo in twee varianten
+
+
+### Wireframes & eerste ontwerp — Admin panel
+
+![Admin panel oud](bewijsmateriaal/02/figma/Admin_panel_OLD.png)
+
+De wireframes tonen de indelingen zonder visuele stijl.
+Hieronder is de eerste uitgewerkte versie van het adminpanel te zien.
+
+* **Login / Landingspagina**
+* **Dashboard docent**
+* **Opdrachten toevoegen & beheren**
+* **Inzending beoordelen** 
+* **Team wijzigen & aanmaken**
+
+
+### Definitief ontwerp — Admin panel
+
+![Admin panel nieuw](bewijsmateriaal/02/figma/Admin_panel_NIEUW_.png)
+
+De werking van het adminpanel is hetzelfde gebleven als het eerste ontwerp.
+Het verschil zit in de UX/UI: de schermen zijn overzichtelijker en consistenter vormgegeven.
+
+
+### Wireframes & definitief ontwerp — Mobiel (Leerling)
+
+![Mobile design user](bewijsmateriaal/02/figma/Mobile%20design%20%28User%29.png)
+
+De mobiele wireframes tonen de basisflow voor de leerling.
+De uitgewerkte designs laten de volledige gebruikersflow zien van inloggen tot opdrachten indienen.
+
+* **Inloggen met teamcode**
+* **Opdrachtenlijst** – met statussen per opdracht
+* **Opdrachtdetail** – beschrijving en foto-upload
+* **Feedback bekijken** – reactie van de docent
+* **Contact & Map pagina**
+
+### Koppeling Figma aan user stories en eisen
+
+**Ondersteunde user stories:**
+
+* Leerling: *Inloggen met teamcode*
+* Leerling: *Opdrachtenlijst en statussen bekijken*
+* Leerling: *Opdracht indienen & feedback verwerken*
+* Docent: *Inzendingen beoordelen*
+
+**Ondersteunde eisen:**
+
+* E1 Teams beheren
+* E2 Inloggen met teamcode
+* E3 Opdrachten per team
+* E4 Opdrachten indienen
+* E5 Status & feedback
+* E6 Inzendingen beoordelen
+
+
 ## Onderbouwing ontwerpkeuzes
 
 ### Privacy
@@ -155,5 +227,5 @@ Het sequence diagram maakt inzichtelijk hoe deze user story technisch wordt uitg
 
 ## Conclusie
 
-Met het ERD en het sequence diagram is een technisch ontwerp gemaakt dat aansluit op de eisen, wensen en user stories van StadsBingo.
-De diagrammen geven inzicht in de datastructuur als de interactie tussen objecten.
+Met het ERD, het sequence diagram en de Figma ontwerpen is een volledig technisch en visueel ontwerp gemaakt dat aansluit op de eisen, wensen en user stories van StadsBingo.
+De diagrammen geven inzicht in de datastructuur en de interactie tussen objecten, terwijl de Figma ontwerpen aantonen hoe de gebruikerservaring is uitgedacht van wireframe tot definitief design.
