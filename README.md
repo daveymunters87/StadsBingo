@@ -340,4 +340,9 @@ npm run db:studio
 
 ## License
 
-Dit is een educatief project voor Bit Academy.
+Copyright (c) 2026 Davey Munters
+
+All rights reserved.
+
+Dit project is gemaakt als educatief project voor Bit Academy.
+Het is niet toegestaan om dit project zonder toestemming te kopiëren, verspreiden of commercieel te gebruiken.
